@@ -1,0 +1,64 @@
+body, html {
+    background: #DDE2FF repeat scroll !important;
+	min-height: 100%;
+	height: auto;
+} 
+
+
+.page-header, .contentPane {
+	background-color: rgba(255, 255, 255, 0.8) !important;
+}
+md-content {
+ background-color: rgba(255,255,255,0.8);
+}
+
+.md-primary {
+ background-color : #E8ECED !important;
+ color: rgba(255, 64, 129, 1) !important;
+}
+
+ 
+.page-header {
+
+	border-top: solid 1px #c4c4c4 ;
+    border-left: solid 1px #c4c4c4;
+    border-bottom: solid 1px #c4c4c4;
+    border-right: solid 1px #c4c4c4;
+    box-shadow: 0 1px #c1c1c1;
+    padding-bottom: 1em;
+    padding: 1em;
+    height: auto;
+
+}
+
+h1 {
+	    text-align: center;
+}
+
+#inner {
+    border-top: solid 1px #c4c4c4 ;
+    border-left: solid 1px #c4c4c4;
+    border-bottom: solid 1px #c4c4c4;
+    border-right: solid 1px #c4c4c4;
+    padding-bottom: 1em;
+    padding: 1em;
+    height: auto;
+	text-align:center;
+}
+
+.mod {
+	border-top: solid 1px #c4c4c4 ;
+    border-left: solid 1px #c4c4c4;
+    border-bottom: solid 1px #c4c4c4;
+    border-right: solid 1px #c4c4c4;
+	text-align:center;
+}
+
+.middle {
+    text-align: middle;
+}
+
+.centerTab {	
+	text-align: center;	
+}
+

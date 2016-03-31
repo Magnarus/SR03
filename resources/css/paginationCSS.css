@@ -1,0 +1,33 @@
+
+
+/* CSS de la barre de pagination */
+.page {
+	display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.page span{
+    margin-left:15px;
+    display:inline-block;
+}
+
+.page button{
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    font-size: 18px;
+    
+}
+.page {
+    margin:5px 12px !important;
+}
+
+/** CSS de la grille **/
+
+#portletTrombi {
+	margin-top : 20px !important;
+} 
