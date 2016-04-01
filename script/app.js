@@ -6,3 +6,17 @@ trombiApp.config(function($routeProvider, $locationProvider) {
 	 .when('/data', {templateUrl: 'view/tabTrombi.html', controller : 'TabTrombiController'})	
 	 .otherwise({redirectTo: '/index'});
 });
+
+
+trombiApp .config(function ( $httpProvider) {        
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }).factory('dataService', function ($http ) {
+        return{          
+            doCrossDomainGet: function(methode, url) {
+                return $http({
+                    url: url,
+                    method: methode
+                })
+            }        
+        }
+});

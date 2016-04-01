@@ -1,7 +1,7 @@
 var trombiApp = angular.module('trombiApp');
 
 trombiApp.controller('TabTrombiController', ['$scope',  'People', '$filter', '$mdDialog', function($scope, People, $filter, $mdDialog) {
-
+	
 	// Variable qui contiendra les données du modèle sur les personnes
 	$scope.peopleData = [];
 	
@@ -35,6 +35,7 @@ trombiApp.controller('TabTrombiController', ['$scope',  'People', '$filter', '$m
 		var parentEl = angular.element(document.body);
 		console.log($person);
 		$mdDialog.show({
+		 clickOutsideToClose: true,
          template:
 				'	<div class="mod"> <img src="https://demeter.utc.fr/portal/pls/portal30/portal30.get_photo_utilisateur_mini?username={{personne.login}}" onerror="this.src=\'resources/img/defaultImg.jpg\'"> </img>'
 				+ '	<ul class="list-unstyled">'

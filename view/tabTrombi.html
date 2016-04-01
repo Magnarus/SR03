@@ -63,7 +63,7 @@
 					<div class="row" >
 					<!-- 2 par lignes à cause des margin natives de la card. Faudrait pouvoir en afficher 3 mais pas encore eu le temps -->
 							<md-card id ="inner" class = "col-md-4 col-sm-6" ng-repeat="person in peopleData | filter:filtre | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="showDialog(person)">
-								<span><img class="inner-img" src="https://demeter.utc.fr/portal/pls/portal30/portal30.get_photo_utilisateur_mini?username={{person.login}}" onerror="this.src='resources/img/defaultImg.jpg'"> </img><span>
+								<span><img class="inner-img" src="https://demeter.utc.fr/portal/pls/portal30/portal30.get_photo_utilisateur_mini?username={{person.login}}" onerror="this.src='resources/img/defaultImg.jpg'"> </img></span>
 									<ul class="list-unstyled">
 									<li id="Name"> {{person.nom}} </li>
 									<li id="Login"> Login :  {{person.login}} </li>
