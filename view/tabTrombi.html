@@ -1,78 +1,77 @@
 <div class="container" ng-controller="TabTrombiController" data-ng-init="init()">
 	<!-- Barre de choix des pagination  -->
-
-	<div class = "panel panel-default" id="portletTrombi" >
-		<div class = "panel-heading">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-md-4">
+	<div class="row">
+		<div class="col-md-12">
+			<div class = "panel panel-default" id="portletTrombi" >
+				<div class = "panel-heading">
+					<div class="container-fluid">
 						<div class="row">
 							<div class="col-md-4">
-								 
-								<button type="button" class="btn btn-default"  ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
-								  ❮
-								</button>
+								<div class="row">
+									<div class="col-md-4">
+										 
+										<button type="button" class="btn btn-default"  ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+										  ❮
+										</button>
+									</div>
+									<div class="col-md-4">
+										{{currentPage+1}}/{{numberOfPages()}}
+									</div>
+									<div class="col-md-4">
+										 
+										<button type="button" class="btn btn-default" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+											❯
+										</button>
+									</div>
+								</div>
 							</div>
 							<div class="col-md-4">
-								{{currentPage+1}}/{{numberOfPages()}}
+								<div class="btn-group">
+									<button class="btn btn-default">
+										Action
+									</button> 
+									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+										<span class="caret"></span>
+									</button>						
+									<ul class="dropdown-menu">
+										<li>
+											<a href="#" ng-click="dropboxitemselected(3)">3</a>
+										</li>
+										<li>
+											<a href="#" ng-click="dropboxitemselected(6)">6</a>
+										</li>
+										<li>
+											<a href="#" ng-click="dropboxitemselected(9)">9</a>
+										</li>
+										<li>
+											<a href="#" ng-click="dropboxitemselected(15)">15</a>
+										</li>
+									</ul>
+								</div>
 							</div>
 							<div class="col-md-4">
-								 
-								<button type="button" class="btn btn-default" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
-									❯
-								</button>
+								<form >
+										<input ng-model="filtre" class="form-control" id="exampleInputEmail1" type="filtre" placeholder="Filtre"/>
+								</form>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="btn-group">
-							<button class="btn btn-default">
-								Action
-							</button> 
-							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-								<span class="caret"></span>
-							</button>						
-							<ul class="dropdown-menu">
-								<li>
-									<a href="#" ng-click="dropboxitemselected(3)">3</a>3
-								</li>
-								<li>
-									<a href="#" ng-click="dropboxitemselected(6)">6</a>6
-								</li>
-								<li>
-									<a href="#" ng-click="dropboxitemselected(9)">9</a>9
-								</li>
-								<li>
-									<a href="#" ng-click="dropboxitemselected(15)">15</a>15
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<form >
-								<input ng-model="filtre" class="form-control" id="exampleInputEmail1" type="filtre" placeholder="Filtre"/>
-						</form>
 					</div>
 				</div>
-			</div>
-		</div>
-		
-		<!-- Main content -->
-		<div class = "panel-body">
-			<div class="row" >
-					<div id ="inner" class = "col-md-4 col-sm-6" ng-repeat="person in peopleData | filter:filtre | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="showDialog(person)">
-						<img src="https://demeter.utc.fr/portal/pls/portal30/portal30.get_photo_utilisateur_mini?username={{person.login}}" onerror="this.src='resources/img/defaultImg.jpg'"> </img>
-							<ul class="list-unstyled">
-							<li id="Name"> {{person.nom}} </li>
-							<li id="Login"> Login :  {{person.login}} </li>
-							<li id="Mail"> Email :  {{person.mail}} </li>
-							<!--<li><div id="Bureau"> Bureau :  {{person.bureau}} <b ng-if="!data.name">NA</b> </div></li>
-							<li><div id="SsStructure"> Sous-Structure	 : {{ person.sousStructure}} <b ng-if="!data.name">NA</b> </div> </li>
-							<li><div id="Structure"> Structure : {{ person.structure}} <b ng-if="!data.name">NA</b> </div> </li>
-							<li><div id="Telephone"> Tél  : {{ person.tel}} <b ng-if="!data.name">NA</b> </div> </li>
-							<li><div id="Telephone2"> Tél 2 : {{ person.tel2}} <b ng-if="!data.name">NA</b> </div> </li> -->
-							</ul>
+				
+				<!-- Main content -->
+				<div class = "panel-body">
+					<div class="row" >
+					<!-- 2 par lignes à cause des margin natives de la card. Faudrait pouvoir en afficher 3 mais pas encore eu le temps -->
+							<md-card id ="inner" class = "col-md-4 col-sm-6" ng-repeat="person in peopleData | filter:filtre | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="showDialog(person)">
+								<span><img class="inner-img" src="https://demeter.utc.fr/portal/pls/portal30/portal30.get_photo_utilisateur_mini?username={{person.login}}" onerror="this.src='resources/img/defaultImg.jpg'"> </img><span>
+									<ul class="list-unstyled">
+									<li id="Name"> {{person.nom}} </li>
+									<li id="Login"> Login :  {{person.login}} </li>
+									<li id="Mail"> Email :  {{person.mail}} </li>
+									</ul>
+							</md-card>
 					</div>
+				</div>
 			</div>
 		</div>
 	</div>
