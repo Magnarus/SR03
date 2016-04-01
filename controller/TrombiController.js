@@ -1,7 +1,7 @@
 var trombiApp = angular.module('trombiApp');
 
-trombiApp.controller('TrombiController', ['$scope', '$http', 'People', 'Struct', 'SubStruct', '$location', 'dataService',
- function($scope, $http, People, Struct,SubStruct,  $location, dataService) {
+trombiApp.controller('TrombiController', ['$scope', '$http', 'People', 'Struct', 'SubStruct', '$location',
+ function($scope, $http, People, Struct,SubStruct,  $location) {
 
     // Données récupérées via API REST
     $scope.peopleData = {};
@@ -33,7 +33,6 @@ trombiApp.controller('TrombiController', ['$scope', '$http', 'People', 'Struct',
 		
 			// URL pour récupérer les données
 			var url = "https://webapplis.utc.fr/Trombi_ws/mytrombi/result?nom=" + lastName + "&prenom=" + firstName;
-			xdr(url, "GET", null, null, null);
 			//On vérifie que l'url est OK
 			if($scope.checkUrl(url)) {
 				
