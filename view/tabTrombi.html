@@ -1,7 +1,7 @@
 <div ng-controller="TabTrombiController" data-ng-init="init()">
 	<!-- Barre de choix des pagination  -->
 	<div class="row">
-		<div class="col-md-12">
+			<div class="col-md-12">
 			<div class = "panel panel-default" id="portletTrombi" >
 				<div class = "panel-heading">
 					<div class="container-fluid">
@@ -25,39 +25,26 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" id="selectPage">
 								<div class="btn-group">
-									<button class="btn btn-default">
-										Action
-									</button> 
-									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-										<span class="caret"></span>
-									</button>						
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#" ng-click="dropboxitemselected(3)">3</a>
-										</li>
-										<li>
-											<a href="#" ng-click="dropboxitemselected(6)">6</a>
-										</li>
-										<li>
-											<a href="#" ng-click="dropboxitemselected(9)">9</a>
-										</li>
-										<li>
-											<a href="#" ng-click="dropboxitemselected(15)">15</a>
-										</li>
-									</ul>
+									<md-select class = "col-md-6" placeholder="Nombre d'éléments" ng-model="pageSize" id="pageSize" >
+										<md-option ng-value="6"> 6 </md-option>
+										<md-option ng-value="9"> 9 </md-option>
+										<md-option ng-value="12"> 12 </md-option>
+										<md-option ng-value="15"> 15 </md-option>
+									</md-select>
 								</div>
 							</div>
 							<div class="col-md-4">
-								<form >
-										<input ng-model="filtre" class="form-control" id="exampleInputEmail1" type="filtre" placeholder="Filtre"/>
-								</form>
+								<div>
+									<form >
+											<input ng-model="filtre" class="form-control" id="exampleInputEmail1" type="filtre" placeholder="Filtre"/>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				
 				<!-- Main content -->
 				<div class = "panel-body">
 					<div class="row" >
