@@ -2,15 +2,23 @@ body, html {
     background: #DDE2FF repeat scroll !important;
 	min-height: 100%;
 	height: auto;
-} 
+}
 
-
-.page-header, .contentPane {
-	background-color: rgba(255, 255, 255, 0.8) !important;
+h1 {
+	text-align: center;
 }
 
 md-content {
  background-color: rgba(255,255,255,0.8);
+}
+
+#inner {
+    height: auto;
+	text-align:center;
+}
+
+.page-header, .contentPane {
+	background-color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .inner-img {
@@ -38,16 +46,8 @@ md-content {
 
 }
 
-h1 {
-	text-align: center;
-}
-
 .panel-body {
-background:#f0efef;}
-
-#inner {
-    height: auto;
-	text-align:center;
+	background:#F0EFEF;
 }
 
 .mod {
