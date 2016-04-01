@@ -42,6 +42,9 @@ h1 {
 	text-align: center;
 }
 
+.panel-body {
+background:#f0efef;}
+
 #inner {
     height: auto;
 	text-align:center;
