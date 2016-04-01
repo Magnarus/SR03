@@ -71,10 +71,10 @@
 									<!-- Mise à jour des données via select -->
 										<md-content class="md-padding" >
 											<div id="selectForm" class ="centerTab">
-												<md-select name="selectStructure" ng-model="item"   ng-change="updateSelect()"  placeholder="Structure"> 
+												<md-select class="md-accent" name="selectStructure" ng-model="item"   ng-change="updateSelect()"  placeholder="Structure"> 
 													 <md-option ng-value="obj.structure.structId" ng-repeat="obj in dataStruct">{{ obj.structureLibelle }}</md-option>
 												 </md-select>
-												 <md-select id="selectSS" name="selectSsStructure" ng-model="subData" ng-disabled="!item"  placeholder="Sous-Structure">
+												 <md-select class="md-accent" id="selectSS" name="selectSsStructure" ng-model="subData" ng-disabled="!item"  placeholder="Sous-Structure">
 													<md-option value="" ></md-option>
 												    <md-option ng-value="obj.structure.structId" ng-repeat="obj in dataSsStruct">{{ obj.structureLibelle }}</md-option>
 												 </md-select>
