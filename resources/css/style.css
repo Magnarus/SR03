@@ -39,16 +39,10 @@ md-content {
 }
 
 h1 {
-	    text-align: center;
+	text-align: center;
 }
 
 #inner {
-    /*border-top: solid 1px #c4c4c4 ;
-    border-left: solid 1px #c4c4c4;
-    border-bottom: solid 1px #c4c4c4;
-    border-right: solid 1px #c4c4c4;
-    padding-bottom: 1em;
-    padding: 1em;*/
     height: auto;
 	text-align:center;
 }
