@@ -17,14 +17,15 @@ trombiApp.controller('TabTrombiController', ['$scope',  'People', '$filter', '$m
        return $filter('filter')($scope.peopleData, $scope.filtre);
     }
 
+	$scope.resetPage = function() {
+		console.log($scope.currentPage);
+		$scope.currentPage = 0;
+		console.log($scope.currentPage);
+	}
+	
 	// Calcul du nombre de page
      $scope.numberOfPages = function(){
         return Math.ceil($scope.getData().length/$scope.pageSize);                
-    }
-
-	// Mise à jour du nombre d'éléments à afficher 
-    $scope.dropboxitemselected = function( number) {
-      $scope.pageSize = number;
     }
 	
 	// Fonction qui initialise les données du trombinoscope
@@ -41,8 +42,8 @@ trombiApp.controller('TabTrombiController', ['$scope',  'People', '$filter', '$m
 		 clickOutsideToClose: true,
          template:
 				'  <div class="modal-dialog">'
-				+' <div class="modal-content">'
-				+ '	 <div class="modal-body">'
+				+ '<div class="modal-content">'
+				+ '	<div class="modal-body">'
 				+ '<img src="https://demeter.utc.fr/portal/pls/portal30/portal30.get_photo_utilisateur_mini?username={{personne.login}}" onerror="this.src=\'resources/img/defaultImg.jpg\'"> </img>'
 				+ '	<ul class="list-unstyled">'
 				+ '	<li id="Name"> {{personne.nom}} </li>'

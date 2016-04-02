@@ -26,7 +26,7 @@
 								</div>
 							</div>
 							<div class="col-md-6" id="selectPage">
-									<md-select class="md-accent col-md-6" placeholder="Nombre d'éléments" ng-model="pageSize">
+									<md-select ng-change="resetPage()" class="md-accent col-md-6" placeholder="Nombre d'éléments" ng-model="pageSize">
 										<md-option ng-value="6"> 6 </md-option>
 										<md-option ng-value="9"> 9 </md-option>
 										<md-option ng-value="12"> 12 </md-option>
@@ -35,7 +35,7 @@
 							</div>
 							<div class="col-md-4">
 									<form >
-											<input ng-model="filtre" class="form-control" id="exampleInputEmail1" type="filtre" placeholder="Filtre"/>
+											<input ng-change="resetPage()" ng-model="filtre" class="form-control" type="filtre" placeholder="Filtre"/>
 									</form>
 							</div>
 						</div>
