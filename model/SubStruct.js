@@ -1,5 +1,5 @@
  var trombiApp = angular.module('trombiApp');
-trombiApp.factory('SubStruct', [  '$http', function ($http) {
+trombiApp.factory('SubStruct', ['$http', function ($http) {
     var SubStruct = [];
 	
     SubStruct.add = function (item) {
