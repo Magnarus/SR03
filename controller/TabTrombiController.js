@@ -18,9 +18,7 @@ trombiApp.controller('TabTrombiController', ['$scope',  'People', '$filter', '$m
     }
 
 	$scope.resetPage = function() {
-		console.log($scope.currentPage);
 		$scope.currentPage = 0;
-		console.log($scope.currentPage);
 	}
 	
 	// Calcul du nombre de page
