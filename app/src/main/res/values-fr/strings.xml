@@ -10,4 +10,6 @@
     <string name="validation">Valider</string>
     <string name="no_result">Aucun résultat</string>
     <string name="login">Login : %s</string>
+    <string name="name_tab_title">Sélection par nom</string>
+    <string name="struct_tab_title">Sélection par structure</string>
 </resources>

@@ -9,4 +9,6 @@
     <string name="validation">Submit</string>
     <string name="no_result">No result</string>
     <string name="login">Login : %s</string>
+    <string name="name_tab_title">Name selection</string>
+    <string name="struct_tab_title">Structure selection</string>
 </resources>

@@ -35,7 +35,7 @@ public class Struct {
 
     public Struct(int id) {
         structNomId = id;
-        structureLibelle = "choisissez une structure";
+        structureLibelle = "choisissez une sous structure";
     }
 
     public int getStructNomId() {

@@ -1,4 +1,4 @@
-package magnas.sr03;
+package magnas.sr03.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import magnas.sr03.R;
 import magnas.sr03.model.Student;
 
 /**

@@ -1,4 +1,4 @@
-package magnas.sr03;
+package magnas.sr03.network;
 
 import java.util.List;
 

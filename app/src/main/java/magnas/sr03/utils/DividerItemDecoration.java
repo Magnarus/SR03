@@ -1,4 +1,4 @@
-package magnas.sr03;
+package magnas.sr03.utils;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

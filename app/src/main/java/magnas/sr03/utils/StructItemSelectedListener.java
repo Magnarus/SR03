@@ -1,4 +1,4 @@
-package magnas.sr03;
+package magnas.sr03.utils;
 
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,6 +8,8 @@ import android.widget.Spinner;
 import java.util.List;
 
 import magnas.sr03.model.Struct;
+import magnas.sr03.network.ServiceGenerator;
+import magnas.sr03.network.TrombiClient;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
