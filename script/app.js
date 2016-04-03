@@ -15,16 +15,3 @@ trombiApp.config(function($routeProvider, $locationProvider) {
       delete $httpProvider.defaults.headers.common['X-Requested-With'];
   });
   
-/*
-trombiApp .config(function ( $httpProvider) {        
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    }).factory('dataService', function ($http ) {
-        return{          
-            doCrossDomainGet: function(methode, url) {
-                return $http({
-                    url: url,
-                    method: methode
-                })
-            }        
-        }
-});*/

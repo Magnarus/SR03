@@ -17,6 +17,7 @@ trombiApp.controller('TabTrombiController', ['$scope',  'People', '$filter', '$m
        return $filter('filter')($scope.peopleData, $scope.filtre);
     }
 
+	// Retour à la page 1 en cas de filtre/changement du nombre de pages
 	$scope.resetPage = function() {
 		$scope.currentPage = 0;
 	}
@@ -64,7 +65,7 @@ trombiApp.controller('TabTrombiController', ['$scope',  'People', '$filter', '$m
 	
 }]);
 
-
+// Donne l'emplacement de départ pour le ng-repeat
 trombiApp.filter('startFrom', function() {
     return function(input, start) {
         start = +start; //parse to int

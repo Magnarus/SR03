@@ -11,13 +11,15 @@ trombiApp.controller('TrombiController', ['$scope', '$http', 'People', 'Struct',
     // Selected item
     $scope.item;
     $scope.subData;
-
+	
+	// Reinitialise les champs et les données utilisateurs
     $scope.reset = function(user) {
 		People.reset();
 		user.name = "";
 		user.firstname="";
     }
 
+	// Valide les input et récupère les données
     $scope.validate = function(user) {
     	People.reset();
 		var firstName = "";
@@ -45,6 +47,7 @@ trombiApp.controller('TrombiController', ['$scope', '$http', 'People', 'Struct',
 		}
     }
 
+	// Vérifie la dispo d'une API donc l'url est donnée en paramètre
     $scope.checkUrl = function(url) {	
 
        return $http.head(url)
@@ -56,6 +59,7 @@ trombiApp.controller('TrombiController', ['$scope', '$http', 'People', 'Struct',
 		 });
     }
 
+	// Met à jour les données de sous-structure en fonction de la strucute sélectionnée par l'utilisateur
     $scope.updateSelect = function() {
      		var url = " https://webapplis.utc.fr/Trombi_ws/mytrombi/structfils?lid=" + $scope.item;			
     		if($scope.checkUrl(url)) {
@@ -64,7 +68,8 @@ trombiApp.controller('TrombiController', ['$scope', '$http', 'People', 'Struct',
 				$scope.dataSsStruct = SubStruct;	
 			}
     }
-
+	
+	// Récupère les données des utilisateurs par structure
     $scope.getData = function() {
 		
 		if($scope.subData == null || $scope.subData == 0 ) {
@@ -79,6 +84,7 @@ trombiApp.controller('TrombiController', ['$scope', '$http', 'People', 'Struct',
 		}
     }
 
+	// Fonction initiale
     $scope.init = function() {
 			// Initialisation du select des structures
     		var url = "https://webapplis.utc.fr/Trombi_ws/mytrombi/structpere";
