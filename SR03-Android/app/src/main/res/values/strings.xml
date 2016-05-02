@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Trombi</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="lastname_edit_text">Last name</string>
+    <string name="firstname_edit_text">First name</string>
+    <string name="validation">Submit</string>
+    <string name="no_result">No result</string>
+    <string name="login">Login : %s</string>
+    <string name="name_tab_title">Name selection</string>
+    <string name="struct_tab_title">Structure selection</string>
+</resources>
