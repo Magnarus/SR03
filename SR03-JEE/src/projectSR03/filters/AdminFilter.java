@@ -16,7 +16,7 @@ import projectSR03.beans.UserBean;
 
 public class AdminFilter implements Filter {
 	
-    public static final String H_STAGIAIRE = "/StagiairePages/homeStagiaire.jsp";
+    public static final String H_STAGIAIRE = "/MemberPages/StagiairePages/homeStagiaire";
     public static final String SESSION = "sessionUser";
     
     public void init( FilterConfig config ) throws ServletException {
@@ -35,7 +35,7 @@ public class AdminFilter implements Filter {
        // On vérifie si l'user est admin
 
         if ( !((UserBean) session.getAttribute( SESSION )).isAdmin() ) {
-            /* Redirection vers la page publique */
+            /* Redirection vers la page stagiaire */
             response.sendRedirect( request.getContextPath() + H_STAGIAIRE );
         } else {
             /* Affichage de la page restreinte */

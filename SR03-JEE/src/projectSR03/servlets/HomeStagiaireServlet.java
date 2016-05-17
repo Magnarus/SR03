@@ -9,11 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class HomeStagiaireServlet extends HttpServlet {
 
-	private static final String H_STAGIAIRE = "/WEB-INF/homeStagiaire.jsp";
+	private static final String H_STAGIAIRE = "/MemberPages/StagiairePages/homeStagiaire.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		this.getServletContext().getRequestDispatcher( H_STAGIAIRE ).forward( req, resp );
 	}
 	

@@ -10,7 +10,10 @@
 	<body>
 		<p> Accueil administrateur : </p>
 		
-		Gestion des utilisateurs : <c:redirect url="/WEB-INF/manageUsers.jsp"/>
+		<a href="<c:url value="/MemberPages/AdminPages/manageUsers.jsp" />">Gestion des utilisateurs</a>
+		<%--<a href="<c:url value="/MemberPages/AdminPages/manageUsers.jsp" />">Gestion des utilisateurs</a>  --%>
+		<%--<a href="<c:url value="/MemberPages/AdminPages/manageUsers.jsp" />">Gestion des utilisateurs</a>  --%>
+		
 		
 	</body>
 	

@@ -14,6 +14,24 @@
         	</jsp-property-group>
     	</jsp-config>
     
+    	<filter>
+    		<filter-name>MemberFilter</filter-name>
+    		<filter-class>projectSR03.filters.MemberFilter</filter-class>
+		</filter>
+		<filter>
+    		<filter-name>AdminFilter</filter-name>
+    		<filter-class>projectSR03.filters.AdminFilter</filter-class>
+		</filter>
+
+		<filter-mapping>
+			<filter-name>MemberFilter</filter-name>
+			<url-pattern>/MemberPages/*</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>AdminFilter</filter-name>
+			<url-pattern>/MemberPages/AdminPages/*</url-pattern>
+		</filter-mapping>
+		
 		<servlet>
 			<servlet-name>LoginServlet</servlet-name>
 			<servlet-class>projectSR03.servlets.LoginServlet</servlet-class>
@@ -37,34 +55,15 @@
 		</servlet-mapping>
 		<servlet-mapping>
 	    	<servlet-name>HomeAdminServlet</servlet-name>
-	    	<url-pattern>/homeAdmin</url-pattern>
+	    	<url-pattern>/MemberPages/AdminPages/homeAdmin</url-pattern>
 		</servlet-mapping>		
 		<servlet-mapping>
 	    	<servlet-name>HomeStagiaireServlet</servlet-name>
-	    	<url-pattern>/homeStagiaire</url-pattern>
+	    	<url-pattern>/MemberPages/StagiairePages/homeStagiaire</url-pattern>
 		</servlet-mapping>
 		<servlet-mapping>
 	    	<servlet-name>ManageUsersServlet</servlet-name>
-	    	<url-pattern>/manageUsers</url-pattern>
+	    	<url-pattern>/MemberPages/AdminPages/manageUsers</url-pattern>
 		</servlet-mapping>
-		
-		<filter>
-    		<filter-name>MemberFilter</filter-name>
-    		<filter-class>projectSR03.filters.MemberFilter</filter-class>
-		</filter>
-		<filter>
-    		<filter-name>AdminFilter</filter-name>
-    		<filter-class>projectSR03.filters.AdminFilter</filter-class>
-		</filter>
-
-		<filter-mapping>
-			<filter-name>MemberFilter</filter-name>
-			<url-pattern>/MemberPages/*</url-pattern>
-		</filter-mapping>
-		<filter-mapping>
-			<filter-name>AdminFilter</filter-name>
-			<url-pattern>/AdminPages/*</url-pattern>
-		</filter-mapping>
-
-		
+				
 	</web-app>

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ManageUsersServlet extends HttpServlet {
 
-	private static final String M_USER = "/WEB-INF/manageUsers.jsp";
+	private static final String M_USER = "/MemberPages/AdminPages/manageUsers.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

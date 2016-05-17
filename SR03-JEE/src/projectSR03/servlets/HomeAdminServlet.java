@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class HomeAdminServlet extends HttpServlet {
 
-	private static final String H_ADMIN = "/WEB-INF/homeAdmin.jsp";
+	private static final String H_ADMIN = "/MemberPages/AdminPages/homeAdmin.jsp";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
