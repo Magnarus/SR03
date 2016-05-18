@@ -30,6 +30,10 @@
 			<servlet-name>ManageUsersServlet</servlet-name>
 			<servlet-class>projectSR03.servlets.ManageUsersServlet</servlet-class>
 		</servlet>
+		<servlet>
+			<servlet-name>ManageQuestServlet</servlet-name>
+			<servlet-class>projectSR03.servlets.ManageQuestServlet</servlet-class>
+		</servlet>
 		
 		<servlet-mapping>
 	    	<servlet-name>LoginServlet</servlet-name>
@@ -47,7 +51,10 @@
 	    	<servlet-name>ManageUsersServlet</servlet-name>
 	    	<url-pattern>/manageUsers</url-pattern>
 		</servlet-mapping>
-		
+		<servlet-mapping>
+	    	<servlet-name>ManageQuestServlet</servlet-name>
+	    	<url-pattern>/manageQuest</url-pattern>
+		</servlet-mapping>
 		<filter>
     		<filter-name>MemberFilter</filter-name>
     		<filter-class>projectSR03.filters.MemberFilter</filter-class>

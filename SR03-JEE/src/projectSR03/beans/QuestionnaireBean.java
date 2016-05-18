@@ -1,5 +1,6 @@
 package projectSR03.beans;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import projectSR03.utils.State;
@@ -7,6 +8,7 @@ import projectSR03.utils.State;
 public class QuestionnaireBean {
 	private int id;
 	private String name;
+	private Date dateCreation;
 	private ArrayList<QuestionBean> questions;
 	private State state;
 	
@@ -16,6 +18,8 @@ public class QuestionnaireBean {
 	public String getName() {	return name;	}
 	public void setName(String name) {		this.name = name;	}
 	
+	public Date getDateCreation() {	return dateCreation;	}
+	public void setDateCreation(Date dateCreation) {	this.dateCreation = dateCreation;	}
 	
 	public ArrayList<QuestionBean> getQuestions() {	return questions;	}
 	public void setQuestions(ArrayList<QuestionBean> questions) {	this.questions = questions;	}
@@ -31,6 +35,7 @@ public class QuestionnaireBean {
 	public void removeQuestion(QuestionBean q) {
 		questions.remove(q);
 	}
+
 
 	
 	

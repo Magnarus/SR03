@@ -11,6 +11,7 @@
 		<p> Accueil administrateur : </p>
 		
 		Gestion des utilisateurs : <c:redirect url="/WEB-INF/manageUsers.jsp"/>
+		Gestion des questionnaires : <c:redirect url="/WEB-INF/manageQuest.jsp" />
 		
 	</body>
 	
