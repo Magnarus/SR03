@@ -1,18 +1,30 @@
 package projectSR03.DAO;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 
 public class MysqljdbcDAO {
 
+	private static final String FICHIER_PROPERTIES       = "projectSR03/DAO/dao.properties";
+    private static final String PROPERTY_URL             = "url";
+    private static final String PROPERTY_DRIVER          = "driver";
+    private static final String PROPERTY_NOM_UTILISATEUR = "user";
+    private static final String PROPERTY_MOT_DE_PASSE    = "password";
+    
 	// Obtenir une connexion à la base de données
 	public static Connection mySQLgetConnection() {
-		
+		Properties properties = new Properties();
+		String url = null;
+        String user = null;
+        String password = null;
 		/* Chargement du driver JDBC pour MySQL */
 		try {
 		    Class.forName( "com.mysql.jdbc.Driver" );
@@ -21,12 +33,24 @@ public class MysqljdbcDAO {
 		    /* Gérer les éventuelles erreurs ici. */
 		}
 		
-		/* Connexion à la base de données */
-		String url = "jdbc:mysql://tuxa.sme.utc:3306/sr03p039";
-		String user = "sr03p039";
-		String password = "VJf0JhnH";
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream fichierProperties = classLoader.getResourceAsStream( FICHIER_PROPERTIES );
+
+        if ( fichierProperties == null ) {
+            System.out.println( "Le fichier properties " + FICHIER_PROPERTIES + " est introuvable." );
+        }
+
+        try {
+            properties.load( fichierProperties );
+            url = properties.getProperty( PROPERTY_URL );
+            user = properties.getProperty( PROPERTY_NOM_UTILISATEUR );
+            password = properties.getProperty( PROPERTY_MOT_DE_PASSE );
+        } catch ( FileNotFoundException e ) {
+            System.out.println("Le fichiefsdfdsr properties " + FICHIER_PROPERTIES + " est introuvable.");
+        } catch ( IOException e ) {
+            System.out.println("Impossible de charger le fichier properties " + FICHIER_PROPERTIES);
+        }
 		Connection conn = null;
-		
 		try {
 		    conn = DriverManager.getConnection( url, user, password );
 		} 
