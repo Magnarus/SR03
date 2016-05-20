@@ -9,7 +9,7 @@ public class QuestionBean {
 	private String title;
 	private ArrayList<AnswerBean> answers;
 	private int rightAnswer;
-	private State state;
+	private boolean state;
 	
 	
 	public int getId() {	return id;	}
@@ -26,8 +26,8 @@ public class QuestionBean {
 	public void setRightAnswer(int rightAnswer) {	this.rightAnswer = rightAnswer;	}
 	
 	
-	public State getState() {	return state;	}
-	public void setState(State state) {	this.state = state;	}
+	public boolean getState() {	return state;	}
+	public void setState(boolean state) {	this.state = state;	}
 	
 	public void addAnswer (AnswerBean ans) {
 		answers.add(ans);

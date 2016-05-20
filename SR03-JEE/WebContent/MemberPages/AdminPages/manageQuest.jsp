@@ -7,6 +7,7 @@
 		<title>Gestion des questionnaires</title>
 	</head>
 	<body>
+		<!--  Affichage des questionnaires existants -->
 		<table>
 			<tr>
 				<th> Nom </th>
@@ -15,14 +16,16 @@
 			</tr>
 			<c:forEach var="quest"  items="${requestScope['listQuestionnaire']}" >
 				<tr>
-			          <td> ${quest.Name } </td>
+			          <td> ${quest.name } </td>
 			          <td> ${quest.dateCreation } </td>
 			          <td> 
-			          	<!--  TODO : ADD ACTION -->
+			          		
 			          </td>
 			    </tr>
 			</c:forEach>
-			<!--  TODO : ADD REDIRECT HTML OU JSP STYLE ? -->
+			
+			<!-- Création d'un nouveau questionnaire -->
+			<a href="<c:url value="MemberPages/AdminPages/createQuest.jsp"/>" > Création nouveau questionnaire</a>
 			
 		</table>
 	</body>
