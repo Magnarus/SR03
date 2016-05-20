@@ -5,7 +5,7 @@ import projectSR03.utils.State;
 public class AnswerBean {
 	private int id;
 	private String value;
-	private State state;
+	private boolean state;
 	
 	
 	public int getId() {	return id;	}
@@ -14,8 +14,8 @@ public class AnswerBean {
 	public String getValue() {	return value;	}
 	public void setValue(String value) {this.value = value;	}
 	
-	public State getState() {	return state;	}	
-	public void setState(State state) {	this.state = state;	}	
+	public boolean getState() {	return state;	}	
+	public void setState(boolean state) {	this.state = state;	}	
 	
 	
 }

@@ -10,7 +10,7 @@ public class QuestionnaireBean {
 	private String name;
 	private Date dateCreation;
 	private ArrayList<QuestionBean> questions;
-	private State state;
+	private boolean state;
 	
 	public int getId() { return id;	}
 	public void setId(int id) {	this.id = id; }
@@ -24,8 +24,8 @@ public class QuestionnaireBean {
 	public ArrayList<QuestionBean> getQuestions() {	return questions;	}
 	public void setQuestions(ArrayList<QuestionBean> questions) {	this.questions = questions;	}
 	
-	public State getState() {	return state;	}
-	public void setState(State state) {	this.state = state;	}
+	public boolean getState() {	return state;	}
+	public void setState(boolean state) {	this.state = state;	}
 	
 	
 	public void addQuestion(QuestionBean q) {
