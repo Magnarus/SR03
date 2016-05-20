@@ -7,8 +7,28 @@
 		<title>Gestions users</title>
 	</head>
 	<body>
-		<p> Gestion des utilisateurs </p>
+		<p> Gestion des utilisateurs :</p>
+		<c:out value="${test}" />
 		
-		
+		<c:forEach items="${listUsers}" var="user" varStatus="status">
+			<div class="user">
+			  Utilisateur n° <c:out value="${user['id']}"/> :
+			  <div class="email">
+			      <c:out value="${user['email']}" />
+			  </div>
+			  <div class="password">
+			      <c:out value="${news['password']}" />
+			  </div>
+			  <div class="lastname">
+			      <c:out value="${user['email']}" />
+			  </div>
+			  <div class="firstname">
+			      <c:out value="${news['password']}" />
+			  </div>
+			  <div class="email">
+			      <c:out value="${user['admin']}" />
+			  </div>
+			</div>
+			</c:forEach>
 	</body>
 </html>

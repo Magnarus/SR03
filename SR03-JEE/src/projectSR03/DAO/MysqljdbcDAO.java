@@ -22,9 +22,9 @@ public class MysqljdbcDAO {
 		}
 		
 		/* Connexion à la base de données */
-		String url = "jdbc:mysql://tuxa.sme.utc:3306/sr03p039";
-		String user = "sr03p039";
-		String password = "VJf0JhnH";
+		String url = "jdbc:mysql://tuxa.sme.utc:3306/sr03p028";
+		String user = "sr03p028";
+		String password = "CSgwRyU5";
 		Connection conn = null;
 		
 		try {

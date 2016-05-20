@@ -1,5 +1,8 @@
 package projectSR03.beans;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class UserBean {
 
 	private int id;
@@ -27,5 +30,16 @@ public class UserBean {
 	public String getLastName() { return lastName;	}
 	public void setLastName(String lastName) {	this.lastName = lastName;	}
 
+	
+	public static UserBean map(ResultSet result) throws SQLException{
+		UserBean user = new UserBean();
+		user.setId(result.getInt("Id"));
+		user.setEmail(result.getString("Email"));
+		user.setLastName(result.getString("Lastname"));
+		user.setFirstName(result.getString("Firsttname"));
+		user.setPassword(result.getString("Password"));
+		user.setAdmin(result.getBoolean("Role"));
+		return user;
+	}
 
 }

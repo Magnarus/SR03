@@ -15,7 +15,7 @@ public class LoginDAO {
 		String mail = null;
 		
 		try {
-			preparedStatement = conn.prepareStatement( "SELECT u_email FROM sr03p039.u_User WHERE u_email = ?;" );
+			preparedStatement = conn.prepareStatement( "SELECT Email FROM sr03p028.User WHERE Email = ?;" );
 			preparedStatement.setString(1, email);
 			
 			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
@@ -41,7 +41,7 @@ public class LoginDAO {
 		String pass = null;
 		
 		try {
-			preparedStatement = conn.prepareStatement( "SELECT u_password FROM sr03p039.u_User WHERE u_email = ?;" );
+			preparedStatement = conn.prepareStatement( "SELECT Password FROM sr03p028.User WHERE Email = ?;" );
 			preparedStatement.setString(1, email);
 			
 			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
@@ -67,7 +67,7 @@ public class LoginDAO {
 		boolean admin = false;
 		
 		try {
-			preparedStatement = conn.prepareStatement( "SELECT u_isAdmin FROM sr03p039.u_User WHERE u_email = ?;" );
+			preparedStatement = conn.prepareStatement( "SELECT Role FROM sr03p028.User WHERE Email = ?;" );
 			preparedStatement.setString(1, email);
 			
 			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);

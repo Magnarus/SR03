@@ -10,7 +10,9 @@
 	<body>
 		<p> Accueil administrateur : </p>
 		<a href="<c:url value="/MemberPages/AdminPages/manageUsers.jsp" />">Gestion des utilisateurs</a>
-		Gestion des questionnaires : <c:redirect url="/WEB-INF/manageQuest.jsp" />
+		<a href="<c:url value="/MemberPages/AdminPages/manageQuest.jsp" />">Gestion des questionnaires</a>
+		
+		<%-- Gestion des questionnaires : <c:redirect url="/WEB-INF/manageQuest.jsp" />--%>
 		<%--<a href="<c:url value="/MemberPages/AdminPages/manageUsers.jsp" />">Gestion des utilisateurs</a>  --%>
 		<%--<a href="<c:url value="/MemberPages/AdminPages/manageUsers.jsp" />">Gestion des utilisateurs</a>  --%>
 		
