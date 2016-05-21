@@ -50,4 +50,18 @@ public class QuestionnaireDAO {
 	public static void deleteQuestionnaire(String id) {
 		InteractionsDAO.mySQLwritingQuery("DELETE FROM Questionnaire WHERE Id = \"" + id +"\"");
 	}
+	
+	public static void addQuestionnaire(QuestionnaireBean q) {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			statement = conn.prepareStatement("INSERT INTO sr03p028.Questionnaire(Name,DateCreation,Subject) VALUES(?, NOW(), ?)");
+			statement.setString(1, q.getName());
+			statement.setString(2, q.getSubject());
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

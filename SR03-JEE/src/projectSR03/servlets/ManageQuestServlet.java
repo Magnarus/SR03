@@ -3,7 +3,9 @@ package projectSR03.servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +15,7 @@ import projectSR03.DAO.QuestionnaireDAO;
 import projectSR03.beans.QuestionBean;
 import projectSR03.beans.QuestionnaireBean;
 
-
-
+@WebServlet("/MemberPages/AdminPages/manageQuest")
 public class ManageQuestServlet extends HttpServlet {
 	private static final String QUEST_MANAGE = "/MemberPages/AdminPages/manageQuest.jsp";
 	private static final String LOGIN = "/login.jsp";

@@ -3,15 +3,16 @@ package projectSR03.servlets;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import projectSR03.DAO.*;
 import projectSR03.beans.LoginBean;
 import projectSR03.beans.UserBean;
 
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	
 	public static final String SESSION = "sessionUser";
