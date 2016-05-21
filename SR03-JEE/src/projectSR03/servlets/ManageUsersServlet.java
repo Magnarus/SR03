@@ -22,8 +22,6 @@ public class ManageUsersServlet extends HttpServlet {
 		
 		ArrayList<UserBean> users = new ArrayList<UserBean>();
 		users = UserDAO.getUsers();
-		String test = "oookkk";
-		req.setAttribute("test", test);
 		req.setAttribute("listUsers", users);
 		this.getServletContext().getRequestDispatcher( M_USER ).forward( req, resp );
 	}
