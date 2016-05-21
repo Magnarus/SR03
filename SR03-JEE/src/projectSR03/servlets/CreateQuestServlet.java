@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import projectSR03.beans.CreateQuestBean;
 
+@WebServlet("/MemberPages/AdminPages/createQuest")
 public class CreateQuestServlet extends HttpServlet {
 	
 	public static final String M_QUEST = "/MemberPages/AdminPages/manageQuest";
