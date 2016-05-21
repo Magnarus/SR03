@@ -14,6 +14,8 @@ public final class CreateUserForm {
      private static final String CHAMP_LASTNAME    = "lastname";
      private static final String CHAMP_FIRSTNAME    = "firstname";
      private static final String CHAMP_ADMIN    = "admin";
+     private static final String CHAMP_PHONE    = "phonenumber";
+     private static final String CHAMP_COMPANY    = "company";
      
      
      private String              result;
@@ -28,7 +30,8 @@ public final class CreateUserForm {
     	    String lastname = getFieldValue( request, CHAMP_LASTNAME );
     	    String firstname = getFieldValue( request, CHAMP_FIRSTNAME );
     	    String role = getFieldValue(request, CHAMP_ADMIN);
-
+    	    String company = getFieldValue(request, CHAMP_COMPANY);
+    	    String phonenumber = getFieldValue(request, CHAMP_PHONE);
     	    
     	    UserBean utilisateur = new UserBean();
 
@@ -47,14 +50,28 @@ public final class CreateUserForm {
     	    utilisateur.setPassword( motDePasse );
 
     	    try {
-    	        nameValidator(firstname);
+    	        stringValidator(firstname);
     	    } catch ( Exception e ) {
     	        setError( CHAMP_FIRSTNAME, e.getMessage() );
     	    }
     	    utilisateur.setFirstName(firstname);
     	    
     	    try {
-    	        nameValidator(lastname);
+    	        stringValidator(company);
+    	    } catch ( Exception e ) {
+    	        setError( CHAMP_COMPANY, e.getMessage() );
+    	    }
+    	    utilisateur.setCompany(company);
+    	    
+    	    try {
+    	        phoneValidator(phonenumber);
+    	    } catch ( Exception e ) {
+    	        setError( CHAMP_PHONE, e.getMessage() );
+    	    }
+    	    utilisateur.setPhoneNumber(phonenumber);
+    	    
+    	    try {
+    	        stringValidator(lastname);
     	    } catch ( Exception e ) {
     	        setError( CHAMP_LASTNAME, e.getMessage() );
     	    }
@@ -87,6 +104,15 @@ public final class CreateUserForm {
 	    }
 	}
 	
+	private void phoneValidator( String phone ) throws Exception {
+	    if ( phone != null ) {
+	        if ( !phone.matches( "[0-9]10" ) ) {
+	            throw new Exception( "Numéro de téléphone invalide." );
+	        } 
+	    } else {
+	        throw new Exception( "Merci de saisir un numéro." );
+	    }
+	}
 	
 	private void passwordValidator( String motDePasse) throws Exception {
 	    if ( motDePasse != null) {
@@ -99,9 +125,9 @@ public final class CreateUserForm {
 	}
 	
 	
-	private void nameValidator( String nom ) throws Exception {
-	    if ( nom != null && nom.length() < 3 ) {
-	        throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères." );
+	private void stringValidator( String string ) throws Exception {
+	    if ( string != null && string.length() < 3 ) {
+	        throw new Exception( "Champs invalide." );
 	    }
 	}
 	

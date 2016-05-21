@@ -34,7 +34,18 @@
 	                	value="<c:out value="${utilisateur.firstName}"/>" size="75" maxlength="75" />
 	                <span class="erreur">${form.errors['firstname']}</span>
 	                <br />
+
+	                <label for="phonenumber">Téléphone : <span class="requis"></span></label>
+	                <input type="text" id="phonenumber" name="phonenumber" 
+	                	value="<c:out value="${utilisateur.phoneNumber}"/>" size="75" maxlength="75" />
+	                <span class="erreur">${form.errors['phonenumber']}</span>
+	                <br />
 	                
+	                <label for="company">Société : <span class="requis"></span></label>
+	                <input type="text" id="company" name="company" 
+	                	value="<c:out value="${utilisateur.company}"/>" size="75" maxlength="75" />
+	                <span class="erreur">${form.errors['company']}</span>
+	                <br />	                
 	                <label for="admin"> Role : <span class="requis"></span></label>
 	                <input type="radio" name="admin" value="admin" /> Administrateur 
 	                <input type="radio" name="admin" value="stagiaire" checked/> Stagiaire <br/>

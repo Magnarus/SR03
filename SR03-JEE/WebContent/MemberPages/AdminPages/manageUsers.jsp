@@ -14,6 +14,8 @@
 				<th> ID </th>
 				<th> Nom </th>
 				<th> Prénom </th>
+				<th> Téléphone </th>
+				<th> Société </th>
 				<th> Email </th>
 				<th> Mot de passe </th>
 				<th> Administrateur </th>
@@ -24,7 +26,8 @@
 					<td> ${user['id']} </td>
 					<td> ${user['firstName']} </td>
 					<td> ${user['lastName']} </td>
-					<td> ${user['email']} </td>
+					<td> ${user['phoneNumber']} </td>
+					<td> ${user['company']} </td>
 					<td> ${user['password']} </td>
 					<td> 
 						<input type="checkbox" name="isAdmin" 
