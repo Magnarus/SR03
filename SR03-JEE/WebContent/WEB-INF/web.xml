@@ -52,6 +52,10 @@
 			<servlet-name>ManageQuestServlet</servlet-name>
 			<servlet-class>projectSR03.servlets.ManageQuestServlet</servlet-class>
 		</servlet>
+		<servlet>
+			<servlet-name>CreateQuestServlet</servlet-name>
+			<servlet-class>projectSR03.servlets.CreateQuestServlet</servlet-class>
+		</servlet>
 		
 		<servlet-mapping>
 	    	<servlet-name>LoginServlet</servlet-name>
@@ -71,6 +75,10 @@
 		</servlet-mapping>
 		<servlet-mapping>
 	    	<servlet-name>ManageQuestServlet</servlet-name>
-	    	<url-pattern>/manageQuest</url-pattern>
+	    	<url-pattern>/MemberPages/AdminPages/manageQuest</url-pattern>
+		</servlet-mapping>
+		<servlet-mapping>
+	    	<servlet-name>CreateQuestServlet</servlet-name>
+	    	<url-pattern>/MemberPages/AdminPages/createQuest</url-pattern>
 		</servlet-mapping>
 	</web-app>
