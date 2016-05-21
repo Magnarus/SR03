@@ -22,7 +22,7 @@ public class QuestionnaireDAO {
 		ArrayList<QuestionnaireBean> questionnaires =new ArrayList<QuestionnaireBean>();
 		
 		try {
-			preparedStatement = conn.prepareStatement( "SELECT Id, Name, CreationDate FROM Questionnaire;" );
+			preparedStatement = conn.prepareStatement( "SELECT * FROM Questionnaire;" );
 			
 			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
 
@@ -30,7 +30,8 @@ public class QuestionnaireDAO {
 			   QuestionnaireBean questionnaire = new QuestionnaireBean();      
 			   questionnaire.setId(result.getInt("Id"));
 			   questionnaire.setName(result.getString("Name"));
-			   questionnaire.setDateCreation(result.getDate("CreationDate"));
+			   questionnaire.setDateCreation(result.getDate("DateCreation"));
+			   questionnaire.setState(result.getBoolean("State"));
 			   questionnaires.add(questionnaire);
 			}
 			
@@ -44,5 +45,9 @@ public class QuestionnaireDAO {
 		
 		
 		return questionnaires;
+	}
+
+	public static void deleteQuestionnaire(String id) {
+		InteractionsDAO.mySQLwritingQuery("DELETE FROM Questionnaire WHERE Id = \"" + id +"\"");
 	}
 }

@@ -7,26 +7,28 @@
 		<title>Gestion des questionnaires</title>
 	</head>
 	<body>
+		<h1> Gestion des questionnaires </h1>
 		<!--  Affichage des questionnaires existants -->
+		<p> Questionnaires existants </p>	
 		<table>
 			<tr>
 				<th> Nom </th>
 				<th> Date de création </th>
 				<th> Action </th>
 			</tr>
-			<c:forEach var="quest"  items="${requestScope['listQuestionnaire']}" >
+			<c:forEach var="quest"  items="${requestScope['listQuest']}" >
 				<tr>
 			          <td> ${quest.name } </td>
 			          <td> ${quest.dateCreation } </td>
 			          <td> 
-			          		
+			          	<form><input type="hidden" name="id" value="${quest.id}"/><input value="Supprimer" type="submit"/></form>
 			          </td>
 			    </tr>
 			</c:forEach>
-			
-			<!-- Création d'un nouveau questionnaire -->
-			<a href="<c:url value="MemberPages/AdminPages/createQuest.jsp"/>" > Création nouveau questionnaire</a>
-			
 		</table>
+			<!-- Création d'un nouveau questionnaire -->
+			<a href="<c:url value="MemberPages/AdminPages/createQuest"/>" > Création nouveau questionnaire</a>
+			
+		
 	</body>
 </html>
