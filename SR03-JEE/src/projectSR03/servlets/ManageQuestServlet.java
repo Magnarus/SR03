@@ -34,12 +34,12 @@ public class ManageQuestServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		ArrayList<QuestionBean> q = null;
 		
-		System.out.println("Le doPost est bien appelé!");
+		System.out.println("Le doPost est bien appelé!" + id);
 		
 		// Delete des réponses car non lié par clé primaire directe
 		// Nécessite de trouver le questionnaire qu'on veut delete
 		for(QuestionnaireBean b : questionnaires) {
-			if(String.valueOf(b.getId()) == id) {
+			if(String.valueOf(b.getId()).equals(id)) {
 				q = b.getQuestions();
 				questionnaires.remove(questionnaires.indexOf(b));
 				System.out.println("J'ai trouvé le bon questionnaire!" + b);
@@ -52,16 +52,14 @@ public class ManageQuestServlet extends HttpServlet {
 			for(QuestionBean question : q)
 			{
 				QuestionDAO.deleteAnswers(question);
+				QuestionDAO.deleteQuestion(question);
 			}
+			
+			// Puis delete du questionnaire 
+			QuestionnaireDAO.deleteQuestionnaire(id);
 		}
-		
-		// Puis delete du questionnaire 
-		QuestionnaireDAO.deleteQuestionnaire(id);
-		
-		
 		// Renvoi des données pour reload de la page ? 
 		req.setAttribute("listQuest", questionnaires);
 		this.getServletContext().getRequestDispatcher( QUEST_MANAGE ).forward( req, resp );
-		
 	}
 }

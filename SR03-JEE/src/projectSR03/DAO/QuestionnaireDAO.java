@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import projectSR03.beans.QuestionBean;
 import projectSR03.beans.QuestionnaireBean;
 
 public class QuestionnaireDAO {
@@ -32,6 +33,7 @@ public class QuestionnaireDAO {
 			   questionnaire.setName(result.getString("Name"));
 			   questionnaire.setDateCreation(result.getDate("DateCreation"));
 			   questionnaire.setState(result.getBoolean("State"));
+			   questionnaire.setQuestions(QuestionnaireDAO.getQuestions(questionnaire.getId()));
 			   questionnaires.add(questionnaire);
 			}
 			
@@ -45,6 +47,44 @@ public class QuestionnaireDAO {
 		
 		
 		return questionnaires;
+	}
+
+	private static ArrayList<QuestionBean> getQuestions(int id) {
+		ArrayList<QuestionBean> questions = new ArrayList<QuestionBean>();
+		
+
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT Id, Title, RightAnswer, State"
+													+ " FROM Question q, CompoQuestionnaire cq"
+													+ " WHERE cq.IdQuestion=q.Id"
+													+ " AND cq.IdQuestionnaire= " + id + ";" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {
+			   QuestionBean question = new QuestionBean();      
+			   question.setId(result.getInt(1));
+			   question.setTitle(result.getString("Title"));
+			   question.setRightAnswer(result.getInt("RightAnswer"));
+			   question.setState(result.getBoolean("State"));
+			   question.setAnswers(QuestionDAO.getAnswers(question.getId()));
+			   questions.add(question);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		
+		return questions;
 	}
 
 	public static void deleteQuestionnaire(String id) {
