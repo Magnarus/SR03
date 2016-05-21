@@ -25,7 +25,7 @@
 			</c:forEach>
 			
 			<!-- Création d'un nouveau questionnaire -->
-			<a href="<c:url value="MemberPages/AdminPages/createQuest.jsp"/>" > Création nouveau questionnaire</a>
+			<a href="<c:url value="createQuest.jsp"/>" > Création nouveau questionnaire</a>
 			
 		</table>
 	</body>

@@ -11,6 +11,7 @@ public class QuestionnaireBean {
 	private Date dateCreation;
 	private ArrayList<QuestionBean> questions;
 	private boolean state;
+	private String subject;
 	
 	public int getId() { return id;	}
 	public void setId(int id) {	this.id = id; }
@@ -27,6 +28,8 @@ public class QuestionnaireBean {
 	public boolean getState() {	return state;	}
 	public void setState(boolean state) {	this.state = state;	}
 	
+	public String getSubject() { return subject; }
+	public void setSubject(String subject) { this.subject = subject;}
 	
 	public void addQuestion(QuestionBean q) {
 		questions.add(q);
