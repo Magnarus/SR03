@@ -1,4 +1,4 @@
-package projectSR03.beans;
+package projectSR03.forms;
 
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -10,26 +10,21 @@ import projectSR03.DAO.LoginDAO;
 import projectSR03.DAO.MysqljdbcDAO;
 import projectSR03.beans.UserBean;
 
-public final class LoginBean {
+public final class LoginForm extends FormHelper {
 	
     private static final String EMAIL  = "email";
     private static final String PASSWORD   = "password";
 
     private String resultat;
-    private Map<String, String> erreurs = new HashMap<String, String>();
 
     public String getResultat() {
         return resultat;
     }
 
-    public Map<String, String> getErreurs() {
-        return erreurs;
-    }
-
     public UserBean connectUser( HttpServletRequest request ) {
         /* Récupération des champs du formulaire */
-        String email = getValeurChamp( request, EMAIL );
-        String password = getValeurChamp( request, PASSWORD );
+        String email = getFieldValue( request, EMAIL );
+        String password = getFieldValue( request, PASSWORD );
 
         UserBean user = new UserBean();
 
@@ -38,7 +33,7 @@ public final class LoginBean {
             validationLogin( email, password );
         } 
         catch ( Exception e ) {
-            setErreur( EMAIL, e.getMessage() );
+            setError( EMAIL, e.getMessage() );
         }
         
         user.setEmail( email );
@@ -49,11 +44,11 @@ public final class LoginBean {
 			user.setAdmin(isAdmin(email));
 		} 
         catch (Exception e) {
-            setErreur( EMAIL, e.getMessage() );
+            setError( EMAIL, e.getMessage() );
 		}
         
         /* Initialisation du résultat global de la validation. */
-        if ( erreurs.isEmpty() ) {
+        if ( errors.isEmpty() ) {
             resultat = "Succès de la connexion.";
         } 
         else {
@@ -82,29 +77,8 @@ public final class LoginBean {
         
     }
     
-    private boolean isAdmin( String email ) throws Exception {
-    	
+    private static boolean isAdmin( String email ) throws Exception {
     	return LoginDAO.isAdmin(email);
     }
-
-
-    /**
-     * Ajoute un message correspondant au champ spécifié à la map des erreurs.
-     */
-    private void setErreur( String champ, String message ) {
-        erreurs.put( champ, message );
-    }
-
-    /**
-     * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
-     * sinon.
-     */
-    private static String getValeurChamp( HttpServletRequest request, String nomChamp ) {
-        String valeur = request.getParameter( nomChamp );
-        if ( valeur == null || valeur.trim().length() == 0 ) {
-            return null;
-        } else {
-            return valeur;
-        }
-    }
+    
 }

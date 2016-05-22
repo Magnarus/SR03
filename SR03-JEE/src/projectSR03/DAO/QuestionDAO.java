@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import projectSR03.beans.AnswerBean;
+import projectSR03.beans.CompoQuestionnaireBean;
 import projectSR03.beans.QuestionBean;
 
 public class QuestionDAO {
@@ -16,6 +17,14 @@ public class QuestionDAO {
 		for(AnswerBean ans : question.getAnswers()) {
 			InteractionsDAO.mySQLwritingQuery("DELETE FROM Answer Where Id = " + ans.getId() + ";" );
 		}
+	}
+	
+	public static void addQuestion(CompoQuestionnaireBean bean, String order) {
+		String ajoutQuestion = "INSERT INTO sr03p028.Question(Title) VALUES(\""+ bean.getQuestion().getTitle() + "\")";
+		int key = InteractionsDAO.mySQLwritingQuery(ajoutQuestion);
+		String ajoutCompo = "INSERT INTO sr03p028.CompoQuestionnaire VALUES(" + key + ","  + bean.getQuestionnaireId()+"," + order + ")";
+		InteractionsDAO.mySQLwritingQuery(ajoutCompo);
+		
 	}
 
 	public static void deleteQuestion(QuestionBean question) {
