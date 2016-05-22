@@ -19,9 +19,11 @@ public class QuestionDAO {
 		}
 	}
 	
-	public static void addQuestion(CompoQuestionnaireBean bean, String order) {
+	public static void addQuestion(CompoQuestionnaireBean bean) {
 		String ajoutQuestion = "INSERT INTO sr03p028.Question(Title) VALUES(\""+ bean.getQuestion().getTitle() + "\")";
 		int key = InteractionsDAO.mySQLwritingQuery(ajoutQuestion);
+		int qId = Integer.parseInt(bean.getQuestionnaireId());
+		String order = Integer.toString(QuestionnaireDAO.getQuestions(qId).size()+1);
 		String ajoutCompo = "INSERT INTO sr03p028.CompoQuestionnaire VALUES(" + key + ","  + bean.getQuestionnaireId()+"," + order + ")";
 		InteractionsDAO.mySQLwritingQuery(ajoutCompo);
 		

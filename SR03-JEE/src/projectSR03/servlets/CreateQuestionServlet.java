@@ -24,8 +24,7 @@ public class CreateQuestionServlet extends HttpServlet {
 		CompoQuestionnaireBean bean = form.createQuestion(req);
 		if(form.getErrors().isEmpty()) {
 			int qId = Integer.parseInt(bean.getQuestionnaireId());
-			String order = Integer.toString(QuestionnaireDAO.getQuestions(qId).size()+1);
-			QuestionDAO.addQuestion(bean, order);
+			QuestionDAO.addQuestion(bean);
 			resp.sendRedirect(req.getContextPath() + D_QUEST + "?id="+qId);
 		} else {
 			req.setAttribute("form", form);
