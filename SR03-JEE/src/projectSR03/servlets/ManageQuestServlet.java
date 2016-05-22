@@ -18,14 +18,12 @@ import projectSR03.beans.QuestionnaireBean;
 @WebServlet("/MemberPages/AdminPages/manageQuest")
 public class ManageQuestServlet extends HttpServlet {
 	private static final String QUEST_MANAGE = "/MemberPages/AdminPages/manageQuest.jsp";
-	private static final String LOGIN = "/login.jsp";
 
 	private ArrayList<QuestionnaireBean> questionnaires;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		questionnaires =  QuestionnaireDAO.getQuestionnaires();
-		System.out.println("Appelé, liste : " + questionnaires);
 		req.setAttribute("listQuest", questionnaires);
 		this.getServletContext().getRequestDispatcher( QUEST_MANAGE ).forward( req, resp );
 	}
@@ -42,8 +40,7 @@ public class ManageQuestServlet extends HttpServlet {
 		for(QuestionnaireBean b : questionnaires) {
 			if(String.valueOf(b.getId()).equals(id)) {
 				q = b.getQuestions();
-				questionnaires.remove(questionnaires.indexOf(b));
-				System.out.println("J'ai trouvé le bon questionnaire!" + b);
+				questionnaires.remove(b);
 				break;
 			}
 		}

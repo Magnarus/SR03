@@ -104,4 +104,70 @@ public class QuestionnaireDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public static ArrayList<QuestionnaireBean> getQuestionnairesActif() {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		ArrayList<QuestionnaireBean> questionnaires =new ArrayList<QuestionnaireBean>();
+		
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT * FROM Questionnaire WHERE state = 1;" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {
+			   QuestionnaireBean questionnaire = new QuestionnaireBean();      
+			   questionnaire.setId(result.getInt("Id"));
+			   questionnaire.setName(result.getString("Name"));
+			   questionnaire.setDateCreation(result.getDate("DateCreation"));
+			   questionnaire.setState(result.getBoolean("State"));
+			   questionnaire.setQuestions(QuestionnaireDAO.getQuestions(questionnaire.getId()));
+			   questionnaires.add(questionnaire);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		
+		return questionnaires;
+		
+	}
+
+	public static QuestionnaireBean getQuestionnaire(int id) {
+
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		QuestionnaireBean questionnaire = new QuestionnaireBean();
+		
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT * FROM Questionnaire Where Id = " + id + ";" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {    
+			   questionnaire.setId(result.getInt("Id"));
+			   questionnaire.setName(result.getString("Name"));
+			   questionnaire.setDateCreation(result.getDate("DateCreation"));
+			   questionnaire.setState(result.getBoolean("State"));
+			   questionnaire.setQuestions(QuestionnaireDAO.getQuestions(questionnaire.getId()));
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		
+		return questionnaire;
+	}
 }

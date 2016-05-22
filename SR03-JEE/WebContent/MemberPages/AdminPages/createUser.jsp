@@ -5,7 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Création d'un utilisateur</title>
-		<link type="text/css" rel="stylesheet" href="/SR03-JEE/WebContent/form.css" />
+		<link type="text/css" rel="stylesheet" href="../../form.css" />
 	</head>
 		<body>
 		<form method="post">
