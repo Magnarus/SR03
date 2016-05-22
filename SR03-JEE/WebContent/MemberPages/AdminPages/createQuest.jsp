@@ -15,10 +15,12 @@
 
                 <label for="title">Titre : <span class="requis"></span></label>
                 <input type="text" id="title" name="title" size="20" maxlength="60" />
+               	<span class="erreur">${form.errors['title']}</span>
                 <br />
 
                 <label for="subject">Sujet : <span class="requis"></span></label>
                 <input type="text" id="subject" name="subject" value="" size="20" maxlength="20" />
+                <span class="erreur">${form.errors['subject']}</span>
                 <br />
 
                 <input type="submit" value="Créer" class="sansLabel" />

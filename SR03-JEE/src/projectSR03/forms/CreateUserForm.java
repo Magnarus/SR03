@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import projectSR03.DAO.UserDAO;
 import projectSR03.beans.UserBean;
 
-public final class CreateUserForm {
+public final class CreateUserForm extends FormHelper{
 	 private static final String CHAMP_EMAIL  = "email";
 	 private static final String CHAMP_PASS   = "password";
      private static final String CHAMP_LASTNAME    = "lastname";
@@ -22,7 +22,6 @@ public final class CreateUserForm {
      private Map<String, String> errors      = new HashMap<String, String>();
 
      public String getResult() {    return result;     }
-     public Map<String, String> getErrors() {    return errors;    }
      
      public UserBean createUser( HttpServletRequest request ) {
     	    String email = getFieldValue( request, CHAMP_EMAIL );
@@ -130,27 +129,4 @@ public final class CreateUserForm {
 	        throw new Exception( "Champs invalide." );
 	    }
 	}
-	
-	
-	/*
-	 * Ajoute un message correspondant au champ spécifié à la map des erreurs.
-	 */
-	
-	private void setError( String champ, String message ) {    errors.put( champ, message ); }
-	
-	
-	/*
-	 * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
-	 * sinon.
-	 */
-	
-	private static String getFieldValue( HttpServletRequest request, String nomChamp ) {
-	    String valeur = request.getParameter( nomChamp );
-	    if ( valeur == null || valeur.trim().length() == 0 ) {
-	        return null;
-	    } else {
-	        return valeur.trim();
-	    }
-	}
-
 }

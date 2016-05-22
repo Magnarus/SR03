@@ -21,7 +21,6 @@ public class DetailQuestServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		questions = QuestionnaireDAO.getQuestions(Integer.parseInt(req.getParameter("id")));
-		System.out.println("after request :" + questions.get(0).getId());
 		req.setAttribute("questions", questions);
 		this.getServletContext().getRequestDispatcher( D_QUEST ).forward( req, resp);
 	}

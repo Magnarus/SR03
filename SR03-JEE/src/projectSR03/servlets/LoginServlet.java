@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import projectSR03.DAO.UserDAO;
-import projectSR03.beans.LoginBean;
 import projectSR03.beans.UserBean;
+import projectSR03.forms.LoginForm;
+
+
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -35,13 +37,13 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		LoginBean login = new LoginBean();
+		LoginForm login = new LoginForm();
 		
 		UserBean user = login.connectUser(req);
 		
         HttpSession session = req.getSession();
 		
-		if (login.getErreurs().isEmpty()){
+		if (login.getErrors().isEmpty()){
 			user = UserDAO.getUser(req.getParameter("email"));
 			session.setAttribute(SESSION, user);
 		}

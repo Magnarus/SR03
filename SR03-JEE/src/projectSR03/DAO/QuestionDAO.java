@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import projectSR03.beans.AnswerBean;
+import projectSR03.beans.CompoQuestionnaireBean;
 import projectSR03.beans.QuestionBean;
 
 public class QuestionDAO {
@@ -16,9 +17,36 @@ public class QuestionDAO {
 			InteractionsDAO.mySQLwritingQuery("DELETE FROM Answer Where Id = " + ans.getId() + ";" );
 		}
 	}
+	
+	public static void addQuestion(CompoQuestionnaireBean bean) {
+		String ajoutQuestion = "INSERT INTO sr03p028.Question(Title) VALUES(\""+ bean.getQuestion().getTitle() + "\")";
+		int key = InteractionsDAO.mySQLwritingQuery(ajoutQuestion);
+		int qId = Integer.parseInt(bean.getQuestionnaireId());
+		String order = Integer.toString(QuestionnaireDAO.getQuestions(qId).size()+1);
+		String ajoutCompo = "INSERT INTO sr03p028.CompoQuestionnaire VALUES(" + key + ","  + bean.getQuestionnaireId()+"," + order + ")";
+		InteractionsDAO.mySQLwritingQuery(ajoutCompo);
+		
+	}
 
 	public static void deleteQuestion(QuestionBean question) {
 		InteractionsDAO.mySQLwritingQuery("DELETE FROM Question Where Id = " + question.getId() + ";" );
+	}
+	
+	public static int getMaxCompoQuestionId() {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		int id = -1;
+		try {
+			preparedStatement = conn.prepareStatement("SELECT MAX(id) FROM CompoQuestion");
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+			if(result.next()) {
+				id = result.getInt(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 
 	public static ArrayList<AnswerBean> getAnswers(int id) {

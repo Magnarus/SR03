@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link type="text/css" rel="stylesheet" href="../../form.css" />
 		<title>Questions du questionnaire</title>
 	</head>
 	<body>
@@ -22,5 +23,20 @@
 			    </tr>
 			</c:forEach>
 		</table>
+		<br/>
+		<form method="post" action="createQuestion">
+            <fieldset>
+                <legend>Création d'une question</legend>
+                <p>Création d'une question : </p>
+
+                <label for="title">Titre : <span class="requis"></span></label>
+                <input type="text" id="title" name="title" size="20" maxlength="60" />
+                <input type="hidden" name="q_id" value="${param.id}" />
+                <span class="erreur">${form.errors['title']}</span>
+                <br />
+                <input type="submit" value="Créer" class="sansLabel" />
+                <br />
+            </fieldset>
+        </form>
 	</body>
 </html>

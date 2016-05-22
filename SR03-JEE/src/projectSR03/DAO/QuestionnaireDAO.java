@@ -61,7 +61,8 @@ public class QuestionnaireDAO {
 			preparedStatement = conn.prepareStatement( "SELECT Id, Title, RightAnswer, State, OrderQuestion"
 													+ " FROM Question q, CompoQuestionnaire cq"
 													+ " WHERE cq.IdQuestion=q.Id"
-													+ " AND cq.IdQuestionnaire= " + id + ";" );
+													+ " AND cq.IdQuestionnaire= " + id
+													+ " ORDER BY cq.OrderQuestion" + ";" );
 			
 			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
 
