@@ -15,7 +15,7 @@
 			</tr>
 			<c:forEach var="q"  items="${requestScope['questions']}" >
 				<tr>
-			          <td>${q.title} </a></td>
+			          <td><a href="<c:url value="manageAnswer?id=${q.id}"/>" >${q.title} </a></td>
 			          <td> 
 			          	<form  method="POST"><input type="hidden" name="q_id" value="${q.id}"/><input value="Supprimer" type="submit"/></form>
 			          </td>
