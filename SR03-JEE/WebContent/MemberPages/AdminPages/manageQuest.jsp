@@ -18,7 +18,7 @@
 			</tr>
 			<c:forEach var="quest"  items="${requestScope['listQuest']}" >
 				<tr>
-			          <td> ${quest.name } </td>
+			          <td><a href="<c:url value="detailQuest?id=${quest.id}"/>" >${quest.name } </a></td>
 			          <td> ${quest.dateCreation } </td>
 			          <td> 
 			          	<form  method="POST"><input type="hidden" name="id" value="${quest.id}"/><input value="Supprimer" type="submit"/></form>

@@ -49,7 +49,7 @@ public class QuestionnaireDAO {
 		return questionnaires;
 	}
 
-	private static ArrayList<QuestionBean> getQuestions(int id) {
+	public static ArrayList<QuestionBean> getQuestions(int id) {
 		ArrayList<QuestionBean> questions = new ArrayList<QuestionBean>();
 		
 
