@@ -19,8 +19,7 @@ public class QuestionDAO {
 	}
 
 	public static void deleteQuestion(QuestionBean question) {
-		// TODO Auto-generated method stub
-		InteractionsDAO.mySQLwritingQuery("DELETE FROM Answer Where Id = " + question.getId() + ";" );
+		InteractionsDAO.mySQLwritingQuery("DELETE FROM Question Where Id = " + question.getId() + ";" );
 	}
 
 	public static ArrayList<AnswerBean> getAnswers(int id) {
