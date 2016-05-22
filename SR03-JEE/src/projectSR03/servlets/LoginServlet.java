@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import projectSR03.DAO.UserDAO;
 import projectSR03.beans.LoginBean;
 import projectSR03.beans.UserBean;
 
@@ -41,7 +42,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = req.getSession();
 		
 		if (login.getErreurs().isEmpty()){
-
+			user = UserDAO.getUser(req.getParameter("email"));
 			session.setAttribute(SESSION, user);
 		}
 		else {

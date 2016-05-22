@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 
-import projectSR03.beans.QuestionnaireBean;
+import com.mysql.jdbc.Statement;
+
 import projectSR03.beans.RunBean;
 
 public class RunDAO {
@@ -45,6 +47,33 @@ public class RunDAO {
 		
 		
 		return runs;
+	}
+
+	public static int createRun(String questId, int id) {
+		String rqt = "INSERT INTO Run(Duration, idUser, idQuestionnaire, Score, Date) "
+				+ "VALUES(?,?,?,?, SYSDATE());";
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int idRun = 0;
+		try {
+			statement = conn.prepareStatement(rqt, Statement.RETURN_GENERATED_KEYS);
+			statement.setTime(1, new Time(0));
+			statement.setInt(2, id);
+			statement.setInt(3, Integer.parseInt(questId));
+			statement.setLong(4, 0);
+			statement.executeUpdate();
+			resultSet = statement.getGeneratedKeys();
+			if(resultSet.next() && resultSet!=null) {
+				idRun = resultSet.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			MysqljdbcDAO.closeConnection(resultSet, statement, conn);
+		}
+		
+		return idRun;
 	}
 
 }

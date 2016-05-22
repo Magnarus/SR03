@@ -58,7 +58,7 @@ public class QuestionnaireDAO {
 		ResultSet result = null;
 
 		try {
-			preparedStatement = conn.prepareStatement( "SELECT Id, Title, RightAnswer, State"
+			preparedStatement = conn.prepareStatement( "SELECT Id, Title, RightAnswer, State, OrderQuestion"
 													+ " FROM Question q, CompoQuestionnaire cq"
 													+ " WHERE cq.IdQuestion=q.Id"
 													+ " AND cq.IdQuestionnaire= " + id + ";" );
@@ -71,6 +71,7 @@ public class QuestionnaireDAO {
 			   question.setTitle(result.getString("Title"));
 			   question.setRightAnswer(result.getInt("RightAnswer"));
 			   question.setState(result.getBoolean("State"));
+			   question.setOrder(result.getInt("OrderQuestion"));
 			   question.setAnswers(QuestionDAO.getAnswers(question.getId()));
 			   questions.add(question);
 			}

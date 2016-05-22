@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Parcours</title>
 </head>
 <body>
-		<h1> Listes des questionnaires disponibles </h1>
+		<h1> Listes des parcours précédents </h1>
 		<!--  Affichage des questionnaires existants -->
-		<p> Questionnaires existants </p>	
+		<p> Parcours </p>	
 		<table>
 			<tr>
 				<th> Sujet </th>

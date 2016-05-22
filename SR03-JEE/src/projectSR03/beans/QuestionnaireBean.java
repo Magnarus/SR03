@@ -31,12 +31,16 @@ public class QuestionnaireBean {
 	public String getSubject() { return subject; }
 	public void setSubject(String subject) { this.subject = subject;}
 	
-	public void addQuestion(QuestionBean q) {
-		questions.add(q);
-	}
-	
 	public void removeQuestion(QuestionBean q) {
 		questions.remove(q);
+	}
+	public QuestionBean getQuestion(int currentQuestion) {
+		for(QuestionBean q : questions) {
+			if(q.getOrder() == currentQuestion) {
+				return q;
+			}
+		}		
+		return null;
 	}
 
 

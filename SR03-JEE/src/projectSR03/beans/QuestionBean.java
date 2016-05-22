@@ -10,6 +10,7 @@ public class QuestionBean {
 	private ArrayList<AnswerBean> answers;
 	private int rightAnswer;
 	private boolean state;
+	private int order;
 	
 	
 	public int getId() {	return id;	}
@@ -22,12 +23,15 @@ public class QuestionBean {
 	public void setAnswers(ArrayList<AnswerBean> answers) {	
 		this.answers = answers;
 	}
+	
 	public int getRightAnswer() {	return rightAnswer;	}
 	public void setRightAnswer(int rightAnswer) {	this.rightAnswer = rightAnswer;	}
 	
-	
 	public boolean getState() {	return state;	}
 	public void setState(boolean state) {	this.state = state;	}
+	
+	public int getOrder() {	return order;	}
+	public void setOrder(int order) { this.order = order;	}
 	
 	public void addAnswer (AnswerBean ans) {
 		answers.add(ans);
@@ -36,6 +40,7 @@ public class QuestionBean {
 	public void removeAnswer (AnswerBean ans) {
 		answers.remove(ans);
 	}
+
 	
 	
 	

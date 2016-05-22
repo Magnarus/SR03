@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import projectSR03.beans.UserBean;
 
 public class UserDAO {
@@ -78,6 +80,33 @@ public class UserDAO {
 		}
 		
 		return nbResult == 0;
+	}
+
+	
+	
+	public static UserBean getUser(String email) {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		UserBean user = new UserBean();
+		
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT * FROM User WHERE Email = \""+ email +"\";" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+			
+			while(result.next()){
+				user = UserBean.map(result);
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		return user;
 	}
 	
 }

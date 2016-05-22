@@ -12,7 +12,6 @@ import projectSR03.beans.QuestionBean;
 public class QuestionDAO {
 	
 	public static void deleteAnswers(QuestionBean question) {
-		System.out.println("Je delete les answers!");
 		for(AnswerBean ans : question.getAnswers()) {
 			InteractionsDAO.mySQLwritingQuery("DELETE FROM Answer Where Id = " + ans.getId() + ";" );
 		}
@@ -35,10 +34,6 @@ public class QuestionDAO {
 													+ " FROM Answer a, CompoQuestion cq"
 													+ " WHERE cq.IdAnswer=a.Id"
 													+ " AND cq.IdQuestion= " + id + ";" );
-			System.out.println("SELECT Id, Value, State"
-													+ " FROM Answer a, CompoQuestion cq"
-													+ " WHERE cq.IdAnswer=a.Id"
-													+ " AND cq.IdQuestion= " + id + ";");
 			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
 
 			while(result.next()) {

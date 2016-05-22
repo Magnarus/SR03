@@ -21,7 +21,7 @@
 			          <td> ${quest.name } </td>
 			          <td> ${quest.dateCreation } </td>
 			          <td> 
-			          	<form  method="POST"><input type="hidden" name="id" value="${quest.id}"/><input value="Effectuer" type="submit"/></form>
+			          	<form method="POST"><input type="hidden" name="id" value="${quest.id}"/><input value="Effectuer" type="submit"/></form>
 			          </td>
 			    </tr>
 			</c:forEach>
