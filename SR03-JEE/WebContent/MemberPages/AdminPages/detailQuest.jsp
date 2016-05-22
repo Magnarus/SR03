@@ -17,7 +17,7 @@
 				<tr>
 			          <td>${q.title} </a></td>
 			          <td> 
-			          	<form  method="POST"><input type="hidden" name="id" value="${q.id}"/><input value="Supprimer" type="submit"/></form>
+			          	<form  method="POST"><input type="hidden" name="q_id" value="${q.id}"/><input value="Supprimer" type="submit"/></form>
 			          </td>
 			    </tr>
 			</c:forEach>
