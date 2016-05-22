@@ -21,8 +21,18 @@ public class ManageAnswerServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		answers = QuestionDAO.getAnswers(Integer.parseInt(req.getParameter("id")));
+		String right = req.getParameter("right");
+		String questionId = req.getParameter("id");
+		int rightAnswer = -1;
+		if(right != null && questionId != null) {
+			QuestionDAO.setRightAnswer(questionId, right);
+		}
+		if (questionId != null) {
+			answers = QuestionDAO.getAnswers(Integer.parseInt(questionId));
+			rightAnswer = QuestionDAO.getRightAnswer(questionId);
+		}
 		req.setAttribute("answers", answers);
+		req.setAttribute("rightAnswer", Integer.toString(rightAnswer));
 		this.getServletContext().getRequestDispatcher( D_ANSWER ).forward( req, resp);
 	}
 

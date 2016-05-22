@@ -12,11 +12,18 @@
 	<table>
 			<tr>
 				<th> Valeur </th>
+				<th> Bonne réponse </th>
 				<th> Action </th>
 			</tr>
 			<c:forEach var="a"  items="${requestScope['answers']}" >
 				<tr>
 			          <td>${a.value}</td>
+			          <td>
+			          <c:choose>
+			              <c:when test="${a.id == rightAnswer}">Oui</c:when>
+			              <c:otherwise>Non <a href="?id=${param.id}&right=${a.id}">Changer</a></c:otherwise>
+			          </c:choose>
+			          </td>
 			          <td> 
 			          	<form  method="POST"><input type="hidden" name="a_id" value="${a.id}"/><input value="Supprimer" type="submit"/></form>
 			          </td>

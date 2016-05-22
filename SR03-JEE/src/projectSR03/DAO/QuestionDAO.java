@@ -48,6 +48,27 @@ public class QuestionDAO {
 		}
 		return id;
 	}
+	
+	public static int getRightAnswer(String questionId) {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		int answerId = -1;
+		try {
+			preparedStatement = conn.prepareStatement("SELECT RightAnswer " 
+													  + "FROM Question "
+													  + "WHERE Id = " + questionId);
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+			if(result != null && result.next()) answerId = result.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return answerId;
+	}
+	
+	public static void setRightAnswer(String qId, String aId) {
+		InteractionsDAO.mySQLwritingQuery("UPDATE Question SET RightAnswer='"+aId+"' WHERE Id='"+qId+"'");
+	}
 
 	public static ArrayList<AnswerBean> getAnswers(int id) {
 		ArrayList<AnswerBean> answers = new ArrayList<AnswerBean>();
