@@ -109,7 +109,7 @@ public class QuestionDAO {
 		return answers;
 	}
 	
-	public static void upQuestionOrder(String id) {
+	public static void upQuestionOrder(String id, String questionnaireId) {
 		int currentOrder = getQuestionOrder(id);
 		String newOrder = Integer.toString(currentOrder-1);
 		InteractionsDAO.mySQLwritingQuery("UPDATE CompoQuestionnaire"
@@ -121,10 +121,11 @@ public class QuestionDAO {
 		InteractionsDAO.mySQLwritingQuery("UPDATE CompoQuestionnaire"
 										 +" SET OrderQuestion='"+currentOrderString
 										+"' WHERE idQuestion<>'" + id + "'"
-										 +" AND OrderQuestion = '"+newOrder+"'");
+										 +" AND OrderQuestion = '"+newOrder+"'"
+										 +" AND idQuestionnaire = '"+questionnaireId+"'");
 	}
 	
-	public static void downQuestionOrder(String id) {
+	public static void downQuestionOrder(String id, String questionnaireId) {
 		int currentOrder = getQuestionOrder(id);
 		String newOrder = Integer.toString(currentOrder+1);
 		InteractionsDAO.mySQLwritingQuery("UPDATE CompoQuestionnaire"
@@ -136,7 +137,8 @@ public class QuestionDAO {
 		InteractionsDAO.mySQLwritingQuery("UPDATE CompoQuestionnaire"
 										 +" SET OrderQuestion='"+currentOrderString
 										+"' WHERE idQuestion<>'" + id + "'"
-										 +" AND OrderQuestion = '"+newOrder+"'");
+										 +" AND OrderQuestion = '"+newOrder+"'"
+										 +" AND idQuestionnaire = '"+questionnaireId+"'");
 	}
 	
 	private static int getQuestionOrder(String id) {

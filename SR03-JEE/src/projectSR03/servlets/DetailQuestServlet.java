@@ -35,14 +35,15 @@ public class DetailQuestServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("q_id");
+		String questionnaireId = req.getParameter("id");
 		if(req.getParameter("supprimer") != null && id !=null) {
 			removeQuestion(id);
 		}
 		if(req.getParameter("monter") != null && id != null) {
-			upOrder(id);
+			upOrder(id, questionnaireId);
 		}
 		if(req.getParameter("descendre") != null && id != null) {
-			downOrder(id);
+			downOrder(id, questionnaireId);
 		}
 		questions = QuestionnaireDAO.getQuestions(Integer.parseInt(req.getParameter("id")));
 		req.setAttribute("questions", questions);
@@ -61,11 +62,11 @@ public class DetailQuestServlet extends HttpServlet {
 		}
 	}
 	
-	private void upOrder(String id) {
-		QuestionDAO.upQuestionOrder(id);
+	private void upOrder(String id, String questionnaireId) {
+		QuestionDAO.upQuestionOrder(id, questionnaireId);
 	}
 	
-	private void downOrder(String id) {
-		QuestionDAO.downQuestionOrder(id);
+	private void downOrder(String id, String questionnaireId) {
+		QuestionDAO.downQuestionOrder(id, questionnaireId);
 	}
 }
