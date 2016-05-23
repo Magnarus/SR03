@@ -27,7 +27,7 @@ public class ListRunServlet extends HttpServlet {
 		
 		run = RunDAO.getUserRuns(user.getId());
 		req.setAttribute("listRun", run);
-		this.getServletContext().getRequestDispatcher( RUN_LIST ).forward( req, resp );		
+		this.getServletContext().getRequestDispatcher( RUN_LIST ).forward( req, resp );	
 	}
 
 }
