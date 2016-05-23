@@ -11,8 +11,8 @@ public class RunBean {
 	private UserBean user;
 	private float score;
 	private Date date;
-	private Time duration;
-	private HashMap<QuestionBean, AnswerBean> answers;
+	private String duration;
+	private HashMap<QuestionBean, Integer> answers;
 	private QuestionnaireBean quest;
 	
 	public int getId() {	return id;	}
@@ -27,16 +27,16 @@ public class RunBean {
 	public Date getDate() {		return date;	}
 	public void setDate(Date date) {	this.date = date;	}
 	
-	public Time getDuration() {	return duration;	}
-	public void setDuration(Time duration) {	this.duration = duration;	}
+	public String getDuration() {	return duration;	}
+	public void setDuration(String duration) {	this.duration = duration;	}
 	
-	public HashMap<QuestionBean, AnswerBean> getAnswers() {	return answers;	}
-	public void setAnswers(HashMap<QuestionBean, AnswerBean> answers) {	this.answers = answers;	}
+	public HashMap<QuestionBean, Integer> getAnswers() {	return answers;	}
+	public void setAnswers(HashMap<QuestionBean, Integer> answers) {	this.answers = answers;	}
 	
 	public QuestionnaireBean getQuest() {	return quest;	}
 	public void setQuest(QuestionnaireBean quest) {	this.quest = quest;	}
 	
-	public void addAnswer(QuestionBean q, AnswerBean a) {
+	public void addAnswer(QuestionBean q, Integer a) {
 			answers.put(q, a);
 	}
 	

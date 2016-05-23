@@ -4,9 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import com.mysql.jdbc.Statement;
 
@@ -29,7 +28,12 @@ public class RunDAO {
 			   RunBean run = new RunBean(); 
 			   run.setId(result.getInt("Id"));
 			   run.setDate(result.getDate("Date"));
-			   run.setDuration(result.getTime("Duration"));
+			   String time = String.format("%02d min, %02d sec", 
+					    TimeUnit.MILLISECONDS.toMinutes((long) result.getFloat("Duration")),
+					    TimeUnit.MILLISECONDS.toSeconds((long) result.getFloat("Duration")) - 
+					    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) result.getFloat("Duration")))
+					);
+			   run.setDuration(time);
 			   run.setScore(result.getLong("Score"));
 			   run.setQuest(QuestionnaireDAO.getQuestionnaire(result.getInt("idQuestionnaire")));
 			   
@@ -59,7 +63,7 @@ public class RunDAO {
 		int idRun = 0;
 		try {
 			statement = conn.prepareStatement(rqt, Statement.RETURN_GENERATED_KEYS);
-			statement.setTime(1, new Time(new Date().getTime() - new Date().getTime()));
+			statement.setFloat(1,0);
 			statement.setInt(2, id);
 			statement.setInt(3, Integer.parseInt(questId));
 			statement.setLong(4, 0);
@@ -77,14 +81,13 @@ public class RunDAO {
 		return idRun;
 	}
 
-	public static void UpdateScore(int idRun, Date start) {
-		String rqt = "UPDATE Run SET Score = Score + 1, Duration = \"" + new Time((new Date().getTime() - start.getTime()))+ "\""
+	public static void UpdateScore(int idRun, long start) {
+		String rqt = "UPDATE Run SET Score = Score + 1, Duration = " + (System.currentTimeMillis() - start) + ""
 					+ " WHERE Id = " + idRun;
 		Connection conn = MysqljdbcDAO.mySQLgetConnection();
 		PreparedStatement statement = null;
-		
+		System.out.println(rqt);
 		try {
-			System.out.println(rqt);
 			statement = conn.prepareStatement(rqt);
 			statement.executeQuery();			
 		} 

@@ -2,6 +2,7 @@ package projectSR03.servlets;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,14 +20,15 @@ import projectSR03.beans.QuestionnaireBean;
 @WebServlet("/MemberPages/StagiairePages/runPage")
 public class RunPageServlet extends HttpServlet {
 	private static final String RUN_PAGE = "/MemberPages/StagiairePages/runPage.jsp";
-	private static final String HOME_STAGIAIRE = "/MemberPages/StagiairePages/homeStagiaire.jsp";
+	private static final String RECAP_STAGIAIRE = "/MemberPages/StagiairePages/recap.jsp";
 	
-	private Date runBegin; // Date de début de la question courante
+	private long runBegin; // Date de début de la question courante
 	private int idRun = -1; // ID de la BDD pour le Run courant
 	private int idQuest; // ID du questionnaire choisit
 	private int currentQuestion = 1; // Ordre pour savoir quelle question afficher ensuite
 	private QuestionnaireBean questionnaire;
 	private QuestionBean current;
+	private LinkedHashMap<QuestionBean, Integer> m = new LinkedHashMap<QuestionBean, Integer>();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,6 +54,9 @@ public class RunPageServlet extends HttpServlet {
 			// Mettre à jour le run
 			if(current.getRightAnswer() == idAnswer) {
 				RunDAO.UpdateScore(idRun, runBegin);
+				m.put(current, 0);
+			}  else {
+				m.put(current, 1);
 			}
 			
 			currentQuestion++;
@@ -61,10 +66,10 @@ public class RunPageServlet extends HttpServlet {
 		if(req.getAttribute("idRun") != null &&
 				(int) req.getAttribute("idRun") != idRun && 
 				req.getParameter("idRun") == null) { 
-			
+			m.clear();
 			idRun = (int) req.getAttribute("idRun");
 			idQuest = Integer.parseInt((String) req.getAttribute("questId"));
-			runBegin = new Date();
+			runBegin = System.currentTimeMillis();
 			questionnaire = QuestionnaireDAO.getQuestionnaire(idQuest);
 			currentQuestion = 1;
 			resp.sendRedirect(req.getContextPath() + "/MemberPages/StagiairePages/runPage");
@@ -73,9 +78,9 @@ public class RunPageServlet extends HttpServlet {
 			current = questionnaire.getQuestion(currentQuestion);
 			
 			if(current == null) { // Fin du questionnaire 
-				System.out.println("Fin du questionnaire");
+				req.setAttribute("result", m);
 				idRun = -1;
-				resp.sendRedirect(req.getContextPath() + HOME_STAGIAIRE);
+				this.getServletContext().getRequestDispatcher( RECAP_STAGIAIRE ).forward( req, resp);
 			} else {
 				req.setAttribute("questionInformations", current);
 				req.setAttribute("idRun", idRun);

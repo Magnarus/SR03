@@ -31,6 +31,7 @@ public class QuestionnaireDAO {
 			   QuestionnaireBean questionnaire = new QuestionnaireBean();      
 			   questionnaire.setId(result.getInt("Id"));
 			   questionnaire.setName(result.getString("Name"));
+			   questionnaire.setSubject(result.getString("Subject"));
 			   questionnaire.setDateCreation(result.getDate("DateCreation"));
 			   questionnaire.setState(result.getBoolean("State"));
 			   questionnaire.setQuestions(QuestionnaireDAO.getQuestions(questionnaire.getId()));
@@ -122,6 +123,7 @@ public class QuestionnaireDAO {
 			   QuestionnaireBean questionnaire = new QuestionnaireBean();      
 			   questionnaire.setId(result.getInt("Id"));
 			   questionnaire.setName(result.getString("Name"));
+			   questionnaire.setSubject(result.getString("Subject"));
 			   questionnaire.setDateCreation(result.getDate("DateCreation"));
 			   questionnaire.setState(result.getBoolean("State"));
 			   questionnaire.setQuestions(QuestionnaireDAO.getQuestions(questionnaire.getId()));
@@ -162,6 +164,7 @@ public class QuestionnaireDAO {
 			   questionnaire.setName(result.getString("Name"));
 			   questionnaire.setDateCreation(result.getDate("DateCreation"));
 			   questionnaire.setState(result.getBoolean("State"));
+			   questionnaire.setSubject(result.getString("Subject"));
 			   questionnaire.setQuestions(QuestionnaireDAO.getQuestions(questionnaire.getId()));
 			}
 			
