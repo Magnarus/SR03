@@ -18,6 +18,7 @@ public class DetailQuestServlet extends HttpServlet {
 
 	public static final String D_QUEST = "/MemberPages/AdminPages/detailQuest.jsp";
 	private ArrayList<QuestionBean> questions;
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("questionId");
@@ -27,12 +28,29 @@ public class DetailQuestServlet extends HttpServlet {
 		}
 		questions = QuestionnaireDAO.getQuestions(Integer.parseInt(req.getParameter("id")));
 		req.setAttribute("questions", questions);
+		req.setAttribute("size", questions.size());
 		this.getServletContext().getRequestDispatcher( D_QUEST ).forward( req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("q_id");
+		if(req.getParameter("supprimer") != null && id !=null) {
+			removeQuestion(id);
+		}
+		if(req.getParameter("monter") != null && id != null) {
+			upOrder(id);
+		}
+		if(req.getParameter("descendre") != null && id != null) {
+			downOrder(id);
+		}
+		questions = QuestionnaireDAO.getQuestions(Integer.parseInt(req.getParameter("id")));
+		req.setAttribute("questions", questions);
+		req.setAttribute("size", questions.size());
+		this.getServletContext().getRequestDispatcher(D_QUEST).forward( req, resp );
+	}
+	
+	private void removeQuestion(String id) {
 		for(QuestionBean question : questions) {
 			if(question.getId() == Integer.parseInt(id)) {
 				QuestionDAO.deleteAnswers(question);
@@ -41,8 +59,13 @@ public class DetailQuestServlet extends HttpServlet {
 				break;
 			}
 		}
-		req.setAttribute("questions", questions);
-		this.getServletContext().getRequestDispatcher(D_QUEST).forward( req, resp );
 	}
 	
+	private void upOrder(String id) {
+		QuestionDAO.upQuestionOrder(id);
+	}
+	
+	private void downOrder(String id) {
+		QuestionDAO.downQuestionOrder(id);
+	}
 }

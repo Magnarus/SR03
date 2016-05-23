@@ -15,6 +15,7 @@
 				<th> Etat </th>
 				<th> Action </th>
 			</tr>
+			<c:set var="count" value="0" scope="page" />
 			<c:forEach var="q"  items="${requestScope['questions']}" >
 				<tr>
 		          	<td><a href="<c:url value="manageAnswer?id=${q.id}"/>" >${q.title} </a></td>
@@ -25,9 +26,15 @@
 			          	</c:choose>
 		          	</td>
 		          	<td> 
-		          		<form  method="POST"><input type="hidden" name="q_id" value="${q.id}"/><input value="Supprimer" type="submit"/></form>
+		          		<form  method="POST">
+		          			<input type="hidden" name="q_id" value="${q.id}"/>
+		          			<input value="Supprimer" name="supprimer" type="submit"/>
+		          			<c:if test="${count != 0}"><input value="Monter" name="monter" type="submit"/></c:if>
+		          			<c:if test="${count != size-1}"><input value="Descendre" name="descendre" type="submit"/></c:if>
+		          		</form>
 		          	</td>
 			    </tr>
+			    <c:set var="count" value="${count + 1}" scope="page"/>
 			</c:forEach>
 		</table>
 		<br/>

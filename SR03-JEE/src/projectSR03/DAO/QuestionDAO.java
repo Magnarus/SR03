@@ -86,7 +86,8 @@ public class QuestionDAO {
 			preparedStatement = conn.prepareStatement( "SELECT a.Id, Value, State"
 													+ " FROM Answer a, CompoQuestion cq"
 													+ " WHERE cq.IdAnswer=a.Id"
-													+ " AND cq.IdQuestion= " + id + ";" );
+													+ " AND cq.IdQuestion= " + id 
+													+ " ORDER BY cq.OrderAnswer" + ";" );
 			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
 
 			while(result.next()) {
@@ -107,6 +108,55 @@ public class QuestionDAO {
 		
 		
 		return answers;
+	}
+	
+	public static void upQuestionOrder(String id) {
+		int currentOrder = getQuestionOrder(id);
+		String newOrder = Integer.toString(currentOrder-1);
+		InteractionsDAO.mySQLwritingQuery("UPDATE CompoQuestionnaire"
+										+" SET OrderQuestion='"+newOrder
+									   +"' WHERE idQuestion='" + id + "'");
+		
+		//On descend celui qui était à cette place là
+		String currentOrderString = Integer.toString(currentOrder);
+		InteractionsDAO.mySQLwritingQuery("UPDATE CompoQuestionnaire"
+										 +" SET OrderQuestion='"+currentOrderString
+										+"' WHERE idQuestion<>'" + id + "'"
+										 +" AND OrderQuestion = '"+newOrder+"'");
+	}
+	
+	public static void downQuestionOrder(String id) {
+		int currentOrder = getQuestionOrder(id);
+		String newOrder = Integer.toString(currentOrder+1);
+		InteractionsDAO.mySQLwritingQuery("UPDATE CompoQuestionnaire"
+										+" SET OrderQuestion='"+newOrder
+									   +"' WHERE idQuestion='" + id + "'");
+		
+		//On descend celui qui était à cette place là
+		String currentOrderString = Integer.toString(currentOrder);
+		InteractionsDAO.mySQLwritingQuery("UPDATE CompoQuestionnaire"
+										 +" SET OrderQuestion='"+currentOrderString
+										+"' WHERE idQuestion<>'" + id + "'"
+										 +" AND OrderQuestion = '"+newOrder+"'");
+	}
+	
+	private static int getQuestionOrder(String id) {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		int order = -1;
+		try {
+			preparedStatement = conn.prepareStatement("SELECT OrderQuestion"
+													+ " FROM CompoQuestionnaire"
+													+ " WHERE IdQuestion= " + id  + ";");
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+			if(result != null && result.next()) {
+				order = result.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return order;
 	}
 	
 }
