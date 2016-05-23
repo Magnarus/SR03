@@ -14,12 +14,19 @@
 			<tr>
 				<th> Nom </th>
 				<th> Date de création </th>
+				<th> Etat </th>
 				<th> Action </th>
 			</tr>
 			<c:forEach var="quest"  items="${requestScope['listQuest']}" >
 				<tr>
 			          <td><a href="<c:url value="detailQuest?id=${quest.id}"/>" >${quest.name } </a></td>
 			          <td> ${quest.dateCreation } </td>
+			          <td>
+			          	<c:choose>
+			          		<c:when test="${quest.state == true}"><a href="?id=${quest.id}&state=0">Actif</a></c:when>
+			          		<c:otherwise><a href="?id=${quest.id}&state=1">Inactif</a></c:otherwise>
+			          	</c:choose>
+			          </td>
 			          <td> 
 			          	<form  method="POST"><input type="hidden" name="id" value="${quest.id}"/><input value="Supprimer" type="submit"/></form>
 			          </td>

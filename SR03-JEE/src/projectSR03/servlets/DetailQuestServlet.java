@@ -20,6 +20,11 @@ public class DetailQuestServlet extends HttpServlet {
 	private ArrayList<QuestionBean> questions;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = req.getParameter("questionId");
+		String state = req.getParameter("state");
+		if(id != null && state != null && !id.isEmpty() && !state.isEmpty()) {
+			QuestionDAO.setIsActif(id, state);
+		}
 		questions = QuestionnaireDAO.getQuestions(Integer.parseInt(req.getParameter("id")));
 		req.setAttribute("questions", questions);
 		this.getServletContext().getRequestDispatcher( D_QUEST ).forward( req, resp);

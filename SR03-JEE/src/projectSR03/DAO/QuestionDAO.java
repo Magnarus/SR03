@@ -69,6 +69,10 @@ public class QuestionDAO {
 	public static void setRightAnswer(String qId, String aId) {
 		InteractionsDAO.mySQLwritingQuery("UPDATE Question SET RightAnswer='"+aId+"' WHERE Id='"+qId+"'");
 	}
+	
+	public static void setIsActif(String qId, String state) {
+		InteractionsDAO.mySQLwritingQuery("UPDATE Question SET State='" + state + "' WHERE Id='" +qId + "'");
+	}
 
 	public static ArrayList<AnswerBean> getAnswers(int id) {
 		ArrayList<AnswerBean> answers = new ArrayList<AnswerBean>();

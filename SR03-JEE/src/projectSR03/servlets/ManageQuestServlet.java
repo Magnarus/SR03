@@ -23,6 +23,11 @@ public class ManageQuestServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = req.getParameter("id");
+		String state = req.getParameter("state");
+		if(id != null && state != null && !id.isEmpty() && !state.isEmpty()) {
+			QuestionnaireDAO.setIsActif(id, state);
+		}
 		questionnaires =  QuestionnaireDAO.getQuestionnaires();
 		req.setAttribute("listQuest", questionnaires);
 		this.getServletContext().getRequestDispatcher( QUEST_MANAGE ).forward( req, resp );

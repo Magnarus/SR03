@@ -22,4 +22,8 @@ public class AnswerDAO {
 							+ order+1 + ")";
 		InteractionsDAO.mySQLwritingQuery(addCompoQuestion);
 	}
+	
+	public static void setIsActif(String aId, String state) {
+		InteractionsDAO.mySQLwritingQuery("UPDATE Answer SET State='" + state + "' WHERE Id='" +aId + "'");
+	}
 }

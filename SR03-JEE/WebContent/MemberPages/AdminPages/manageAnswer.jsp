@@ -13,6 +13,7 @@
 			<tr>
 				<th> Valeur </th>
 				<th> Bonne réponse </th>
+				<th> Etat </th>
 				<th> Action </th>
 			</tr>
 			<c:forEach var="a"  items="${requestScope['answers']}" >
@@ -24,7 +25,13 @@
 			              <c:otherwise>Non <a href="?id=${param.id}&right=${a.id}">Changer</a></c:otherwise>
 			          </c:choose>
 			          </td>
-			          <td> 
+			          <td>
+			          <c:choose>
+			          		<c:when test="${a.state == true}"><a href="?id=${param.id}&aId=${a.id}&state=0">Actif</a></c:when>
+			          		<c:otherwise><a href="?id=${param.id}&aId=${a.id}&state=1">Inactif</a></c:otherwise>
+			          	</c:choose>
+			          </td>
+			          <td>
 			          	<form  method="POST"><input type="hidden" name="a_id" value="${a.id}"/><input value="Supprimer" type="submit"/></form>
 			          </td>
 			    </tr>

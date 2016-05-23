@@ -22,10 +22,14 @@ public class ManageAnswerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String right = req.getParameter("right");
+		String state = req.getParameter("state");
+		String answerId = req.getParameter("aId");
 		String questionId = req.getParameter("id");
 		int rightAnswer = -1;
 		if(right != null && questionId != null) {
 			QuestionDAO.setRightAnswer(questionId, right);
+		} else if (state != null && answerId != null) {
+			AnswerDAO.setIsActif(answerId, state);
 		}
 		if (questionId != null) {
 			answers = QuestionDAO.getAnswers(Integer.parseInt(questionId));

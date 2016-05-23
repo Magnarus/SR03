@@ -140,6 +140,10 @@ public class QuestionnaireDAO {
 		return questionnaires;
 		
 	}
+	
+	public static void setIsActif(String qId, String state) {
+		InteractionsDAO.mySQLwritingQuery("UPDATE Questionnaire SET State='" + state + "' WHERE Id='" +qId + "'");
+	}
 
 	public static QuestionnaireBean getQuestionnaire(int id) {
 

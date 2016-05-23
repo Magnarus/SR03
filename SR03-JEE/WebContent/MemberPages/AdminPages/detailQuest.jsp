@@ -12,14 +12,21 @@
 		<table>
 			<tr>
 				<th> Nom </th>
+				<th> Etat </th>
 				<th> Action </th>
 			</tr>
 			<c:forEach var="q"  items="${requestScope['questions']}" >
 				<tr>
-			          <td><a href="<c:url value="manageAnswer?id=${q.id}"/>" >${q.title} </a></td>
-			          <td> 
-			          	<form  method="POST"><input type="hidden" name="q_id" value="${q.id}"/><input value="Supprimer" type="submit"/></form>
-			          </td>
+		          	<td><a href="<c:url value="manageAnswer?id=${q.id}"/>" >${q.title} </a></td>
+		          	<td>
+			          	<c:choose>
+			          		<c:when test="${q.state == true}"><a href="?id=${param.id}&questionId=${q.id}&state=0">Actif</a></c:when>
+			          		<c:otherwise><a href="?id=${param.id}&questionId=${q.id}&state=1">Inactif</a></c:otherwise>
+			          	</c:choose>
+		          	</td>
+		          	<td> 
+		          		<form  method="POST"><input type="hidden" name="q_id" value="${q.id}"/><input value="Supprimer" type="submit"/></form>
+		          	</td>
 			    </tr>
 			</c:forEach>
 		</table>
