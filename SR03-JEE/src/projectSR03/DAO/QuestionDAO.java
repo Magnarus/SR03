@@ -81,13 +81,12 @@ public class QuestionDAO {
 		Connection conn = MysqljdbcDAO.mySQLgetConnection();
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
-
 		try {
 			preparedStatement = conn.prepareStatement( "SELECT a.Id, Value, State"
 													+ " FROM Answer a, CompoQuestion cq"
 													+ " WHERE cq.IdAnswer=a.Id"
 													+ " AND cq.IdQuestion= " + id 
-													+ " ORDER BY cq.OrderAnswer" + ";" );
+													+ " Order By OrderAnswer;" );
 			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
 
 			while(result.next()) {

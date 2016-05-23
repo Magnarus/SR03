@@ -13,11 +13,14 @@
                 <legend> Question </legend>
               
                 <label for="question"> <c:out value='${questionInformations.title }' /> : <span class="requis"></span></label>
+                <br/>
                 <c:forEach var="answer"  items="${requestScope['questionInformations'].answers}">
                 	<input type="radio" name="question" value="${answer.value}" /> ${answer.value}
                 </c:forEach>
                 <br />
-                <input type="submit" value="Créer" class="sansLabel" /> <br />
+                <input type="hidden" name="idRun" value="<c:out value='${idRun}' />" />
+                <input type="hidden" name="questId" value="<c:out value='${questId}' />" />
+                <input type="submit" value="Suivant" class="sansLabel" /> <br />
             </fieldset>
 		
 		</form>

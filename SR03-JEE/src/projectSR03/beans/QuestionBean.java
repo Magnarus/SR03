@@ -40,6 +40,14 @@ public class QuestionBean {
 	public void removeAnswer (AnswerBean ans) {
 		answers.remove(ans);
 	}
+	public int findIdAnswer(String answer) {
+		for(AnswerBean a : answers) {
+			if(a.getValue().equals(answer)) {
+				return a.getId();
+			}
+		}
+		return 0;
+	}
 
 	
 	

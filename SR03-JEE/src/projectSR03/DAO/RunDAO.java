@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.mysql.jdbc.Statement;
 
@@ -58,7 +59,7 @@ public class RunDAO {
 		int idRun = 0;
 		try {
 			statement = conn.prepareStatement(rqt, Statement.RETURN_GENERATED_KEYS);
-			statement.setTime(1, new Time(0));
+			statement.setTime(1, new Time(new Date().getTime() - new Date().getTime()));
 			statement.setInt(2, id);
 			statement.setInt(3, Integer.parseInt(questId));
 			statement.setLong(4, 0);
@@ -74,6 +75,25 @@ public class RunDAO {
 		}
 		
 		return idRun;
+	}
+
+	public static void UpdateScore(int idRun, Date start) {
+		String rqt = "UPDATE Run SET Score = Score + 1, Duration = \"" + new Time((new Date().getTime() - start.getTime()))+ "\""
+					+ " WHERE Id = " + idRun;
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement statement = null;
+		
+		try {
+			System.out.println(rqt);
+			statement = conn.prepareStatement(rqt);
+			statement.executeQuery();			
+		} 
+		catch (SQLException e) {
+			/* Manage errors */
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(statement, conn);				
+		}
 	}
 
 }
