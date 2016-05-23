@@ -37,12 +37,35 @@ public class ManageAnswerServlet extends HttpServlet {
 		}
 		req.setAttribute("answers", answers);
 		req.setAttribute("rightAnswer", Integer.toString(rightAnswer));
+		req.setAttribute("size", answers.size());
 		this.getServletContext().getRequestDispatcher( D_ANSWER ).forward( req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("a_id");
+		String questionId = req.getParameter("id");
+		int rightAnswer = -1;
+		if(req.getParameter("supprimer") != null && id !=null) {
+			removeAnswer(id);
+		}
+		if(req.getParameter("monter") != null && id != null) {
+			upOrder(id, questionId);
+		}
+		if(req.getParameter("descendre") != null && id != null) {
+			downOrder(id, questionId);
+		}
+		if (questionId != null) {
+			answers = QuestionDAO.getAnswers(Integer.parseInt(questionId));
+			rightAnswer = QuestionDAO.getRightAnswer(questionId);
+		}
+		req.setAttribute("answers", answers);
+		req.setAttribute("rightAnswer", Integer.toString(rightAnswer));
+		req.setAttribute("size", answers.size());
+		this.getServletContext().getRequestDispatcher(D_ANSWER).forward( req, resp );
+	}
+	
+	private void removeAnswer(String id) {
 		for(AnswerBean a : answers) {
 			if(a.getId() == Integer.parseInt(id)) {
 				AnswerDAO.deleteAnswer(a);
@@ -50,8 +73,13 @@ public class ManageAnswerServlet extends HttpServlet {
 				break;
 			}
 		}
-		req.setAttribute("answers", answers);
-		this.getServletContext().getRequestDispatcher(D_ANSWER).forward( req, resp );
+	}
+	private void upOrder(String id, String questionId) {
+		AnswerDAO.upAnswerOrder(id, questionId);
+	}
+	
+	private void downOrder(String id, String questionId) {
+		AnswerDAO.downAnswerOrder(id, questionId);
 	}
 
 }
