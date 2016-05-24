@@ -36,8 +36,8 @@
 			</c:forEach>
 			
 		</c:forEach>
-		
-		<a href="<c:url value="/MemberPages/StagiairePages/homeStagiare" />">Accueil</a><br/>
+		<br/>
+		<a href="<c:url value="/MemberPages/StagiairePages/homeStagiaire" />">Accueil</a><br/>
 		
 	</body>
 </html>

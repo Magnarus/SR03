@@ -42,13 +42,15 @@ public class UserDAO {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
-			statement = conn.prepareStatement("INSERT INTO User(FirstName,LastName,Email,Password,Role,State) VALUES(?,?,?,?,?,?)");
+			statement = conn.prepareStatement("INSERT INTO User(FirstName,LastName,Email,Password,Role,State, PhoneNumber, Company) VALUES(?,?,?,?,?,?,?,?)");
 			statement.setString(1, utilisateur.getFirstName());
 			statement.setString(2, utilisateur.getLastName());
 			statement.setString(3, utilisateur.getEmail());
 			statement.setString(4, utilisateur.getPassword());
 			statement.setBoolean(5, utilisateur.isAdmin());
 			statement.setBoolean(6, utilisateur.isState());
+			statement.setString(7, utilisateur.getPhoneNumber());
+			statement.setString(7, utilisateur.getCompany());
 			statement.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -60,9 +62,7 @@ public class UserDAO {
 		Connection conn = MysqljdbcDAO.mySQLgetConnection();
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
-		int nbResult = 0;
-
-		
+		int nbResult = 0;	
 		try {
 			String rqt = "SELECT Id FROM User WHERE Email = \"" + email + "\"";
 			preparedStatement = conn.prepareStatement(rqt);
@@ -78,7 +78,6 @@ public class UserDAO {
 		finally {
 			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
 		}
-		
 		return nbResult == 0;
 	}
 
@@ -107,6 +106,45 @@ public class UserDAO {
 		}
 		
 		return user;
+	}
+	
+	public static UserBean getUserById(String id) {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		UserBean user = new UserBean();
+		
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT * FROM User WHERE Id = "+ id +";" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+			
+			while(result.next()){
+				user = UserBean.map(result);
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		return user;
+	}
+
+	public static void UpdateUser(UserBean utilisateur) {
+		String rqt = "UPDATE User"
+					+" SET FirstName = \"" + utilisateur.getFirstName() + "\","
+					+ " LastName =\"" + utilisateur.getLastName() + "\","
+					+ " Password = \"" + utilisateur.getPassword() + "\","
+					+ " Company = \"" + utilisateur.getCompany() + "\","
+					+ " Role = " + utilisateur.isAdmin() + ", "
+					+ " State = " + utilisateur.isState() + ", "
+					+ " Email = \"" + utilisateur.getEmail() + "\","
+					+ " PhoneNumber = \"" + utilisateur.getPhoneNumber() + "\""
+					+ " WHERE Id = " + utilisateur.getId() + ";";
+		InteractionsDAO.mySQLwritingQuery(rqt);
 	}
 	
 }

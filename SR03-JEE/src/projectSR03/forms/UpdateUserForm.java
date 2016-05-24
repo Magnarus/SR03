@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import projectSR03.DAO.UserDAO;
 import projectSR03.beans.UserBean;
 
-public final class CreateUserForm extends FormHelper{
+public final class UpdateUserForm extends FormHelper{
 	 private static final String CHAMP_EMAIL  = "email";
 	 private static final String CHAMP_PASS   = "password";
      private static final String CHAMP_LASTNAME    = "lastname";
@@ -16,6 +16,7 @@ public final class CreateUserForm extends FormHelper{
      private static final String CHAMP_ADMIN    = "admin";
      private static final String CHAMP_PHONE    = "phonenumber";
      private static final String CHAMP_COMPANY    = "company";
+     private static final String CHAMP_STATE   = "state";
      
      
      private String              result;
@@ -31,6 +32,7 @@ public final class CreateUserForm extends FormHelper{
     	    String role = getFieldValue(request, CHAMP_ADMIN);
     	    String company = getFieldValue(request, CHAMP_COMPANY);
     	    String phonenumber = getFieldValue(request, CHAMP_PHONE);
+    	    String state = getFieldValue(request, CHAMP_STATE);
     	    
     	    UserBean utilisateur = new UserBean();
 
@@ -81,7 +83,13 @@ public final class CreateUserForm extends FormHelper{
     	    } else {
     	    	utilisateur.setAdmin(false);
     	    }
-    	    utilisateur.setState(true);
+    	    
+    	    if(state.equals("actif")) {
+    	    	utilisateur.setState(true);
+    	    } else {
+    	    	utilisateur.setState(false);
+    	    }
+    	    
     	    
     	    if (! errors.isEmpty() ) {
     	        result = "Corrigez les erreurs du formulaire d'inscription.";
@@ -95,9 +103,7 @@ public final class CreateUserForm extends FormHelper{
 	    if ( email != null ) {
 	        if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
 	            throw new Exception( "Merci de saisir une adresse mail valide." );
-	        } else if(!UserDAO.isEmailUnique(email)) {
-	        	throw new Exception("Adresse email déjà utilisée");
-	        }
+	        } 
 	    } else {
 	        throw new Exception( "Merci de saisir une adresse mail." );
 	    }

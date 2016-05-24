@@ -86,17 +86,60 @@ public class RunDAO {
 					+ " WHERE Id = " + idRun;
 		Connection conn = MysqljdbcDAO.mySQLgetConnection();
 		PreparedStatement statement = null;
-		System.out.println(rqt);
 		try {
 			statement = conn.prepareStatement(rqt);
-			statement.executeQuery();			
+			statement.executeUpdate();			
 		} 
 		catch (SQLException e) {
-			/* Manage errors */
+			System.out.println("Message " + e.getMessage());
 		}
 		finally {
 			MysqljdbcDAO.closeConnection(statement, conn);				
 		}
+	}
+
+	public static ArrayList<RunBean> getUserBestRuns(String id) {
+		String rqt = "SELECT Distinct(IdQuestionnaire), Id, Score, Date, Duration"
+				    +  " FROM Run r"
+					+  " WHERE idUser = " + id 
+					+  " AND Score = (SELECT MAX(Score)"
+						+		" From Run ru "
+						+		" WHERE ru.IdQuestionnaire = r.IdQuestionnaire);";
+		
+		System.out.println(rqt);
+		ArrayList<RunBean> runs = new ArrayList<RunBean>();
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		
+		try {
+			preparedStatement = conn.prepareStatement( rqt );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {
+			   RunBean run = new RunBean(); 
+			   run.setId(result.getInt("Id"));
+			   run.setDate(result.getDate("Date"));
+			   String time = String.format("%02d min, %02d sec", 
+					    TimeUnit.MILLISECONDS.toMinutes((long) result.getFloat("Duration")),
+					    TimeUnit.MILLISECONDS.toSeconds((long) result.getFloat("Duration")) - 
+					    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) result.getFloat("Duration")))
+					);
+			   run.setDuration(time);
+			   run.setScore(result.getLong("Score"));
+			   run.setQuest(QuestionnaireDAO.getQuestionnaire(result.getInt("idQuestionnaire")));		   
+			   runs.add(run);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		return runs;	
 	}
 
 }
