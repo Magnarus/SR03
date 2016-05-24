@@ -2,8 +2,6 @@ package projectSR03.beans;
 
 import java.util.ArrayList;
 
-import projectSR03.utils.State;
-
 public class QuestionBean {
 	private int id;
 	private String title;

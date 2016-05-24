@@ -50,7 +50,7 @@ public class UserDAO {
 			statement.setBoolean(5, utilisateur.isAdmin());
 			statement.setBoolean(6, utilisateur.isState());
 			statement.setString(7, utilisateur.getPhoneNumber());
-			statement.setString(7, utilisateur.getCompany());
+			statement.setString(8, utilisateur.getCompany());
 			statement.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -3,8 +3,6 @@ package projectSR03.beans;
 import java.sql.Date;
 import java.util.ArrayList;
 
-import projectSR03.utils.State;
-
 public class QuestionnaireBean {
 	private int id;
 	private String name;

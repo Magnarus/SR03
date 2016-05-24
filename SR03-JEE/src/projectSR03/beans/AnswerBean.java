@@ -1,7 +1,5 @@
 package projectSR03.beans;
 
-import projectSR03.utils.State;
-
 public class AnswerBean {
 	private int id;
 	private String value;
