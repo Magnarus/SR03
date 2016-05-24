@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -13,7 +14,7 @@
 		<h2> Détail de l'utilisateur <c:out value='${user.firstName }' /> <c:out value='${user.lastName }' /> </h2>
 		<form method = "POST">
 			<fieldset>
-	                <legend>Nouvel utilisateur</legend>
+	                <legend>Détail utilisateur</legend>
 	                <label for="email">Email : <span class="requis"></span></label>
 	                <input type="text" id="email" name="email" 
 	               		 value="<c:out value="${user.email}"/>"  size="75" maxlength="75" />
@@ -79,24 +80,13 @@
 	        
 	        <c:if test="${ !user['admin'] }">
 	      	  <h2> Meilleurs parcours : </h2>
-	      	  <table>
-					<tr>
-						<th> Sujet </th>
-						<th> Questionnaire </th>
-						<th> Date </th>
-						<th> Durée </th>
-						<th> Score </th>
-					</tr>
-					<c:forEach var="run"  items="${requestScope['runs']}" >
-						<tr>
-					          <td> ${run.quest.subject } </td>
-					          <td> ${run.quest.name } </td>
-					          <td> ${run.date }  </td>
-					          <td> ${run.duration }  </td>
-					          <td> ${run.score }  </td>
-					    </tr>
-					</c:forEach>
-				</table>
+	      	  <display:table id="row" name="runs" requestURI="/MemberPages/AdminPages/detailUser" pagesize="3" >
+				<display:column property="quest.subject" title="Sujet" />
+				<display:column property="quest.name" title="Questionnaire" />
+				<display:column property="date" title="Date" />
+				<display:column property="duration" title="Durée" />
+				<display:column property="score" title="Score" />
+			  </display:table>
 	      	</c:if>
 	</body>
 </html>
