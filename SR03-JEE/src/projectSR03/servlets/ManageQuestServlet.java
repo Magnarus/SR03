@@ -35,11 +35,9 @@ public class ManageQuestServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String id = req.getParameter("id");
+		String id = req.getParameter("q_id");
 		ArrayList<QuestionBean> q = null;
-		
-		System.out.println("Le doPost est bien appelé!" + id);
-		
+				
 		// Delete des réponses car non lié par clé primaire directe
 		// Nécessite de trouver le questionnaire qu'on veut delete
 		for(QuestionnaireBean b : questionnaires) {

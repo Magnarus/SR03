@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -9,33 +10,20 @@
 	<body>
 		<h1> Gestion des questionnaires </h1>
 		<!--  Affichage des questionnaires existants -->
-		<p> Questionnaires existants </p>	
-		<table>
-			<tr>
-				<th> Nom </th>
-				<th> Date de création </th>
-				<th> Etat </th>
-				<th> Action </th>
-			</tr>
-			<c:forEach var="quest"  items="${requestScope['listQuest']}" >
-				<tr>
-			          <td><a href="<c:url value="detailQuest?id=${quest.id}"/>" >${quest.name } </a></td>
-			          <td> ${quest.dateCreation } </td>
-			          <td>
-			          	<c:choose>
-			          		<c:when test="${quest.state == true}"><a href="?id=${quest.id}&state=0">Actif</a></c:when>
-			          		<c:otherwise><a href="?id=${quest.id}&state=1">Inactif</a></c:otherwise>
-			          	</c:choose>
-			          </td>
-			          <td> 
-			          	<form  method="POST"><input type="hidden" name="id" value="${quest.id}"/><input value="Supprimer" type="submit"/></form>
-			          </td>
-			    </tr>
-			</c:forEach>
-		</table>
+		<p> Questionnaires existants </p>
+		<display:table id="row" name="listQuest" requestURI="/MemberPages/AdminPages/manageQuest" pagesize="3" decorator="projectSR03.decorators.ManageQuestDecorator">
+		<display:column property="id" title="id"/>
+		<display:column property="name" title="Nom" href="detailQuest" paramId="id" paramProperty="id" />
+		<display:column property="dateCreation" title="Date de création"  />
+		<display:column property="state" title="etat"  />
+		<display:column title="Action">
+			<form  method="POST">
+				<input type="hidden" name="q_id" value="${row.id}"/>
+				<input value="Supprimer" type="submit"/>
+			</form>
+		</display:column>
+		</display:table>
 		<!-- Création d'un nouveau questionnaire -->
-		<a href="<c:url value="createQuest.jsp"/>" > Création nouveau questionnaire</a>
-			
-		
+		<a href="<c:url value="createQuest.jsp"/>" > Création nouveau questionnaire</a>		
 	</body>
 </html>
