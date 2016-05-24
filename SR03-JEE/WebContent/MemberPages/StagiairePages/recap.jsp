@@ -37,6 +37,7 @@
 			
 		</c:forEach>
 		
+		<a href="<c:url value="/MemberPages/StagiairePages/homeStagiare" />">Accueil</a><br/>
 		
 	</body>
 </html>

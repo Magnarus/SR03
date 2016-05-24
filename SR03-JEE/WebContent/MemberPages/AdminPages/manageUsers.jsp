@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link type="text/css" rel="stylesheet" href="../../table.css" />
 		<title>Gestions users</title>
 	</head>
 	<body>
@@ -46,6 +47,7 @@
 		</table>
 		<!-- Création d'un nouveau questionnaire -->
 		<a href="<c:url value="/MemberPages/AdminPages/CreateUser"/>" > Nouvel utilisateur </a>
+		<a href="<c:url value="/MemberPages/AdminPages/homeAdmin" />">Accueil</a><br/>
 	
 	</body>
 </html>

@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link type="text/css" rel="stylesheet" href="../../table.css" />
 		<title>Gestion des questionnaires</title>
 	</head>
 	<body>
@@ -35,7 +36,8 @@
 		</table>
 		<!-- Création d'un nouveau questionnaire -->
 		<a href="<c:url value="createQuest.jsp"/>" > Création nouveau questionnaire</a>
-			
+		<a href="<c:url value="/MemberPages/AdminPages/homeAdmin" />">Accueil</a><br/>
+					
 		
 	</body>
 </html>

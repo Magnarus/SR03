@@ -5,6 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link type="text/css" rel="stylesheet" href="../../form.css" />
+		<link type="text/css" rel="stylesheet" href="../../table.css" />
 		<title>Réponses</title>
 	</head>
 <body>

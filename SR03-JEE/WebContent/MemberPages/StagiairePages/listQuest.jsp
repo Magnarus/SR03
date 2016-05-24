@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link type="text/css" rel="stylesheet" href="../../table.css" />
 		<title>Liste des questionnaires</title>
 	</head>
 	<body>
@@ -26,5 +27,7 @@
 			    </tr>
 			</c:forEach>
 		</table>
+		
+		<a href="<c:url value="/MemberPages/StagiairePages/homeStagiare" />">Accueil</a><br/>
 	</body>
 </html>
