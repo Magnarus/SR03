@@ -13,16 +13,16 @@
 		<!--  Affichage des questionnaires existants -->
 		<p> Questionnaires existants </p>
 		<display:table id="row" name="listQuest" requestURI="/MemberPages/AdminPages/manageQuest" pagesize="3" decorator="projectSR03.decorators.ManageQuestDecorator">
-		<display:column property="id" title="id"/>
-		<display:column property="name" title="Nom" href="detailQuest" paramId="id" paramProperty="id" />
-		<display:column property="dateCreation" title="Date de création"  />
-		<display:column property="state" title="etat"  />
-		<display:column title="Action">
-			<form  method="POST">
-				<input type="hidden" name="q_id" value="${row.id}"/>
-				<input value="Supprimer" type="submit"/>
-			</form>
-		</display:column>
+			<display:column property="id" title="id"/>
+			<display:column property="name" title="Nom" href="detailQuest" paramId="id" paramProperty="id" />
+			<display:column property="dateCreation" title="Date de création"  />
+			<display:column property="state" title="etat"  />
+			<display:column title="Action">
+				<form  method="POST">
+					<input type="hidden" name="q_id" value="${row.id}"/>
+					<input value="Supprimer" type="submit"/>
+				</form>
+			</display:column>
 		</display:table>
 		<!-- Création d'un nouveau questionnaire -->
 		<a href="<c:url value="createQuest.jsp"/>" > Création nouveau questionnaire</a>
