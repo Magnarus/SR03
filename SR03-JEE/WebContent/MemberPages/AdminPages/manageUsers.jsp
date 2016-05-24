@@ -12,7 +12,7 @@
 		<p> Gestion des utilisateurs :</p>
 		
 		<display:table id="row" name="listUsers" requestURI="/MemberPages/AdminPages/manageUsers" pagesize="3" decorator="projectSR03.decorators.ManageUserDecorator">
-			<display:column property="id" title="id"/>
+			<display:column property="id" title="id" href="detailUser" paramId="userId" paramProperty="id"/>
 			<display:column property="lastName" title="Nom"/>
 			<display:column property="firstName" title="Prénom"/>
 			<display:column property="phoneNumber" title="Téléphone"  />
