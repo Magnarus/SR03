@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,24 +12,13 @@
 		<h1> Listes des parcours précédents </h1>
 		<!--  Affichage des questionnaires existants -->
 		<p> Parcours </p>	
-		<table>
-			<tr>
-				<th> Sujet </th>
-				<th> Questionnaire </th>
-				<th> Date </th>
-				<th> Durée </th>
-				<th> Score </th>
-			</tr>
-			<c:forEach var="run"  items="${requestScope['listRun']}" >
-				<tr>
-			          <td> ${run.quest.subject } </td>
-			          <td> ${run.quest.name } </td>
-			          <td> ${run.date }  </td>
-			          <td> ${run.duration }  </td>
-			          <td> ${run.score }  </td>
-			    </tr>
-			</c:forEach>
-		</table>
+		<display:table id="row" name="listRun" requestURI="/MemberPages/StagiairePages/listRun" pagesize="3" >
+			<display:column property="quest.subject" title="Sujet" />
+			<display:column property="quest.name" title="Questionnaire"  />
+			<display:column property="date" title="Date"  />
+			<display:column property="duration" title="Durée"  />
+			<display:column property="score" title="Score"  />
+		</display:table>
 		
 		<a href="<c:url value="/MemberPages/StagiairePages/homeStagiaire" />">Accueil</a><br/>
 </body>
