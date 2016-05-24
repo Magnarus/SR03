@@ -6,6 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Détail de l'utilisateur</title>
 		<link type="text/css" rel="stylesheet" href="../../form.css" />
+		<link type="text/css" rel="stylesheet" href="../../table.css" />
 	</head>
 	<body>
 		
@@ -75,8 +76,27 @@
 	                <br />
 	            </fieldset>
 	        </form>	
-		
-		
-		</form>
+	        
+	        <c:if test="${ !user['admin'] }">
+	      	  <h2> Meilleurs parcours : </h2>
+	      	  <table>
+					<tr>
+						<th> Sujet </th>
+						<th> Questionnaire </th>
+						<th> Date </th>
+						<th> Durée </th>
+						<th> Score </th>
+					</tr>
+					<c:forEach var="run"  items="${requestScope['runs']}" >
+						<tr>
+					          <td> ${run.quest.subject } </td>
+					          <td> ${run.quest.name } </td>
+					          <td> ${run.date }  </td>
+					          <td> ${run.duration }  </td>
+					          <td> ${run.score }  </td>
+					    </tr>
+					</c:forEach>
+				</table>
+	      	</c:if>
 	</body>
 </html>
