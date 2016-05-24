@@ -13,7 +13,6 @@
 	<body>
 		<h1>Réponses</h1>
 		<display:table id="row" name="answers" requestURI="/MemberPages/AdminPages/manageAnswer" pagesize="3" decorator="projectSR03.decorators.ManageAnswerDecorator">
-			<display:column property="id" title="id" />
 			<display:column property="value" title="Valeur" />
 			<display:column title="Bonne réponse">
 				<c:choose>

@@ -13,8 +13,8 @@
 		<!--  Affichage des questionnaires existants -->
 		<p> Questionnaires existants </p>
 		<display:table id="row" name="listQuest" requestURI="/MemberPages/AdminPages/manageQuest" pagesize="3" decorator="projectSR03.decorators.ManageQuestDecorator">
-			<display:column property="id" title="id"/>
 			<display:column property="name" title="Nom" href="detailQuest" paramId="id" paramProperty="id" />
+			<display:column property="subject" title="Sujet"/>
 			<display:column property="dateCreation" title="Date de création"  />
 			<display:column property="state" title="etat"  />
 			<display:column title="Action">
