@@ -12,6 +12,11 @@
 		<h1> Listes des questionnaires disponibles </h1>
 		<!--  Affichage des questionnaires existants -->
 		<p> Questionnaires existants </p>	
+		 <form method = "POST" > 
+	      	  <label for="filter"> Filtre : </label>
+			  <input type="text" name="filter" value=""/>
+							<input value="Chercher" type="submit"/>
+	    </form>
 		<display:table id="row" name="listQuest" requestURI="/MemberPages/StagiairePages/listQuest" pagesize="3" >
 			<display:column property="name" title="Nom" />
 			<display:column property="dateCreation" title="Date de création"  />

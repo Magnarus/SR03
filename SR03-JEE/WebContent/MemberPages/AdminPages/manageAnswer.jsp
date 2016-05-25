@@ -12,6 +12,11 @@
 	</head>
 	<body>
 		<h1>Réponses</h1>
+	    <form method = "POST" > 
+	      	  <label for="filter"> Filtre : </label>
+			  <input type="text" name="filter" value=""/>
+							<input value="Chercher" type="submit"/>
+	    </form>
 		<display:table id="row" name="answers" requestURI="/MemberPages/AdminPages/manageAnswer" pagesize="3" decorator="projectSR03.decorators.ManageAnswerDecorator">
 			<display:column property="value" title="Valeur" />
 			<display:column title="Bonne réponse">

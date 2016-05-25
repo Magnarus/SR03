@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import projectSR03.DAO.QuestionDAO;
 import projectSR03.DAO.QuestionnaireDAO;
+import projectSR03.DAO.RunDAO;
 import projectSR03.beans.QuestionBean;
 
 @WebServlet("/MemberPages/AdminPages/detailQuest")
@@ -45,7 +46,12 @@ public class DetailQuestServlet extends HttpServlet {
 		if(req.getParameter("descendre") != null && id != null) {
 			downOrder(id, questionnaireId);
 		}
-		questions = QuestionnaireDAO.getQuestions(Integer.parseInt(req.getParameter("id")));
+		
+		if(req.getParameter("filter") != null) {
+			filterData(req.getParameter("filter"), questionnaireId);
+		} else {
+			questions = QuestionnaireDAO.getQuestions(Integer.parseInt(req.getParameter("id")));
+		}
 		req.setAttribute("questions", questions);
 		req.setAttribute("size", questions.size());
 		this.getServletContext().getRequestDispatcher(D_QUEST).forward( req, resp );
@@ -68,5 +74,8 @@ public class DetailQuestServlet extends HttpServlet {
 	
 	private void downOrder(String id, String questionnaireId) {
 		QuestionDAO.downQuestionOrder(id, questionnaireId);
+	}
+	public void filterData(String filter, String id) {
+		questions = QuestionnaireDAO.getQuestions(id, filter);
 	}
 }

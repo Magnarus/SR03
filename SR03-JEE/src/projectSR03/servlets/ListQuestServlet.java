@@ -31,17 +31,28 @@ public class ListQuestServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO : Implémenter le run
-		String questId = (String) req.getParameter("id");
-		UserBean u = (UserBean) req.getSession().getAttribute("sessionUser");
-		// Création du run en base
-		int idRun = RunDAO.createRun(questId, u.getId());
-				
-		// Redirection
-		req.setAttribute("idRun", idRun);
-		req.setAttribute("questId", questId);
-		
-		this.getServletContext().getRequestDispatcher( RUN_PAGE ).forward( req, resp );
+		String filter = req.getParameter("filter");
+		if(filter != null) {
+			filterData(filter);
+			req.setAttribute("listQuest", questionnaires);
+			this.getServletContext().getRequestDispatcher( QUEST_LIST ).forward( req, resp );
+		} else {
+			//  Implémenter le run
+			String questId = (String) req.getParameter("id");
+			UserBean u = (UserBean) req.getSession().getAttribute("sessionUser");
+			// Création du run en base
+			int idRun = RunDAO.createRun(questId, u.getId());
+					
+			// Redirection
+			req.setAttribute("idRun", idRun);
+			req.setAttribute("questId", questId);
+			
+			this.getServletContext().getRequestDispatcher( RUN_PAGE ).forward( req, resp );
+		}
+	}
+	
+	public void filterData(String filter) {
+		questionnaires = QuestionnaireDAO.getQuestionnairesActif(filter);
 	}
 	
 	

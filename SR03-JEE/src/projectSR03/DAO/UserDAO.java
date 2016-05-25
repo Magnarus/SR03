@@ -151,5 +151,30 @@ public class UserDAO {
 		String rqt = "DELETE FROM User Where Id = " + id;
 		InteractionsDAO.mySQLwritingQuery(rqt);
 	}
+
+	public static ArrayList<UserBean> getUserByName(String filter) {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		ArrayList<UserBean> userList = new ArrayList<UserBean>();
+		
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT * FROM User WHERE lastName LIKE \"%" + filter +"%\";" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+			
+			while(result.next()){
+				userList.add(UserBean.map(result));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		return userList;
+	}
 	
 }

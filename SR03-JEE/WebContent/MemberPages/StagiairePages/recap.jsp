@@ -23,10 +23,10 @@
 			</p>
 			
 			<c:forEach items="${entry.key.answers}" var="answer">
-				<input type="radio" name="answer" value="${answer.value}" 
+				<input type="checkbox" name="answer" value="${answer.value}" 
 					<c:choose>
 					    <c:when test="${answer.id == entry.key.rightAnswer}">
-					        checked="checked"
+					         disabled="disabled" checked="checked"
 					    </c:when>    
 					    <c:otherwise>
 					        disabled="disabled"

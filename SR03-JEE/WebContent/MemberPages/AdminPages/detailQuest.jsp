@@ -12,6 +12,11 @@
 	<body>
 		<h1>Questions</h1>
 		
+		<form method = "POST" > 
+	      	  <label for="filter"> Filtre : </label>
+			  <input type="text" name="filter" value=""/>
+							<input value="Chercher" type="submit"/>
+	    </form>
 	<display:table id="row" name="questions" requestURI="/MemberPages/AdminPages/detailQuest" pagesize="3" decorator="projectSR03.decorators.DetailQuestDecorator">
 		<display:column property="title" title="Nom" href="manageAnswer" paramId="id" paramProperty="id" />
 		<display:column property="state" title="etat"  />

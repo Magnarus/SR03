@@ -12,6 +12,11 @@
 		<h1> Gestion des questionnaires </h1>
 		<!--  Affichage des questionnaires existants -->
 		<p> Questionnaires existants </p>
+	    <form method = "POST" > 
+	      	  <label for="filter"> Filtre : </label>
+			  <input type="text" name="filter" value=""/>
+							<input value="Chercher" type="submit"/>
+	    </form>
 		<display:table id="row" name="listQuest" requestURI="/MemberPages/AdminPages/manageQuest" pagesize="3" decorator="projectSR03.decorators.ManageQuestDecorator">
 			<display:column property="name" title="Nom" href="detailQuest" paramId="id" paramProperty="id" />
 			<display:column property="subject" title="Sujet"/>

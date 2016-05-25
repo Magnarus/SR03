@@ -19,15 +19,32 @@ public class ListRunServlet extends HttpServlet {
 	private static final String RUN_LIST = "/MemberPages/StagiairePages/listRun.jsp";
 
 	private ArrayList<RunBean> run;
+	private UserBean user;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession currentSession = req.getSession();
-		UserBean user = (UserBean) currentSession.getAttribute("sessionUser");
+		user = (UserBean) currentSession.getAttribute("sessionUser");
 		
 		run = RunDAO.getUserRuns(user.getId());
 		req.setAttribute("listRun", run);
 		this.getServletContext().getRequestDispatcher( RUN_LIST ).forward( req, resp );	
 	}
+	
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String filter = req.getParameter("filter");
+		
+		if(filter != null) {
+			filterData(filter);
+		} 
+		
+		req.setAttribute("listRun", run);
+		this.getServletContext().getRequestDispatcher( RUN_LIST ).forward( req, resp );	
+	}
 
+	private void filterData(String filter) {
+		run = RunDAO.getUserRuns(user.getId(), filter);
+	}
 }

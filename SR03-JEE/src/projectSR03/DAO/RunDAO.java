@@ -221,4 +221,93 @@ public class RunDAO {
 		return duration;	
 	}
 
+	public static ArrayList<RunBean> getUserBestRuns(int id, String filter) {
+		String rqt = "SELECT Distinct(IdQuestionnaire), q.Id as Id, Score, Date, Duration"
+			    +  " FROM Run r, Questionnaire q"
+				+  " WHERE idUser = " + id
+				+  " AND r.IdQuestionnaire = q.Id"
+				+  " AND q.Subject LIKE \"%" + filter + "%\""
+				+  " AND Score = (SELECT MAX(Score)"
+					+		" From Run ru "
+					+		" WHERE ru.IdQuestionnaire = r.IdQuestionnaire);";
+	
+		System.out.println(rqt);
+		ArrayList<RunBean> runs = new ArrayList<RunBean>();
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		
+		try {
+			preparedStatement = conn.prepareStatement( rqt );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+	
+			while(result.next()) {
+			   RunBean run = new RunBean(); 
+			   run.setId(result.getInt("Id"));
+			   run.setDate(result.getDate("Date"));
+			   String time = String.format("%02d min, %02d sec", 
+					    TimeUnit.MILLISECONDS.toMinutes((long) result.getFloat("Duration")),
+					    TimeUnit.MILLISECONDS.toSeconds((long) result.getFloat("Duration")) - 
+					    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) result.getFloat("Duration")))
+					);
+			   run.setDuration(time);
+			   run.setScore(result.getLong("Score"));
+			   run.setQuest(QuestionnaireDAO.getQuestionnaire(result.getInt("idQuestionnaire")));		   
+			   runs.add(run);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		return runs;	
+	}
+
+	public static ArrayList<RunBean> getUserRuns(int id, String filter) {
+		ArrayList<RunBean> runs = new ArrayList<RunBean>();
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT * FROM Run r, Questionnaire q " 
+													 	+ " Where r.IdQuestionnaire = q.Id AND idUser = "+ id 
+													 	+ " AND q.Subject LIKE \"%"+ filter + "%\" ;" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {
+			   RunBean run = new RunBean(); 
+			   run.setId(result.getInt("Id"));
+			   run.setDate(result.getDate("Date"));
+			   String time = String.format("%02d min, %02d sec", 
+					    TimeUnit.MILLISECONDS.toMinutes((long) result.getFloat("Duration")),
+					    TimeUnit.MILLISECONDS.toSeconds((long) result.getFloat("Duration")) - 
+					    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) result.getFloat("Duration")))
+					);
+			   run.setDuration(time);
+			   run.setScore(result.getLong("Score"));
+			   run.setQuest(QuestionnaireDAO.getQuestionnaire(result.getInt("idQuestionnaire")));
+			   
+			   
+			   runs.add(run);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		
+		
+		return runs;
+	}
+
 }

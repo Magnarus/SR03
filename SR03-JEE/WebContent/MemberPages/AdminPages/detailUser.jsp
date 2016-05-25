@@ -79,7 +79,14 @@
 	        </form>	
 	        
 	        <c:if test="${ !user['admin'] }">
+	      	 
 	      	  <h2> Meilleurs parcours : </h2>
+	      	  
+	      	  <form method = "POST" > 
+	      	  		<label for="filter"> Filtre : </label>
+					<input type="text" name="filter" value=""/>
+							<input value="Chercher" type="submit"/>
+			  </form>
 	      	  <display:table id="row" name="runs" requestURI="/MemberPages/AdminPages/detailUser" pagesize="3" >
 				<display:column property="quest.subject" title="Sujet" />
 				<display:column property="quest.name" title="Questionnaire" />

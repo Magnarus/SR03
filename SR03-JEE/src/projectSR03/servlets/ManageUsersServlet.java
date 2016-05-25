@@ -36,14 +36,23 @@ public class ManageUsersServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("q_id");
+		String filter = req.getParameter("filter");
+		
 		if(id != null) {
 			UserDAO.deleteUser(id);
 			users.clear();
 			users = UserDAO.getUsers();
 		}
+		if(filter != null) {
+			filterData(filter);
+		}
 		
 		// Renvoi des données pour reload de la page ? 
 		req.setAttribute("listUsers", users);
 		this.getServletContext().getRequestDispatcher( M_USER ).forward( req, resp );
+	}
+	
+	public void filterData(String filter) {
+		users = UserDAO.getUserByName(filter);
 	}
 }

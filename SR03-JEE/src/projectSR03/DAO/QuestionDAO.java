@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import projectSR03.beans.AnswerBean;
 import projectSR03.beans.CompoQuestionnaireBean;
@@ -158,6 +159,48 @@ public class QuestionDAO {
 			e.printStackTrace();
 		}
 		return order;
+	}
+
+	public static List<AnswerBean> getAnswers(int questId, String filter) {
+ArrayList<AnswerBean> answers = new ArrayList<AnswerBean>();
+		
+
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		try {
+			System.out.println( "SELECT a.Id, Value, State"
+													+ " FROM Answer a, CompoQuestion cq"
+													+ " WHERE cq.IdAnswer=a.Id"
+													+ " AND cq.IdQuestion= " + questId
+													+ " AND Value LIKE \"%" + filter + "%\""
+													+ " Order By OrderAnswer;");
+			preparedStatement = conn.prepareStatement( "SELECT a.Id, Value, State"
+													+ " FROM Answer a, CompoQuestion cq"
+													+ " WHERE cq.IdAnswer=a.Id"
+													+ " AND cq.IdQuestion= " + questId
+													+ " AND Value LIKE \"%" + filter + "%\""
+													+ " Order By OrderAnswer;" );
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {
+			   AnswerBean answer = new AnswerBean();      
+			   answer.setId(result.getInt(1));
+			   answer.setValue(result.getString("Value"));
+			   answer.setState(result.getBoolean("State"));
+			   answers.add(answer);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		
+		return answers;
 	}
 	
 }

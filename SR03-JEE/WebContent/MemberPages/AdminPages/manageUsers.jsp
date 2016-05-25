@@ -11,6 +11,11 @@
 	<body>
 		<p> Gestion des utilisateurs :</p>
 		
+	    <form method = "POST" > 
+	      	  <label for="filter"> Filtre : </label>
+			  <input type="text" name="filter" value=""/>
+							<input value="Chercher" type="submit"/>
+	    </form>
 		<display:table id="row" name="listUsers" requestURI="/MemberPages/AdminPages/manageUsers" pagesize="3" decorator="projectSR03.decorators.ManageUserDecorator">
 			<display:column property="id" title="id" href="detailUser" paramId="userId" paramProperty="id"/>
 			<display:column property="lastName" title="Nom"/>

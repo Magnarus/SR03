@@ -179,4 +179,113 @@ public class QuestionnaireDAO {
 		
 		return questionnaire;
 	}
+
+	public static ArrayList<QuestionnaireBean> getQuestionnaireByName(String filter) {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		ArrayList<QuestionnaireBean> questionnaires =new ArrayList<QuestionnaireBean>();
+		
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT * FROM Questionnaire WHERE Subject LIKE \"%"+ filter + "%\";" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {
+			   QuestionnaireBean questionnaire = new QuestionnaireBean();      
+			   questionnaire.setId(result.getInt("Id"));
+			   questionnaire.setName(result.getString("Name"));
+			   questionnaire.setSubject(result.getString("Subject"));
+			   questionnaire.setDateCreation(result.getDate("DateCreation"));
+			   questionnaire.setState(result.getBoolean("State"));
+			   questionnaire.setQuestions(QuestionnaireDAO.getQuestions(questionnaire.getId()));
+			   questionnaires.add(questionnaire);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		
+		return questionnaires;
+	}
+
+	public static ArrayList<QuestionBean> getQuestions(String id, String filter) {
+ArrayList<QuestionBean> questions = new ArrayList<QuestionBean>();
+		
+
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT Id, Title, RightAnswer, State, OrderQuestion"
+													+ " FROM Question q, CompoQuestionnaire cq"
+													+ " WHERE cq.IdQuestion=q.Id"
+													+ " AND Title LIKE \"%" + filter + "%\""
+													+ " AND cq.IdQuestionnaire= " + id
+													+ " ORDER BY cq.OrderQuestion" + ";" );
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {
+			   QuestionBean question = new QuestionBean();      
+			   question.setId(result.getInt(1));
+			   question.setTitle(result.getString("Title"));
+			   question.setRightAnswer(result.getInt("RightAnswer"));
+			   question.setState(result.getBoolean("State"));
+			   question.setOrder(result.getInt("OrderQuestion"));
+			   question.setAnswers(QuestionDAO.getAnswers(question.getId()));
+			   questions.add(question);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		return questions;
+	}
+
+	public static ArrayList<QuestionnaireBean> getQuestionnairesActif(String filter) {
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		ArrayList<QuestionnaireBean> questionnaires =new ArrayList<QuestionnaireBean>();
+		
+		try {
+			preparedStatement = conn.prepareStatement( "SELECT * FROM Questionnaire "
+														+ " WHERE state = 1"
+														+ " AND Subject LIKE \"%" + filter + "%\";");
+			
+			result = InteractionsDAO.mySQLreadingQuery(conn, preparedStatement);
+
+			while(result.next()) {
+			   QuestionnaireBean questionnaire = new QuestionnaireBean();      
+			   questionnaire.setId(result.getInt("Id"));
+			   questionnaire.setName(result.getString("Name"));
+			   questionnaire.setSubject(result.getString("Subject"));
+			   questionnaire.setDateCreation(result.getDate("DateCreation"));
+			   questionnaire.setState(result.getBoolean("State"));
+			   questionnaire.setQuestions(QuestionnaireDAO.getQuestions(questionnaire.getId()));
+			   questionnaires.add(questionnaire);
+			}
+			
+		} 
+		catch (SQLException e) {
+			return null;
+		}
+		finally {
+			MysqljdbcDAO.closeConnection(result, preparedStatement, conn);				
+		}
+		
+		
+		return questionnaires;
+	}
 }

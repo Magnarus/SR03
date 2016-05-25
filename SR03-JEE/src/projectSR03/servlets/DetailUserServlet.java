@@ -44,6 +44,11 @@ public class DetailUserServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String filter = req.getParameter("filter");
+		if(filter != null) {
+			filterData(filter);
+		} else {
+		
 		/* Préparation de l'objet formulaire */
 		UpdateUserForm form = new UpdateUserForm();
 
@@ -51,18 +56,23 @@ public class DetailUserServlet extends HttpServlet {
         UserBean utilisateur = form.createUser(req);
         utilisateur.setId(user.getId());
 
-        /* Traitement finaux de redirection */
-        if(form.getErrors().isEmpty()) {
-        	UserDAO.UpdateUser(utilisateur);
-    		users = UserDAO.getUsers();
-    		req.setAttribute("listUsers", users);
-        	this.getServletContext().getRequestDispatcher(USER_MANAGE).forward( req, resp );
-        } else {
-        	req.setAttribute("user", user);
-			req.setAttribute("runs", runs);
-			this.getServletContext().getRequestDispatcher( D_USER ).forward( req, resp);
-        }
-        
+	        /* Traitement finaux de redirection */
+	        if(form.getErrors().isEmpty()) {
+	        	UserDAO.UpdateUser(utilisateur);
+	    		users = UserDAO.getUsers();
+	    		req.setAttribute("listUsers", users);
+	        	this.getServletContext().getRequestDispatcher(USER_MANAGE).forward( req, resp );
+	        }
+	        
+		}
+
+    	req.setAttribute("user", user);
+		req.setAttribute("runs", runs);
+		this.getServletContext().getRequestDispatcher( D_USER ).forward( req, resp);
+	}
+	
+	public void filterData(String filter) {
+		runs = RunDAO.getUserBestRuns(user.getId(), filter);
 	}
 
 }

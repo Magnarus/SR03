@@ -12,6 +12,11 @@
 		<h1> Listes des parcours précédents </h1>
 		<!--  Affichage des questionnaires existants -->
 		<p> Parcours </p>	
+		 <form method = "POST" > 
+	      	  <label for="filter"> Filtre : </label>
+			  <input type="text" name="filter" value=""/>
+							<input value="Chercher" type="submit"/>
+	    </form>
 		<display:table id="row" name="listRun" requestURI="/MemberPages/StagiairePages/listRun" pagesize="3" >
 			<display:column property="quest.subject" title="Sujet" />
 			<display:column property="quest.name" title="Questionnaire"  />

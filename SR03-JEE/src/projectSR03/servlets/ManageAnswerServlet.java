@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import projectSR03.DAO.AnswerDAO;
 import projectSR03.DAO.QuestionDAO;
+import projectSR03.DAO.UserDAO;
 import projectSR03.beans.AnswerBean;
 
 @WebServlet("/MemberPages/AdminPages/manageAnswer")
@@ -18,6 +19,7 @@ public class ManageAnswerServlet extends HttpServlet {
 
 	public static final String D_ANSWER = "/MemberPages/AdminPages/manageAnswer.jsp";
 	private List<AnswerBean> answers;
+	private int questId;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,6 +27,7 @@ public class ManageAnswerServlet extends HttpServlet {
 		String state = req.getParameter("state");
 		String answerId = req.getParameter("aId");
 		String questionId = req.getParameter("id");
+		questId =  Integer.parseInt(questionId);
 		int rightAnswer = -1;
 		if(right != null && questionId != null) {
 			QuestionDAO.setRightAnswer(questionId, right);
@@ -45,6 +48,7 @@ public class ManageAnswerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("a_id");
 		String questionId = req.getParameter("id");
+		String filter = req.getParameter("filter");
 		int rightAnswer = -1;
 		if(req.getParameter("supprimer") != null && id !=null) {
 			removeAnswer(id);
@@ -58,6 +62,9 @@ public class ManageAnswerServlet extends HttpServlet {
 		if (questionId != null) {
 			answers = QuestionDAO.getAnswers(Integer.parseInt(questionId));
 			rightAnswer = QuestionDAO.getRightAnswer(questionId);
+		}
+		if(filter != null) {
+			filterData(filter);
 		}
 		req.setAttribute("answers", answers);
 		req.setAttribute("rightAnswer", Integer.toString(rightAnswer));
@@ -80,6 +87,10 @@ public class ManageAnswerServlet extends HttpServlet {
 	
 	private void downOrder(String id, String questionId) {
 		AnswerDAO.downAnswerOrder(id, questionId);
+	}
+	
+	public void filterData(String filter) {
+		answers = QuestionDAO.getAnswers(questId, filter);
 	}
 
 }
