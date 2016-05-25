@@ -36,7 +36,12 @@
 			</c:forEach>
 			
 		</c:forEach>
+		
+		<p> Score : ${score } / ${nbQuest }</p>
+		<p> Durée : ${duration } </p>
+		
 		<br/>
+
 		<a href="<c:url value="/MemberPages/StagiairePages/homeStagiaire" />">Accueil</a><br/>
 		
 	</body>

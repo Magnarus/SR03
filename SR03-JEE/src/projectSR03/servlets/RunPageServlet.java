@@ -22,6 +22,9 @@ public class RunPageServlet extends HttpServlet {
 	private static final String RUN_PAGE = "/MemberPages/StagiairePages/runPage.jsp";
 	private static final String RECAP_STAGIAIRE = "/MemberPages/StagiairePages/recap.jsp";
 	
+	private long score;
+	private String duration;
+	
 	private long runBegin; // Date de début de la question courante
 	private int idRun = -1; // ID de la BDD pour le Run courant
 	private int idQuest; // ID du questionnaire choisit
@@ -53,7 +56,7 @@ public class RunPageServlet extends HttpServlet {
 			ListAnswerDAO.createEntry(key, idRun);
 			// Mettre à jour le run
 			if(current.getRightAnswer() == idAnswer) {
-				RunDAO.UpdateScore(idRun, runBegin);
+				RunDAO.UpdateScore(idRun);
 				m.put(current, 0);
 			}  else {
 				m.put(current, 1);
@@ -78,6 +81,16 @@ public class RunPageServlet extends HttpServlet {
 			current = questionnaire.getQuestion(currentQuestion);
 			
 			if(current == null) { // Fin du questionnaire 
+				
+				RunDAO.UpdateDuration(idRun, runBegin);
+				
+				score = RunDAO.getrunScore(idRun);
+				duration = RunDAO.getrunDuration(idRun);
+				int nbQuest = m.size();
+				
+				req.setAttribute("score", score);
+				req.setAttribute("nbQuest", nbQuest);
+				req.setAttribute("duration", duration);
 				req.setAttribute("result", m);
 				idRun = -1;
 				this.getServletContext().getRequestDispatcher( RECAP_STAGIAIRE ).forward( req, resp);
