@@ -39,9 +39,13 @@ public class ManageUsersServlet extends HttpServlet {
 		String filter = req.getParameter("filter");
 		
 		if(id != null) {
+			for(UserBean u : users) {
+				if(u.getId() == Integer.parseInt(id)) {
+					users.remove(u);
+					break;
+				}
+			}
 			UserDAO.deleteUser(id);
-			users.clear();
-			users = UserDAO.getUsers();
 		}
 		if(filter != null) {
 			filterData(filter);
