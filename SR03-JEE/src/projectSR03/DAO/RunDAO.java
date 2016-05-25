@@ -5,11 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 import com.mysql.jdbc.Statement;
 
 import projectSR03.beans.RunBean;
+import projectSR03.utils.ValueComparator;
 
 public class RunDAO {
 	
@@ -35,6 +39,7 @@ public class RunDAO {
 					);
 			   run.setDuration(time);
 			   run.setScore(result.getLong("Score"));
+			   run.setClassement(result.getInt("Classement"));
 			   run.setQuest(QuestionnaireDAO.getQuestionnaire(result.getInt("idQuestionnaire")));
 			   
 			   
@@ -55,8 +60,8 @@ public class RunDAO {
 	}
 
 	public static int createRun(String questId, int id) {
-		String rqt = "INSERT INTO Run(Duration, idUser, idQuestionnaire, Score, Date) "
-				+ "VALUES(?,?,?,?, SYSDATE());";
+		String rqt = "INSERT INTO Run(Duration, idUser, idQuestionnaire, Score, Date, Classement) "
+				+ "VALUES(?,?,?,?, SYSDATE(), ?);";
 		System.out.println(rqt);
 		Connection conn = MysqljdbcDAO.mySQLgetConnection();
 		PreparedStatement statement = null;
@@ -68,6 +73,7 @@ public class RunDAO {
 			statement.setInt(2, id);
 			statement.setInt(3, Integer.parseInt(questId));
 			statement.setLong(4, 0);
+			statement.setInt(5, -1);
 			statement.executeUpdate();
 			resultSet = statement.getGeneratedKeys();
 			if(resultSet.next() && resultSet!=null) {
@@ -119,12 +125,13 @@ public class RunDAO {
 	}
 
 	public static ArrayList<RunBean> getUserBestRuns(String id) {
-		String rqt = "SELECT Distinct(IdQuestionnaire), Id, Score, Date, Duration"
+		String rqt = "SELECT Distinct(IdQuestionnaire), Id, Score, Date, Duration, Classement"
 				    +  " FROM Run r"
 					+  " WHERE idUser = " + id 
 					+  " AND Score = (SELECT MAX(Score)"
 						+		" From Run ru "
-						+		" WHERE ru.IdQuestionnaire = r.IdQuestionnaire);";
+						+		" WHERE ru.IdQuestionnaire = r.IdQuestionnaire"
+						+ 		" AND idUser = " + id + ");";
 		
 		System.out.println(rqt);
 		ArrayList<RunBean> runs = new ArrayList<RunBean>();
@@ -148,6 +155,7 @@ public class RunDAO {
 					);
 			   run.setDuration(time);
 			   run.setScore(result.getLong("Score"));
+			   run.setClassement(result.getInt("Classement"));
 			   run.setQuest(QuestionnaireDAO.getQuestionnaire(result.getInt("idQuestionnaire")));		   
 			   runs.add(run);
 			}
@@ -162,7 +170,7 @@ public class RunDAO {
 		return runs;	
 	}
 	
-	public static long getrunScore(int idRun){
+	public static long getRunScore(int idRun){
 		
 		long score = -1;
 		
@@ -190,7 +198,7 @@ public class RunDAO {
 		return score;	
 	}
 
-	public static String getrunDuration(int idRun){
+	public static String getRunDuration(int idRun){
 		
 		String duration = null;
 		
@@ -222,14 +230,15 @@ public class RunDAO {
 	}
 
 	public static ArrayList<RunBean> getUserBestRuns(int id, String filter) {
-		String rqt = "SELECT Distinct(IdQuestionnaire), q.Id as Id, Score, Date, Duration"
+		String rqt = "SELECT Distinct(IdQuestionnaire), q.Id as Id, Score, Date, Duration, Classement"
 			    +  " FROM Run r, Questionnaire q"
 				+  " WHERE idUser = " + id
 				+  " AND r.IdQuestionnaire = q.Id"
 				+  " AND q.Subject LIKE \"%" + filter + "%\""
 				+  " AND Score = (SELECT MAX(Score)"
 					+		" From Run ru "
-					+		" WHERE ru.IdQuestionnaire = r.IdQuestionnaire);";
+					+		" WHERE ru.IdQuestionnaire = r.IdQuestionnaire"
+					+ 		" AND idUser = " + id + ");";
 	
 		System.out.println(rqt);
 		ArrayList<RunBean> runs = new ArrayList<RunBean>();
@@ -253,6 +262,7 @@ public class RunDAO {
 					);
 			   run.setDuration(time);
 			   run.setScore(result.getLong("Score"));
+			   run.setClassement(result.getInt("Classement"));
 			   run.setQuest(QuestionnaireDAO.getQuestionnaire(result.getInt("idQuestionnaire")));		   
 			   runs.add(run);
 			}
@@ -291,6 +301,7 @@ public class RunDAO {
 					);
 			   run.setDuration(time);
 			   run.setScore(result.getLong("Score"));
+			   run.setClassement(result.getInt("Classement"));
 			   run.setQuest(QuestionnaireDAO.getQuestionnaire(result.getInt("idQuestionnaire")));
 			   
 			   
@@ -309,5 +320,70 @@ public class RunDAO {
 		
 		return runs;
 	}
+
+	public static TreeMap<Integer,Integer> getClassement(int idQuest, int userId, int score) {
+		
+		HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+		ValueComparator comparateur = new ValueComparator(map);
+		TreeMap<Integer,Integer> mapTriee = new TreeMap<Integer,Integer>(comparateur);
+		
+		map.put(userId, score);
+		
+		String rqt = "SELECT Max(Score) AS Score, idUser FROM Run r "
+				+ "WHERE IdQuestionnaire = ? "
+				+ "GROUP BY idUser;";
+		
+		Connection conn = MysqljdbcDAO.mySQLgetConnection();
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			statement = conn.prepareStatement(rqt);
+			statement.setInt(1, idQuest);
+			
+			resultSet = InteractionsDAO.mySQLreadingQuery(conn, statement);
+			while(resultSet.next()) {
+				map.put(resultSet.getInt("idUser"), resultSet.getInt("Score"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			MysqljdbcDAO.closeConnection(resultSet, statement, conn);
+		}
+		
+		mapTriee.putAll(map);
+		 
+		return mapTriee;
+	}
+
+	public static void setClassement(TreeMap<Integer, Integer> classement, int idQuest) {
+		
+		String rqt = "UPDATE Run SET Classement = ? "
+				+ "WHERE IdQuestionnaire = ? AND idUser = ? ;";
+		
+		int currentInd = 1;
+		
+		for (Entry<Integer, Integer> entry : classement.entrySet()) {
+			
+			Connection conn = MysqljdbcDAO.mySQLgetConnection();
+			PreparedStatement statement = null;
+			ResultSet resultSet = null;
+			
+			try {
+				statement = conn.prepareStatement(rqt, Statement.RETURN_GENERATED_KEYS);
+				statement.setInt(1, currentInd);
+				statement.setInt(2, idQuest);
+				statement.setInt(3, entry.getKey());
+				statement.executeUpdate();
+				resultSet = statement.getGeneratedKeys();
+				currentInd++;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			} 
+			finally {
+				MysqljdbcDAO.closeConnection(resultSet, statement, conn);
+			}
+		}
+	}		
 
 }

@@ -93,6 +93,7 @@
 				<display:column property="date" title="Date" />
 				<display:column property="duration" title="Durée" />
 				<display:column property="score" title="Score" />
+				<display:column property="classement" title="Classement" />
 			  </display:table>
 	      	</c:if>
 	</body>

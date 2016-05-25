@@ -16,13 +16,14 @@ import projectSR03.DAO.RunDAO;
 import projectSR03.DAO.UserAnswerDAO;
 import projectSR03.beans.QuestionBean;
 import projectSR03.beans.QuestionnaireBean;
+import projectSR03.beans.UserBean;
 
 @WebServlet("/MemberPages/StagiairePages/runPage")
 public class RunPageServlet extends HttpServlet {
 	private static final String RUN_PAGE = "/MemberPages/StagiairePages/runPage.jsp";
 	private static final String RECAP_STAGIAIRE = "/MemberPages/StagiairePages/recap.jsp";
 	
-	private long score;
+	private int score;
 	private String duration;
 	
 	private long runBegin; // Date de début de la question courante
@@ -44,7 +45,6 @@ public class RunPageServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String answer = (String) req.getParameter("question");
-
 		
 		if(answer != null && idRun != -1) // En train de parcourir & réponse donnée
 		{
@@ -82,10 +82,16 @@ public class RunPageServlet extends HttpServlet {
 			
 			if(current == null) { // Fin du questionnaire 
 				
+				UserBean u = (UserBean) req.getSession().getAttribute("sessionUser");
+				int userId=u.getId();
+
 				RunDAO.UpdateDuration(idRun, runBegin);
 				
-				score = RunDAO.getrunScore(idRun);
-				duration = RunDAO.getrunDuration(idRun);
+				score = (int) RunDAO.getRunScore(idRun);
+				duration = RunDAO.getRunDuration(idRun);
+				
+				RunDAO.setClassement(RunDAO.getClassement(idQuest, userId, score), idQuest);
+				
 				int nbQuest = m.size();
 				
 				req.setAttribute("score", score);

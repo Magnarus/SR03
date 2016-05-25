@@ -14,6 +14,7 @@ public class RunBean {
 	private String duration;
 	private HashMap<QuestionBean, Integer> answers;
 	private QuestionnaireBean quest;
+	private int classement;
 	
 	public int getId() {	return id;	}
 	public void setId(int id) {	this.id = id;	}
@@ -45,6 +46,9 @@ public class RunBean {
 			answers.remove(q);
 		}
 	}
+	
+	public int getClassement() {	return classement;	}
+	public void setClassement(int classement) {		this.classement = classement;	}
 
 
 }
