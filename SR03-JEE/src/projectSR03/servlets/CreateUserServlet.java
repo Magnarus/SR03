@@ -38,7 +38,7 @@ public class CreateUserServlet extends HttpServlet {
         /* Traitement finaux de redirection */
         if(form.getErrors().isEmpty()) {
         	UserDAO.createUser(utilisateur);
-        	MailManager.SendMessage(utilisateur.getEmail(), "Coucou", "Coucou");
+        //	MailManager.SendMessage(utilisateur.getEmail(), "Coucou", "Coucou");
     		users = UserDAO.getUsers();
     		req.setAttribute("listUsers", users);
         	this.getServletContext().getRequestDispatcher(USER_MANAGE).forward( req, resp );

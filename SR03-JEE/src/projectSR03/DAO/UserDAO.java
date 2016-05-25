@@ -146,5 +146,10 @@ public class UserDAO {
 					+ " WHERE Id = " + utilisateur.getId() + ";";
 		InteractionsDAO.mySQLwritingQuery(rqt);
 	}
+
+	public static void deleteUser(String id) {
+		String rqt = "DELETE FROM User Where Id = " + id;
+		InteractionsDAO.mySQLwritingQuery(rqt);
+	}
 	
 }

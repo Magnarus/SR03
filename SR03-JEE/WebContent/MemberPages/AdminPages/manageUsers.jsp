@@ -6,7 +6,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link type="text/css" rel="stylesheet" href="../../table.css" />
-		<title>Gestions users</title>
+		<title>Gestion users</title>
 	</head>
 	<body>
 		<p> Gestion des utilisateurs :</p>
@@ -21,6 +21,12 @@
 			<display:column property="password" title="Mot de passe"  />
 			<display:column property="admin" title="Administrateur"  />
 			<display:column property="state" title="Actif" />
+			<display:column title="Action">
+				<form  method="POST">
+					<input type="hidden" name="q_id" value="${row.id}"/>
+					<input value="Supprimer" type="submit"/>
+				</form>
+			</display:column>
 		</display:table>
 		<!-- Création d'un nouveau questionnaire -->
 		<a href="<c:url value="/MemberPages/AdminPages/CreateUser"/>" > Nouvel utilisateur </a>
