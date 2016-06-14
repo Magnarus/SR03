@@ -2,7 +2,11 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import beans.CategorieBean;
 
 public class CategorieDAO {
 	
@@ -15,17 +19,27 @@ public class CategorieDAO {
 		int key = InteractionsDAO.mySQLwritingQuery(addAnswer);
 	}
 	
-	public static void getCategories() {
+	public static CategorieBean[] getCategories() {
 		String getRequest = "SELECT * FROM categorie";
 		Connection conn = MysqljdbcDAO.mySQLgetConnection();
 		PreparedStatement preparedStatement;
+		ResultSet result = null;
+		ArrayList<CategorieBean> categList = new ArrayList<CategorieBean>();
 		try {
 			preparedStatement = conn.prepareStatement(getRequest);
-			InteractionsDAO.mySQLreadingQuery(MysqljdbcDAO.mySQLgetConnection(), preparedStatement);
+			result = InteractionsDAO.mySQLreadingQuery(MysqljdbcDAO.mySQLgetConnection(), preparedStatement);
+			while(result.next()) {
+				CategorieBean categ = new CategorieBean();
+				categ.setId(result.getInt("id"));
+				categ.setNom(result.getString("Nom"));
+				categ.setAnonces(AnnonceDAO.getAnnonces(categ.getId()));
+				categList.add(categ);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return  (CategorieBean[]) categList.toArray();
 	}
 	
 	public static void updateCategorieName(int id, String newName) {
