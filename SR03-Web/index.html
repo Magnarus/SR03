@@ -1,0 +1,95 @@
+ <!doctype html>
+
+<html lang="fr" ng-app="trombiApp">
+	<head>
+	  <meta charset="utf-8">
+	  <title>Trombinoscope UTC</title>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+
+	  <!-- Include css  -->
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.3/ui-bootstrap-tpls.min.js"></script>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	  <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+	  <link rel="stylesheet" type="text/css" href="resources/css/paginationCSS.css">
+	  
+	  <!-- Include material -->
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+	  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+	  
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.6/angular-material.min.js"></script>
+	  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+	  
+	  <!-- Includes des fichiers angular -->
+	  <script src="script/app.js"></script>
+
+	  <!-- Includes des fichiers angular : modèles -->
+	  <script src="model/People.js"></script>
+	  <script src="model/Struct.js"></script>
+	  <script src="model/SubStruct.js"></script>
+
+	  <!-- Includes des fichiers angular : controleurs -->
+	  <script src="controller/TrombiController.js"></script>
+	  <script src="controller/TabTrombiController.js"></script>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="page-header">
+						<H1>Trombinoscope</H1>
+					</div>
+				</div>
+			</div>
+			<div class="row" >
+				<div class="col-md-12" >
+					<div ng-controller="TrombiController" >
+						<md-content> 
+							<md-tabs md-dynamic-height="" md-border-bottom="" md-center-tabs="true">
+									<md-tab  label = "Saisir un nom">
+										<!-- Formulaire avec saisie des données -->
+										<md-content class="md-padding">
+											<div id = "textForm">
+												<form novalidate class="simple-form centerTab">
+													<md-input-container class="md-accent" >
+														<label>Nom</label>
+														<input type="text" ng-model="user.name" /></br>
+													</md-input-container>
+													<md-input-container class="md-accent" >
+														<label>Prénom</label>
+														<input type="text" ng-model="user.firstname" /></br>
+													</md-input-container>
+													 <br/>   			 
+													<md-button class="md-raised md-primary" ng-click="reset(user)"> Réinitialiser </md-button>
+													<md-button class="md-raised md-primary" ng-click="validate(user)"> Rechercher </md-button>
+												</form>
+											</div>
+										</md-content>
+									</md-tab>
+									<md-tab  label = "Sélectionner une structure">
+									<!-- Mise à jour des données via select -->
+										<md-content class="md-padding" >
+											<div id="selectForm" class ="centerTab">
+												<md-select class="md-accent" name="selectStructure" ng-model="item"   ng-change="updateSelect()"  placeholder="Structure"> 
+													 <md-option ng-value="obj.structure.structId" ng-repeat="obj in dataStruct">{{ obj.structureLibelle }}</md-option>
+												 </md-select>
+												 <md-select class="md-accent" id="selectSS" name="selectSsStructure" ng-model="subData" ng-disabled="!item"  placeholder="Sous-Structure">
+													<md-option value="" ></md-option>
+												    <md-option ng-value="obj.structure.structId" ng-repeat="obj in dataSsStruct">{{ obj.structureLibelle }}</md-option>
+												 </md-select>
+												 <md-button class="md-raised md-primary" ng-click="getData()">Rechercher</md-button>
+											</div>
+										</md-content>
+									</md-tab>									
+							</md-tabs>
+						</md-content>
+					</div>
+				</div>
+			</div>
+			<div ng-view>
+			
+			</div>
+		</div>
+	</body>
+</html>
