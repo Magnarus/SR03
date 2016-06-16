@@ -8,6 +8,7 @@ public class AnnonceBean {
 	private String nom;
 	private String tel;
 	private AdresseBean adresse;
+	private String details;
 	
 	public int getId() {	return id;	}
 	public void setId(int id) {	this.id = id;	}
@@ -24,5 +25,8 @@ public class AnnonceBean {
 	
 	public AdresseBean getAdresse() {	return adresse; 	}
 	public void setAdresse(AdresseBean adresse) {	this.adresse = adresse;	}
+	
+	public String getDetails() {  return details;	}
+	public void setDetails(String details) {	this.details = details;	}
 
 }
