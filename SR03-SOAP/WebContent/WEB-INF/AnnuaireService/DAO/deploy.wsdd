@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from AnnuaireService WSDL service -->
+
+  <service name="Annuaire" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://DAO"/>
+      <parameter name="wsdlServiceElement" value="AnnuaireService"/>
+      <parameter name="schemaQualified" value="http://DAO,http://beans"/>
+      <parameter name="wsdlServicePort" value="Annuaire"/>
+      <parameter name="className" value="DAO.Annuaire"/>
+      <parameter name="wsdlPortType" value="Annuaire"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://DAO" xmlns:retNS="http://DAO" xmlns:rtns="http://beans" name="getCategories" qname="operNS:getCategories" returnQName="retNS:getCategoriesReturn" returnType="rtns:CategorieBean" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://DAO" xmlns:retNS="http://DAO" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="mySQLwritingQuery" qname="operNS:mySQLwritingQuery" returnQName="retNS:mySQLwritingQueryReturn" returnType="rtns:int" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:req" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" xmlns:retNS="http://DAO" xmlns:rtns="http://beans" name="getAnnoncesWithId" qname="operNS:getAnnoncesWithId" returnQName="retNS:getAnnoncesWithIdReturn" returnType="rtns:AnnonceBean" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" name="updateCategorieName" qname="operNS:updateCategorieName" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:newName" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" name="updateAnnonceName" qname="operNS:updateAnnonceName" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://beans" qname="pns:annonce" type="tns:AnnonceBean"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" name="addAdresse" qname="operNS:addAdresse" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://beans" qname="pns:b" type="tns:AdresseBean"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" xmlns:retNS="http://DAO" xmlns:rtns="http://beans" name="getAdresse" qname="operNS:getAdresse" returnQName="retNS:getAdresseReturn" returnType="rtns:AdresseBean" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:idAdresse" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" xmlns:retNS="http://DAO" xmlns:rtns="http://beans" name="getAnnonces" qname="operNS:getAnnonces" returnQName="retNS:getAnnoncesReturn" returnType="rtns:AnnonceBean" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://DAO" name="addAnnonce" qname="operNS:addAnnonce" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://beans" qname="pns:a" type="tns:AnnonceBean"/>
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://beans" qname="pns:b" type="tns:CategorieBean"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" name="deleteCategorie" qname="operNS:deleteCategorie" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" name="deleteAnnonce" qname="operNS:deleteAnnonce" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://DAO" name="addCategorie" qname="operNS:addCategorie" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nom" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="getAnnoncesWithId addAnnonce getCategories updateAnnonceName deleteCategorie deleteAnnonce getAnnonces addAdresse addCategorie updateCategorieName getAdresse mySQLwritingQuery"/>
+
+      <typeMapping xmlns:ns="http://beans" qname="ns:AnnonceBean" type="java:beans.AnnonceBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://beans" qname="ns:CategorieBean" type="java:beans.CategorieBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://DAO" xmlns:cmp-ns="http://beans" qname="ns:ArrayOf_tns1_AnnonceBean" type="java:beans.AnnonceBean[]" innerType="cmp-ns:AnnonceBean" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://beans" qname="ns:AdresseBean" type="java:beans.AdresseBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
