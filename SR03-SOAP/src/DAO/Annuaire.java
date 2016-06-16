@@ -117,8 +117,8 @@ public class Annuaire {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		AnnonceBean[] b = new AnnonceBean[annonceList.size()];
-		b =  (AnnonceBean[]) annonceList.toArray();
+		AnnonceBean[] b;
+		b =  (AnnonceBean[]) annonceList.toArray(new AnnonceBean[annonceList.size()]);
 		return (b);	
 	}
 	
@@ -158,8 +158,8 @@ public class Annuaire {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		AnnonceBean[] b = new AnnonceBean[annonceList.size()];
-		b =  (AnnonceBean[]) annonceList.toArray();
+		AnnonceBean[] b;
+		b =  (AnnonceBean[]) annonceList.toArray(new AnnonceBean[annonceList.size()]);
 		return (b);	
 	}
 	
@@ -193,8 +193,8 @@ public class Annuaire {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		CategorieBean[] b = new CategorieBean[categList.size()];
-		b =  (CategorieBean[]) categList.toArray();
+		CategorieBean[] b ;
+		b =  (CategorieBean[]) categList.toArray(new CategorieBean[categList.size()]);
 		return  b;
 	}
 	
