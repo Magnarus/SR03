@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://DAO" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://DAO" xmlns:intf="http://DAO" xmlns:tns1="http://beans" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://DAO" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://beans"/>
+   <element name="getCategories">
+    <complexType/>
+   </element>
+   <element name="getCategoriesResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getCategoriesReturn" type="tns1:CategorieBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns1_AnnonceBean">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns1:AnnonceBean"/>
+    </sequence>
+   </complexType>
+   <element name="mySQLwritingQuery">
+    <complexType>
+     <sequence>
+      <element name="req" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="mySQLwritingQueryResponse">
+    <complexType>
+     <sequence>
+      <element name="mySQLwritingQueryReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAnnoncesWithId">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAnnoncesWithIdResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getAnnoncesWithIdReturn" type="tns1:AnnonceBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="updateCategorieName">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+      <element name="newName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="updateCategorieNameResponse">
+    <complexType/>
+   </element>
+   <element name="updateAnnonceName">
+    <complexType>
+     <sequence>
+      <element name="annonce" type="tns1:AnnonceBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="updateAnnonceNameResponse">
+    <complexType/>
+   </element>
+   <element name="addAdresse">
+    <complexType>
+     <sequence>
+      <element name="b" type="tns1:AdresseBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addAdresseResponse">
+    <complexType/>
+   </element>
+   <element name="getAdresse">
+    <complexType>
+     <sequence>
+      <element name="idAdresse" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAdresseResponse">
+    <complexType>
+     <sequence>
+      <element name="getAdresseReturn" type="tns1:AdresseBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAnnonces">
+    <complexType/>
+   </element>
+   <element name="getAnnoncesResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getAnnoncesReturn" type="tns1:AnnonceBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addAnnonce">
+    <complexType>
+     <sequence>
+      <element name="a" type="tns1:AnnonceBean"/>
+      <element name="b" type="tns1:CategorieBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addAnnonceResponse">
+    <complexType/>
+   </element>
+   <element name="deleteCategorie">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteCategorieResponse">
+    <complexType/>
+   </element>
+   <element name="deleteAnnonce">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteAnnonceResponse">
+    <complexType/>
+   </element>
+   <element name="addCategorie">
+    <complexType>
+     <sequence>
+      <element name="nom" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addCategorieResponse">
+    <complexType/>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://beans" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://DAO"/>
+   <complexType name="AdresseBean">
+    <sequence>
+     <element name="codePostal" type="xsd:int"/>
+     <element name="id" type="xsd:int"/>
+     <element name="rue" nillable="true" type="xsd:string"/>
+     <element name="ville" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AnnonceBean">
+    <sequence>
+     <element name="adresse" nillable="true" type="tns1:AdresseBean"/>
+     <element name="annonceur" nillable="true" type="xsd:string"/>
+     <element name="details" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="nom" nillable="true" type="xsd:string"/>
+     <element name="tel" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="CategorieBean">
+    <sequence>
+     <element name="anonces" nillable="true" type="impl:ArrayOf_tns1_AnnonceBean"/>
+     <element name="id" type="xsd:int"/>
+     <element name="nom" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="addAdresseResponse">
+
+      <wsdl:part element="impl:addAdresseResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addAnnonceRequest">
+
+      <wsdl:part element="impl:addAnnonce" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateAnnonceNameResponse">
+
+      <wsdl:part element="impl:updateAnnonceNameResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCategoriesRequest">
+
+      <wsdl:part element="impl:getCategories" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAdresseRequest">
+
+      <wsdl:part element="impl:getAdresse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addAnnonceResponse">
+
+      <wsdl:part element="impl:addAnnonceResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAnnoncesWithIdRequest">
+
+      <wsdl:part element="impl:getAnnoncesWithId" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteAnnonceRequest">
+
+      <wsdl:part element="impl:deleteAnnonce" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateCategorieNameRequest">
+
+      <wsdl:part element="impl:updateCategorieName" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="mySQLwritingQueryResponse">
+
+      <wsdl:part element="impl:mySQLwritingQueryResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAnnoncesWithIdResponse">
+
+      <wsdl:part element="impl:getAnnoncesWithIdResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAnnoncesRequest">
+
+      <wsdl:part element="impl:getAnnonces" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addCategorieRequest">
+
+      <wsdl:part element="impl:addCategorie" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCategoriesResponse">
+
+      <wsdl:part element="impl:getCategoriesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateAnnonceNameRequest">
+
+      <wsdl:part element="impl:updateAnnonceName" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAdresseResponse">
+
+      <wsdl:part element="impl:getAdresseResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAnnoncesResponse">
+
+      <wsdl:part element="impl:getAnnoncesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteAnnonceResponse">
+
+      <wsdl:part element="impl:deleteAnnonceResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateCategorieNameResponse">
+
+      <wsdl:part element="impl:updateCategorieNameResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="mySQLwritingQueryRequest">
+
+      <wsdl:part element="impl:mySQLwritingQuery" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addAdresseRequest">
+
+      <wsdl:part element="impl:addAdresse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addCategorieResponse">
+
+      <wsdl:part element="impl:addCategorieResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteCategorieResponse">
+
+      <wsdl:part element="impl:deleteCategorieResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteCategorieRequest">
+
+      <wsdl:part element="impl:deleteCategorie" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Annuaire">
+
+      <wsdl:operation name="getCategories">
+
+         <wsdl:input message="impl:getCategoriesRequest" name="getCategoriesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getCategoriesResponse" name="getCategoriesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="mySQLwritingQuery">
+
+         <wsdl:input message="impl:mySQLwritingQueryRequest" name="mySQLwritingQueryRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:mySQLwritingQueryResponse" name="mySQLwritingQueryResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAnnoncesWithId">
+
+         <wsdl:input message="impl:getAnnoncesWithIdRequest" name="getAnnoncesWithIdRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAnnoncesWithIdResponse" name="getAnnoncesWithIdResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateCategorieName">
+
+         <wsdl:input message="impl:updateCategorieNameRequest" name="updateCategorieNameRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:updateCategorieNameResponse" name="updateCategorieNameResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateAnnonceName">
+
+         <wsdl:input message="impl:updateAnnonceNameRequest" name="updateAnnonceNameRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:updateAnnonceNameResponse" name="updateAnnonceNameResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addAdresse">
+
+         <wsdl:input message="impl:addAdresseRequest" name="addAdresseRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addAdresseResponse" name="addAdresseResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAdresse">
+
+         <wsdl:input message="impl:getAdresseRequest" name="getAdresseRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAdresseResponse" name="getAdresseResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAnnonces">
+
+         <wsdl:input message="impl:getAnnoncesRequest" name="getAnnoncesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAnnoncesResponse" name="getAnnoncesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addAnnonce">
+
+         <wsdl:input message="impl:addAnnonceRequest" name="addAnnonceRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addAnnonceResponse" name="addAnnonceResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteCategorie">
+
+         <wsdl:input message="impl:deleteCategorieRequest" name="deleteCategorieRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteCategorieResponse" name="deleteCategorieResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteAnnonce">
+
+         <wsdl:input message="impl:deleteAnnonceRequest" name="deleteAnnonceRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteAnnonceResponse" name="deleteAnnonceResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addCategorie">
+
+         <wsdl:input message="impl:addCategorieRequest" name="addCategorieRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addCategorieResponse" name="addCategorieResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="AnnuaireSoapBinding" type="impl:Annuaire">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getCategories">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCategoriesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCategoriesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="mySQLwritingQuery">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="mySQLwritingQueryRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="mySQLwritingQueryResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAnnoncesWithId">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAnnoncesWithIdRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAnnoncesWithIdResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateCategorieName">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateCategorieNameRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateCategorieNameResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="updateAnnonceName">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateAnnonceNameRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateAnnonceNameResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addAdresse">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addAdresseRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addAdresseResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAdresse">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAdresseRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAdresseResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAnnonces">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAnnoncesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAnnoncesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addAnnonce">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addAnnonceRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addAnnonceResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteCategorie">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteCategorieRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteCategorieResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteAnnonce">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteAnnonceRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteAnnonceResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addCategorie">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addCategorieRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addCategorieResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="AnnuaireService">
+
+      <wsdl:port binding="impl:AnnuaireSoapBinding" name="Annuaire">
+
+         <wsdlsoap:address location="http://localhost:8080/SR03-SOAP/services/Annuaire"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

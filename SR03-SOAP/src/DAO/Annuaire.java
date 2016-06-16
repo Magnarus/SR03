@@ -14,85 +14,16 @@ import beans.AnnonceBean;
 import beans.CategorieBean;
 
 public class Annuaire {
-    
-	// Obtenir une connexion à la base de données
-	public static Connection mySQLgetConnection() {
-		Properties properties = new Properties();
-		String url = "jdbc:mysql://tuxa.sme.utc:3306/sr03p028";
-        String user = "sr03p028";
-        String password = "CSgwRyU5";
-		/* Chargement du driver JDBC pour MySQL */
-		try {
-		    Class.forName( "com.mysql.jdbc.Driver" );
-		} 
-		catch ( ClassNotFoundException e ) {
-		    /* Gérer les éventuelles erreurs ici. */
-		}
-        
-        Connection conn = null;
-		try {
-		    conn = DriverManager.getConnection( url, user, password );
-		} 
-		catch ( SQLException e ) {
-		    /* Gérer les éventuelles erreurs ici */
-		}
-		return conn;
-	}
+
 	
-	/* Fermer un resultset */
-	public static void closeResultSet( ResultSet resultSet ) {
-	    if ( resultSet != null ) {
-	        try {
-	            resultSet.close();
-	        } catch ( SQLException e ) {
-	            System.out.println( "Échec de la fermeture du ResultSet : " + e.getMessage() );
-	        }
-	    }
-	}
-
-	/* Fermer un statement  */
-	public static void closeStatement( Statement statement ) {
-	    if ( statement != null ) {
-	        try {
-	            statement.close();
-	        } catch ( SQLException e ) {
-	            System.out.println( "Échec de la fermeture du Statement : " + e.getMessage() );
-	        }
-	    }
-	}
-
-	/* Fermer une connexion */
-	public static void closeConnection( Connection conn ) {
-	    if ( conn != null ) {
-	        try {
-	            conn.close();
-	        } catch ( SQLException e ) {
-	            System.out.println( "Échec de la fermeture de la connexion : " + e.getMessage() );
-	        }
-	    }
-	}
-
-	/* Fermer connexion avec statement  */
-	public static void closeConnection( Statement statement, Connection conn ) {
-	    closeStatement( statement );
-	    closeConnection( conn );
-	}
-
-	/* Fermer connexion avec statement et resultset */
-	public static void closeConnection( ResultSet resultSet, Statement statement, Connection conn ) {
-	    closeResultSet( resultSet );
-	    closeStatement( statement );
-	    closeConnection( conn );
-	}
-	
-public static int mySQLwritingQuery (String req) {
+	public static int mySQLwritingQuery (String req) {
 		
 		Connection conn = null;
 		Statement preparedStatement = null;
 		ResultSet result = null;
 		int key = 0;
 		try {
-			conn = mySQLgetConnection();
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.createStatement();
         	System.out.println(req);
 			preparedStatement.executeUpdate(req, Statement.RETURN_GENERATED_KEYS);
@@ -105,24 +36,14 @@ public static int mySQLwritingQuery (String req) {
 		    /* Traiter les erreurs éventuelles ici. */
 		} 
 		finally {
-			closeConnection(result, preparedStatement, conn);	
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return key;
-	}
-	
-	public static ResultSet mySQLreadingQuery (Connection conn, PreparedStatement preparedStatement) {
-		
-		ResultSet result = null;
-		
-		try {
-			result = preparedStatement.executeQuery();
-		} 
-		catch ( SQLException e ) {
-		    /* Traiter les erreurs éventuelles ici. */
-		} 
-
-		return result;
-
 	}
 	
 	public static void addAdresse(AdresseBean b) {
@@ -134,13 +55,14 @@ public static int mySQLwritingQuery (String req) {
 	
 	public static AdresseBean getAdresse(int idAdresse) {
 		String getRequest = "SELECT * FROM adresse WHERE id = " + idAdresse;
-		Connection conn = mySQLgetConnection();
+		Connection conn = null;
 		PreparedStatement preparedStatement;
 		ResultSet result = null;
 		AdresseBean adresse = new AdresseBean();
 		try {
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.prepareStatement(getRequest);
-			result = mySQLreadingQuery(mySQLgetConnection(), preparedStatement);
+			result = preparedStatement.executeQuery();
 			while(result.next()) {
 				adresse.setId(result.getInt("id"));
 				adresse.setRue(result.getString("rue"));
@@ -174,13 +96,14 @@ public static int mySQLwritingQuery (String req) {
 	
 	public static AnnonceBean[] getAnnonces() {
 		String getRequest = "SELECT * FROM Annonce";
-		Connection conn = mySQLgetConnection();
+		Connection conn = null; 
 		PreparedStatement preparedStatement;
 		ArrayList<AnnonceBean> annonceList = new ArrayList<AnnonceBean>();
 		ResultSet result = null;
 		try {
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.prepareStatement(getRequest);
-			result = mySQLreadingQuery(mySQLgetConnection(), preparedStatement);
+			result = preparedStatement.executeQuery();
 			while(result.next()) {
 				AnnonceBean annonce = new AnnonceBean();
 				annonce.setId(result.getInt("id"));
@@ -194,7 +117,9 @@ public static int mySQLwritingQuery (String req) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return (AnnonceBean[]) annonceList.toArray();
+		AnnonceBean[] b = new AnnonceBean[annonceList.size()];
+		b =  (AnnonceBean[]) annonceList.toArray();
+		return (b);	
 	}
 	
 	public static void updateAnnonceName(AnnonceBean annonce) {
@@ -208,17 +133,18 @@ public static int mySQLwritingQuery (String req) {
 		int key = mySQLwritingQuery(addAnswer);
 	}
 
-	public static AnnonceBean[] getAnnonces(int id) {
+	public static AnnonceBean[] getAnnoncesWithId(int id) {
 		String getRequest = "SELECT * FROM annonce a, compoCategorie cc"
 							+ " Where cc.idAnnonce = a.id "
 							+ " AND a.id = " + id;
-		Connection conn = mySQLgetConnection();
+		Connection conn = null;
 		PreparedStatement preparedStatement;
 		ArrayList<AnnonceBean> annonceList = new ArrayList<AnnonceBean>();
 		ResultSet result = null;
 		try {
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.prepareStatement(getRequest);
-			result = mySQLreadingQuery(mySQLgetConnection(), preparedStatement);
+			result = preparedStatement.executeQuery();
 			while(result.next()) {
 				AnnonceBean annonce = new AnnonceBean();
 				annonce.setId(result.getInt("id"));
@@ -232,7 +158,9 @@ public static int mySQLwritingQuery (String req) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return (AnnonceBean[]) annonceList.toArray();	
+		AnnonceBean[] b = new AnnonceBean[annonceList.size()];
+		b =  (AnnonceBean[]) annonceList.toArray();
+		return (b);	
 	}
 	
 	public static void deleteCategorie(int id) {
@@ -246,25 +174,28 @@ public static int mySQLwritingQuery (String req) {
 	
 	public static CategorieBean[] getCategories() {
 		String getRequest = "SELECT * FROM categorie";
-		Connection conn = mySQLgetConnection();
+		Connection conn = null;
 		PreparedStatement preparedStatement;
 		ResultSet result = null;
 		ArrayList<CategorieBean> categList = new ArrayList<CategorieBean>();
 		try {
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.prepareStatement(getRequest);
-			result = mySQLreadingQuery(mySQLgetConnection(), preparedStatement);
+			result = preparedStatement.executeQuery();
 			while(result.next()) {
 				CategorieBean categ = new CategorieBean();
 				categ.setId(result.getInt("id"));
 				categ.setNom(result.getString("Nom"));
-				categ.setAnonces(getAnnonces(categ.getId()));
+				categ.setAnonces(getAnnoncesWithId(categ.getId()));
 				categList.add(categ);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return  (CategorieBean[]) categList.toArray();
+		CategorieBean[] b = new CategorieBean[categList.size()];
+		b =  (CategorieBean[]) categList.toArray();
+		return  b;
 	}
 	
 	public static void updateCategorieName(int id, String newName) {
