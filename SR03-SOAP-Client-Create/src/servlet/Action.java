@@ -1,4 +1,4 @@
-package controllers;
+package servlet;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ public class Action extends HttpServlet {
 
 	private static final String ACTION_PAGE = "/Home.jsp";
 	private static final String ADD_PAGE = "/AddAnn.jsp";
-	private static final String MOD_PAGE = "/ModAnn.jsp";
+	private static final String MOD_PAGE = "/manageAnnonces";
 	private static final String DEL_PAGE = "/DelAnn.jsp";
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
