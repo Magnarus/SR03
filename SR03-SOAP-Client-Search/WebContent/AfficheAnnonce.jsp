@@ -8,13 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method = "POST" > 
-	      	  <select name="categs">
-	      	  	<c:forEach var="c" items="${requestScopte['categorieList']}">
-	      	  		<option value="${c.id}">${c.nom}</option>
-	      	  	</c:forEach>
-	      	  </select>
-	    </form>
+	<form method = "POST" action="afficheAnnonce" > 
+      	  <select name="categs">
+      	  	<c:forEach var="c" items="${requestScope['categorieList']}">
+      	  		<option value="${c.id}">${c.nom}</option>
+      	  	</c:forEach>
+      	  </select>
+	     <input type="submit" value="Valider">  
+	</form>
 	<table>
 			<tr>
 				<th> Nom </th>

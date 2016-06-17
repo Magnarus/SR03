@@ -24,7 +24,6 @@ public class AnnonceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		annonces = Arrays.asList(proxy.getAnnonces());
 		categories = Arrays.asList(proxy.getCategories());
-		System.out.println(categories.size());
 		req.setAttribute("annonceList", annonces);
 		req.setAttribute("categorieList", categories);
 		this.getServletContext().getRequestDispatcher("/AfficheAnnonce.jsp").forward(req, resp);
@@ -34,12 +33,11 @@ public class AnnonceServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String categ = req.getParameter("categs");
 		int id = Integer.parseInt(categ);
+		System.out.println("id : " + id);
 		List<AnnonceBean> annonces = Arrays.asList(proxy.getAnnoncesWithIdCateg(id));
+		System.out.println(annonces.size());
 		req.setAttribute("annonceList", annonces);
+		req.setAttribute("categorieList", categories);
 		this.getServletContext().getRequestDispatcher("/AfficheAnnonce.jsp").forward( req, resp );
-		super.doPost(req, resp);
 	}
-	
-	
-
 }
