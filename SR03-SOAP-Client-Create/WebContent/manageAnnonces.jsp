@@ -24,7 +24,7 @@
 			</tr>
 			<c:forEach var="annonce"  items="${requestScope['annonceList']}" >
 				<tr>
-			          <td><a href="<c:url value="detailAnnonce?id=${annonce.id}"/>" >${annonce.nom } </a></td>
+			          <td><a href="<c:url value="detailAnnonce?id=${annonce.id}"/>" >${annonce.id } </a></td>
 			          <td> ${annonce.annonceur } </td>
 			          <td> ${annonce.tel } </td>
 			          <td> ${annonce.adresse.rue }  <br/> 

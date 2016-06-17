@@ -169,6 +169,38 @@ public class Annuaire {
 		return (b);	
 	}
 	
+	public static AnnonceBean[] getAnnoncesWithIdCateg(int id) {
+		String getRequest = "SELECT * FROM annonce a, compoCategorie cc"
+							+ " Where cc.idAnnonce = a.id "
+							+ " AND cc.idCategorie = " + id;
+		Connection conn = null;
+		PreparedStatement preparedStatement;
+		ArrayList<AnnonceBean> annonceList = new ArrayList<AnnonceBean>();
+		ResultSet result = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
+			preparedStatement = conn.prepareStatement(getRequest);
+			result = preparedStatement.executeQuery();
+			while(result.next()) {
+				AnnonceBean annonce = new AnnonceBean();
+				annonce.setId(result.getInt("id"));
+				annonce.setAnnonceur(result.getString("annonceur"));
+				annonce.setNom(result.getString("nom"));
+				annonce.setDetails(result.getString("details"));
+				annonce.setTel(result.getString("telephone"));
+				annonce.setAdresse(getAdresse(result.getInt("idAdresse")));
+				annonceList.add(annonce);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		AnnonceBean[] b;
+		b =  (AnnonceBean[]) annonceList.toArray(new AnnonceBean[annonceList.size()]);
+		return (b);	
+	}
+	
 	public static void deleteCategorie(int id) {
 		mySQLwritingQuery("DELETE FROM categorie Where Id = " + id + ";" );
 	}

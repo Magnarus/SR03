@@ -26,11 +26,13 @@ public class ManageAnnonceServlet extends HttpServlet {
 		annonceList = new ArrayList<AnnonceBean>();
 		annonceList =  (List<AnnonceBean>) Arrays.asList(proxy.getAnnonces());
 		req.setAttribute("annonceList", annonceList);
+		System.out.println("Called with " + annonceList.size());
 		this.getServletContext().getRequestDispatcher(QUEST_MANAGE).forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		int id = Integer.parseInt(req.getParameter("id"));
+		proxy.deleteAnnonce(id);		
 	}
 }
