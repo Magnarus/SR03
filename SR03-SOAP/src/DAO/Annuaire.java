@@ -225,7 +225,7 @@ public class Annuaire {
 				CategorieBean categ = new CategorieBean();
 				categ.setId(result.getInt("id"));
 				categ.setNom(result.getString("Nom"));
-				categ.setAnonces(getAnnoncesWithId(categ.getId()));
+				categ.setAnonces(getAnnoncesWithIdCateg(categ.getId()));
 				categList.add(categ);
 			}
 		} catch (Exception e) {

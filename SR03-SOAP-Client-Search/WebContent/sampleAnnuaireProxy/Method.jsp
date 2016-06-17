@@ -20,6 +20,7 @@
 <LI><A HREF="Input.jsp?method=114" TARGET="inputs"> getAdresse(int)</A></LI>
 <LI><A HREF="Input.jsp?method=127" TARGET="inputs"> deleteCategorie(int)</A></LI>
 <LI><A HREF="Input.jsp?method=132" TARGET="inputs"> addCategorie(java.lang.String)</A></LI>
+<LI><A HREF="Input.jsp?method=137" TARGET="inputs"> getAnnoncesWithIdCateg(int)</A></LI>
 </UL>
 </BODY>
 </HTML>

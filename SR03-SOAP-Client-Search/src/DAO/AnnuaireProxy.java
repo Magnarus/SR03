@@ -116,5 +116,11 @@ public class AnnuaireProxy implements DAO.Annuaire {
     annuaire.addCategorie(nom);
   }
   
+  public beans.AnnonceBean[] getAnnoncesWithIdCateg(int id) throws java.rmi.RemoteException{
+    if (annuaire == null)
+      _initAnnuaireProxy();
+    return annuaire.getAnnoncesWithIdCateg(id);
+  }
+  
   
 }

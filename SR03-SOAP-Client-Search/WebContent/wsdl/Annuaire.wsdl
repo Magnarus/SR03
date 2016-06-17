@@ -144,6 +144,20 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <element name="addCategorieResponse">
     <complexType/>
    </element>
+   <element name="getAnnoncesWithIdCateg">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAnnoncesWithIdCategResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getAnnoncesWithIdCategReturn" type="tns1:AnnonceBean"/>
+     </sequence>
+    </complexType>
+   </element>
   </schema>
   <schema elementFormDefault="qualified" targetNamespace="http://beans" xmlns="http://www.w3.org/2001/XMLSchema">
    <import namespace="http://DAO"/>
@@ -175,22 +189,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
   </schema>
  </wsdl:types>
 
-   <wsdl:message name="addAdresseResponse">
-
-      <wsdl:part element="impl:addAdresseResponse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="addAnnonceRequest">
-
-      <wsdl:part element="impl:addAnnonce" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
    <wsdl:message name="updateAnnonceNameResponse">
 
       <wsdl:part element="impl:updateAnnonceNameResponse" name="parameters">
@@ -215,22 +213,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="addAnnonceResponse">
-
-      <wsdl:part element="impl:addAnnonceResponse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="getAnnoncesWithIdRequest">
-
-      <wsdl:part element="impl:getAnnoncesWithId" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
    <wsdl:message name="deleteAnnonceRequest">
 
       <wsdl:part element="impl:deleteAnnonce" name="parameters">
@@ -250,14 +232,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="mySQLwritingQueryResponse">
 
       <wsdl:part element="impl:mySQLwritingQueryResponse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="getAnnoncesWithIdResponse">
-
-      <wsdl:part element="impl:getAnnoncesWithIdResponse" name="parameters">
 
       </wsdl:part>
 
@@ -327,6 +301,70 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
+   <wsdl:message name="getAnnoncesWithIdCategResponse">
+
+      <wsdl:part element="impl:getAnnoncesWithIdCategResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addCategorieResponse">
+
+      <wsdl:part element="impl:addCategorieResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addAdresseResponse">
+
+      <wsdl:part element="impl:addAdresseResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addAnnonceRequest">
+
+      <wsdl:part element="impl:addAnnonce" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addAnnonceResponse">
+
+      <wsdl:part element="impl:addAnnonceResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAnnoncesWithIdRequest">
+
+      <wsdl:part element="impl:getAnnoncesWithId" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAnnoncesWithIdCategRequest">
+
+      <wsdl:part element="impl:getAnnoncesWithIdCateg" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAnnoncesWithIdResponse">
+
+      <wsdl:part element="impl:getAnnoncesWithIdResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
    <wsdl:message name="mySQLwritingQueryRequest">
 
       <wsdl:part element="impl:mySQLwritingQuery" name="parameters">
@@ -338,14 +376,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    <wsdl:message name="addAdresseRequest">
 
       <wsdl:part element="impl:addAdresse" name="parameters">
-
-      </wsdl:part>
-
-   </wsdl:message>
-
-   <wsdl:message name="addCategorieResponse">
-
-      <wsdl:part element="impl:addCategorieResponse" name="parameters">
 
       </wsdl:part>
 
@@ -508,6 +538,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
        </wsdl:input>
 
          <wsdl:output message="impl:addCategorieResponse" name="addCategorieResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAnnoncesWithIdCateg">
+
+         <wsdl:input message="impl:getAnnoncesWithIdCategRequest" name="getAnnoncesWithIdCategRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAnnoncesWithIdCategResponse" name="getAnnoncesWithIdCategResponse">
 
        </wsdl:output>
 
@@ -728,6 +770,24 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="addCategorieResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAnnoncesWithIdCateg">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAnnoncesWithIdCategRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAnnoncesWithIdCategResponse">
 
             <wsdlsoap:body use="literal"/>
 

@@ -46,7 +46,10 @@
       <operation xmlns:operNS="http://DAO" name="addCategorie" qname="operNS:addCategorie" soapAction="">
         <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nom" type="tns:string"/>
       </operation>
-      <parameter name="allowedMethods" value="getAnnoncesWithId addAnnonce getCategories updateAnnonceName deleteAnnonce deleteCategorie getAnnonces addAdresse addCategorie updateCategorieName getAdresse mySQLwritingQuery"/>
+      <operation xmlns:operNS="http://DAO" xmlns:retNS="http://DAO" xmlns:rtns="http://beans" name="getAnnoncesWithIdCateg" qname="operNS:getAnnoncesWithIdCateg" returnQName="retNS:getAnnoncesWithIdCategReturn" returnType="rtns:AnnonceBean" soapAction="">
+        <parameter xmlns:pns="http://DAO" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <parameter name="allowedMethods" value="getAnnoncesWithId getAnnoncesWithIdCateg updateAnnonceName deleteAnnonce addCategorie mySQLwritingQuery addAnnonce getCategories deleteCategorie getAnnonces addAdresse updateCategorieName getAdresse"/>
 
       <typeMapping xmlns:ns="http://beans" qname="ns:AnnonceBean" type="java:beans.AnnonceBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://beans" qname="ns:CategorieBean" type="java:beans.CategorieBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>

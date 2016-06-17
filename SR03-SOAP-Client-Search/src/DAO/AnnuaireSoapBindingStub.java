@@ -16,7 +16,7 @@ public class AnnuaireSoapBindingStub extends org.apache.axis.client.Stub impleme
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[12];
+        _operations = new org.apache.axis.description.OperationDesc[13];
         _initOperationDesc1();
         _initOperationDesc2();
     }
@@ -146,6 +146,17 @@ public class AnnuaireSoapBindingStub extends org.apache.axis.client.Stub impleme
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[11] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("getAnnoncesWithIdCateg");
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://DAO", "id"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new javax.xml.namespace.QName("http://beans", "AnnonceBean"));
+        oper.setReturnClass(beans.AnnonceBean[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("http://DAO", "getAnnoncesWithIdCategReturn"));
+        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[12] = oper;
 
     }
 
@@ -628,6 +639,40 @@ public class AnnuaireSoapBindingStub extends org.apache.axis.client.Stub impleme
             throw (java.rmi.RemoteException)_resp;
         }
         extractAttachments(_call);
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public beans.AnnonceBean[] getAnnoncesWithIdCateg(int id) throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[12]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://DAO", "getAnnoncesWithIdCateg"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Integer(id)});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (beans.AnnonceBean[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (beans.AnnonceBean[]) org.apache.axis.utils.JavaUtils.convert(_resp, beans.AnnonceBean[].class);
+            }
+        }
   } catch (org.apache.axis.AxisFault axisFaultException) {
   throw axisFaultException;
 }

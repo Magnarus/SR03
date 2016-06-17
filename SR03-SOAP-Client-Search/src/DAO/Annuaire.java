@@ -20,4 +20,5 @@ public interface Annuaire extends java.rmi.Remote {
     public beans.AdresseBean getAdresse(int idAdresse) throws java.rmi.RemoteException;
     public void deleteCategorie(int id) throws java.rmi.RemoteException;
     public void addCategorie(java.lang.String nom) throws java.rmi.RemoteException;
+    public beans.AnnonceBean[] getAnnoncesWithIdCateg(int id) throws java.rmi.RemoteException;
 }

@@ -376,6 +376,26 @@ case 132:
         }
         sampleAnnuaireProxyid.addCategorie(nom_38idTemp);
 break;
+case 137:
+        gotMethod = true;
+        String id_39id=  request.getParameter("id140");
+        int id_39idTemp  = Integer.parseInt(id_39id);
+        beans.AnnonceBean[] getAnnoncesWithIdCateg137mtemp = sampleAnnuaireProxyid.getAnnoncesWithIdCateg(id_39idTemp);
+if(getAnnoncesWithIdCateg137mtemp == null){
+%>
+<%=getAnnoncesWithIdCateg137mtemp %>
+<%
+}else{
+        String tempreturnp138 = null;
+        if(getAnnoncesWithIdCateg137mtemp != null){
+        java.util.List listreturnp138= java.util.Arrays.asList(getAnnoncesWithIdCateg137mtemp);
+        tempreturnp138 = listreturnp138.toString();
+        }
+        %>
+        <%=tempreturnp138%>
+        <%
+}
+break;
 }
 } catch (Exception e) { 
 %>

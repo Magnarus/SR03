@@ -9,9 +9,11 @@
 </head>
 <body>
 	<form method = "POST" > 
-	      	  <label for="filter"> Filtre : </label>
-			  <input type="text" name="filter" value=""/>
-							<input value="Chercher" type="submit"/>
+	      	  <select name="categs">
+	      	  	<c:forEach var="c" items="${requestScopte['categorieList']}">
+	      	  		<option value="${c.id}">${c.nom}</option>
+	      	  	</c:forEach>
+	      	  </select>
 	    </form>
 	<table>
 			<tr>
@@ -24,7 +26,7 @@
 			</tr>
 			<c:forEach var="annonce"  items="${requestScope['annonceList']}" >
 				<tr>
-			          <td><a href="<c:url value="detailAnnonce?id=${annonce.id}"/>" >${annonce.nom } </a></td>
+			          <td>${annonce.nom }</td>
 			          <td> ${annonce.annonceur } </td>
 			          <td> ${annonce.tel } </td>
 			          <td> ${annonce.adresse.rue }  <br/> 
