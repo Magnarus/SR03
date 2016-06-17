@@ -23,7 +23,8 @@ public class Annuaire {
 		ResultSet result = null;
 		int key = 0;
 		try {
-			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
 			preparedStatement = conn.createStatement();
         	System.out.println(req);
 			preparedStatement.executeUpdate(req, Statement.RETURN_GENERATED_KEYS);
@@ -32,7 +33,7 @@ public class Annuaire {
 				    key = result.getInt(1);
 				}
 		} 
-		catch ( SQLException e ) {
+		catch (Exception e ) {
 		    /* Traiter les erreurs éventuelles ici. */
 		} 
 		finally {
@@ -60,6 +61,7 @@ public class Annuaire {
 		ResultSet result = null;
 		AdresseBean adresse = new AdresseBean();
 		try {
+			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.prepareStatement(getRequest);
 			result = preparedStatement.executeQuery();
@@ -70,7 +72,7 @@ public class Annuaire {
 				adresse.setCodePostal(result.getInt("code_postal"));
 				
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -95,12 +97,13 @@ public class Annuaire {
 	}
 	
 	public static AnnonceBean[] getAnnonces() {
-		String getRequest = "SELECT * FROM Annonce";
+		String getRequest = "SELECT * FROM annonce";
 		Connection conn = null; 
 		PreparedStatement preparedStatement;
 		ArrayList<AnnonceBean> annonceList = new ArrayList<AnnonceBean>();
 		ResultSet result = null;
 		try {
+			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.prepareStatement(getRequest);
 			result = preparedStatement.executeQuery();
@@ -112,8 +115,9 @@ public class Annuaire {
 				annonce.setTel(result.getString("telephone"));
 				annonce.setDetails(result.getString("details"));
 				annonce.setAdresse(getAdresse(result.getInt("idAdresse")));
+				annonceList.add(annonce);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -142,6 +146,7 @@ public class Annuaire {
 		ArrayList<AnnonceBean> annonceList = new ArrayList<AnnonceBean>();
 		ResultSet result = null;
 		try {
+			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.prepareStatement(getRequest);
 			result = preparedStatement.executeQuery();
@@ -153,8 +158,9 @@ public class Annuaire {
 				annonce.setDetails(result.getString("details"));
 				annonce.setTel(result.getString("telephone"));
 				annonce.setAdresse(getAdresse(result.getInt("idAdresse")));
+				annonceList.add(annonce);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -179,6 +185,7 @@ public class Annuaire {
 		ResultSet result = null;
 		ArrayList<CategorieBean> categList = new ArrayList<CategorieBean>();
 		try {
+			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5" );
 			preparedStatement = conn.prepareStatement(getRequest);
 			result = preparedStatement.executeQuery();
@@ -189,7 +196,7 @@ public class Annuaire {
 				categ.setAnonces(getAnnoncesWithId(categ.getId()));
 				categList.add(categ);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
