@@ -44,10 +44,10 @@ public class AnnuaireProxy implements DAO.Annuaire {
     return annuaire;
   }
   
-  public beans.AdresseBean getAdresse(int idAdresse) throws java.rmi.RemoteException{
+  public beans.CategorieBean[] getCategories() throws java.rmi.RemoteException{
     if (annuaire == null)
       _initAnnuaireProxy();
-    return annuaire.getAdresse(idAdresse);
+    return annuaire.getCategories();
   }
   
   public void addAdresse(beans.AdresseBean b) throws java.rmi.RemoteException{
@@ -56,10 +56,16 @@ public class AnnuaireProxy implements DAO.Annuaire {
     annuaire.addAdresse(b);
   }
   
-  public void addCategorie(java.lang.String nom) throws java.rmi.RemoteException{
+  public beans.AdresseBean getAdresse(int idAdresse) throws java.rmi.RemoteException{
     if (annuaire == null)
       _initAnnuaireProxy();
-    annuaire.addCategorie(nom);
+    return annuaire.getAdresse(idAdresse);
+  }
+  
+  public beans.AnnonceBean[] getAnnonces() throws java.rmi.RemoteException{
+    if (annuaire == null)
+      _initAnnuaireProxy();
+    return annuaire.getAnnonces();
   }
   
   public void deleteAnnonce(int id) throws java.rmi.RemoteException{
@@ -74,28 +80,22 @@ public class AnnuaireProxy implements DAO.Annuaire {
     annuaire.addAnnonce(a, b);
   }
   
-  public beans.AnnonceBean[] getAnnonces() throws java.rmi.RemoteException{
-    if (annuaire == null)
-      _initAnnuaireProxy();
-    return annuaire.getAnnonces();
-  }
-  
   public void deleteCategorie(int id) throws java.rmi.RemoteException{
     if (annuaire == null)
       _initAnnuaireProxy();
     annuaire.deleteCategorie(id);
   }
   
-  public beans.CategorieBean[] getCategories() throws java.rmi.RemoteException{
+  public void addCategorie(java.lang.String nom) throws java.rmi.RemoteException{
     if (annuaire == null)
       _initAnnuaireProxy();
-    return annuaire.getCategories();
+    annuaire.addCategorie(nom);
   }
   
-  public int mySQLwritingQuery(java.lang.String req) throws java.rmi.RemoteException{
+  public beans.AnnonceBean[] getAnnoncesWithId(int id) throws java.rmi.RemoteException{
     if (annuaire == null)
       _initAnnuaireProxy();
-    return annuaire.mySQLwritingQuery(req);
+    return annuaire.getAnnoncesWithId(id);
   }
   
   public void updateAnnonceName(beans.AnnonceBean annonce) throws java.rmi.RemoteException{
@@ -104,16 +104,16 @@ public class AnnuaireProxy implements DAO.Annuaire {
     annuaire.updateAnnonceName(annonce);
   }
   
+  public beans.AnnonceBean[] getAnnoncesWithIdCateg(int id) throws java.rmi.RemoteException{
+    if (annuaire == null)
+      _initAnnuaireProxy();
+    return annuaire.getAnnoncesWithIdCateg(id);
+  }
+  
   public void updateCategorieName(int id, java.lang.String newName) throws java.rmi.RemoteException{
     if (annuaire == null)
       _initAnnuaireProxy();
     annuaire.updateCategorieName(id, newName);
-  }
-  
-  public beans.AnnonceBean[] getAnnoncesWithId(int id) throws java.rmi.RemoteException{
-    if (annuaire == null)
-      _initAnnuaireProxy();
-    return annuaire.getAnnoncesWithId(id);
   }
   
   

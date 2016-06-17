@@ -16,8 +16,11 @@ import beans.CategorieBean;
 public class Annuaire {
 
 	
-	public static int mySQLwritingQuery (String req) {
-		
+	public static void addAdresse(AdresseBean b) {
+		String addAdresse = "INSERT INTO adresse(rue, ville, code_postal) VALUES("
+							+"\""+b.getRue()+"\", "
+							+"\""+b.getVille()+"\", "
+							+"\""+b.getCodePostal()+"\")";
 		Connection conn = null;
 		Statement preparedStatement = null;
 		ResultSet result = null;
@@ -26,8 +29,7 @@ public class Annuaire {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
 			preparedStatement = conn.createStatement();
-        	System.out.println(req);
-			preparedStatement.executeUpdate(req, Statement.RETURN_GENERATED_KEYS);
+			preparedStatement.executeUpdate(addAdresse, Statement.RETURN_GENERATED_KEYS);
 			result = preparedStatement.getGeneratedKeys();
 			if(result.next() && result != null){
 				    key = result.getInt(1);
@@ -44,14 +46,6 @@ public class Annuaire {
 				e.printStackTrace();
 			}
 		}
-		return key;
-	}
-	
-	public static void addAdresse(AdresseBean b) {
-		String addAdresse = "INSERT INTO adresse(rue, ville, code_postal) VALUES("
-							+"\""+b.getRue()+"\", "
-							+"\""+b.getVille()+"\", "
-							+"\""+b.getCodePostal()+"\"";
 	}
 	
 	public static AdresseBean getAdresse(int idAdresse) {
@@ -79,7 +73,27 @@ public class Annuaire {
 		return adresse;
 	}
 	public static void deleteAnnonce(int id) {
-		mySQLwritingQuery("DELETE FROM annonce Where id = " + id + ";" );
+		java.sql.Connection Conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+            Conn = DriverManager.getConnection("jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "sr03p028", "CSgwRyU5");
+            java.sql.Statement Stmt = Conn.createStatement();
+   
+            String query = "DELETE FROM annonce WHERE id = '"+id+"'";
+            Stmt.executeUpdate(query);             
+
+            
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				Conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static void addAnnonce(AnnonceBean a, CategorieBean b) {
@@ -89,11 +103,55 @@ public class Annuaire {
 						  		    +"\""+ a.getTel() +"\","
 						  		    +"\""+ a.getDetails() +"\","
 						  			+" \""+ a.getAdresse().getId() +"\")";
-		int key = mySQLwritingQuery(addAnswer);
+		Connection conn = null;
+		Statement preparedStatement = null;
+		ResultSet result = null;
+		int key = 0;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
+			preparedStatement = conn.createStatement();
+			preparedStatement.executeUpdate(addAnswer, Statement.RETURN_GENERATED_KEYS);
+			result = preparedStatement.getGeneratedKeys();
+			if(result.next() && result != null){
+				    key = result.getInt(1);
+				}
+		} 
+		catch (Exception e ) {
+		    /* Traiter les erreurs éventuelles ici. */
+		} 
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		String addCompoCateg = "INSERT INTO CompoCateg VALUES("
 				+ b.getId() + "," 
 				+ key + ")";
-		mySQLwritingQuery(addCompoCateg);		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
+			preparedStatement = conn.createStatement();
+			preparedStatement.executeUpdate(addCompoCateg, Statement.RETURN_GENERATED_KEYS);
+			result = preparedStatement.getGeneratedKeys();
+			if(result.next() && result != null){
+				    key = result.getInt(1);
+				}
+		} 
+		catch (Exception e ) {
+		    /* Traiter les erreurs éventuelles ici. */
+		} 
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
 	}
 	
 	public static AnnonceBean[] getAnnonces() {
@@ -134,7 +192,31 @@ public class Annuaire {
 				  			+" idAdresse = "+annonce.getAdresse().getId() + ","
 				  			+ " details = \"" + annonce.getDetails() + "\","
 				  			+ " WHERE id = "+ annonce.getId() +")";
-		int key = mySQLwritingQuery(addAnswer);
+		Connection conn = null;
+		Statement preparedStatement = null;
+		ResultSet result = null;
+		int key = 0;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
+			preparedStatement = conn.createStatement();
+			preparedStatement.executeUpdate(addAnswer, Statement.RETURN_GENERATED_KEYS);
+			result = preparedStatement.getGeneratedKeys();
+			if(result.next() && result != null){
+				    key = result.getInt(1);
+				}
+		} 
+		catch (Exception e ) {
+		    /* Traiter les erreurs éventuelles ici. */
+		} 
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static AnnonceBean[] getAnnoncesWithId(int id) {
@@ -202,12 +284,61 @@ public class Annuaire {
 	}
 	
 	public static void deleteCategorie(int id) {
-		mySQLwritingQuery("DELETE FROM categorie Where Id = " + id + ";" );
+		String rqt = "DELETE FROM categorie Where Id = " + id + ";" ;
+		Connection conn = null;
+		Statement preparedStatement = null;
+		ResultSet result = null;
+		int key = 0;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
+			preparedStatement = conn.createStatement();
+			preparedStatement.executeUpdate(rqt, Statement.RETURN_GENERATED_KEYS);
+			result = preparedStatement.getGeneratedKeys();
+			if(result.next() && result != null){
+				    key = result.getInt(1);
+				}
+		} 
+		catch (Exception e ) {
+		    /* Traiter les erreurs éventuelles ici. */
+		} 
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static void addCategorie(String nom) {
 		String addAnswer = "INSERT INTO categorie(nom) VALUES(\"" + nom + "\")";
-		int key = mySQLwritingQuery(addAnswer);
+		Connection conn = null;
+		Statement preparedStatement = null;
+		ResultSet result = null;
+		int key = 0;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
+			preparedStatement = conn.createStatement();
+			preparedStatement.executeUpdate(addAnswer, Statement.RETURN_GENERATED_KEYS);
+			result = preparedStatement.getGeneratedKeys();
+			if(result.next() && result != null){
+				    key = result.getInt(1);
+				}
+		} 
+		catch (Exception e ) {
+		    /* Traiter les erreurs éventuelles ici. */
+		} 
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static CategorieBean[] getCategories() {
@@ -239,6 +370,30 @@ public class Annuaire {
 	
 	public static void updateCategorieName(int id, String newName) {
 		String updateRequest = "UPDATE categorie SET nom='"+newName+"' WHERE id="+ id;
-		mySQLwritingQuery(updateRequest);
+		Connection conn = null;
+		Statement preparedStatement = null;
+		ResultSet result = null;
+		int key = 0;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
+			preparedStatement = conn.createStatement();
+			preparedStatement.executeUpdate(updateRequest, Statement.RETURN_GENERATED_KEYS);
+			result = preparedStatement.getGeneratedKeys();
+			if(result.next() && result != null){
+				    key = result.getInt(1);
+				}
+		} 
+		catch (Exception e ) {
+		    /* Traiter les erreurs éventuelles ici. */
+		} 
+		finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

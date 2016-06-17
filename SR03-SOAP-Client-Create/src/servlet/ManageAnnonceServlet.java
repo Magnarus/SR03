@@ -39,7 +39,7 @@ public class ManageAnnonceServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
-		//System.out.println("Delete called");
+		System.out.println("Delete called " + id);
 		proxy.deleteAnnonce(id);
 		
 		for(AnnonceBean b : annonceList) {

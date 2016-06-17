@@ -7,8 +7,8 @@
   <ns1:parameter name="dotNetSoapEncFix" value="true"/>
   <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
   <ns1:parameter name="sendXMLDeclaration" value="true"/>
-  <ns1:parameter name="sendXsiTypes" value="true"/>
   <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
   <ns1:requestFlow>
    <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
     <ns1:parameter name="scope" value="session"/>
@@ -23,44 +23,41 @@
  <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
  <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
  <ns1:service name="Annuaire" provider="java:RPC" style="wrapped" use="literal">
-  <ns2:operation name="updateCategorieName" qname="ns1:updateCategorieName" soapAction="" xmlns:ns1="http://DAO" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
-   <ns2:parameter qname="ns1:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns2:parameter qname="ns1:newName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-  </ns2:operation>
-  <ns1:operation name="updateAnnonceName" qname="ns2:updateAnnonceName" soapAction="" xmlns:ns2="http://DAO">
-   <ns1:parameter qname="ns2:annonce" type="ns3:AnnonceBean" xmlns:ns3="http://beans"/>
+  <ns3:operation name="getCategories" qname="ns1:getCategories" returnQName="ns1:getCategoriesReturn" returnType="ns2:CategorieBean" soapAction="" xmlns:ns1="http://DAO" xmlns:ns2="http://beans" xmlns:ns3="http://xml.apache.org/axis/wsdd/"/>
+  <ns1:operation name="addAdresse" qname="ns3:addAdresse" soapAction="" xmlns:ns3="http://DAO">
+   <ns1:parameter qname="ns3:b" type="ns4:AdresseBean" xmlns:ns4="http://beans"/>
   </ns1:operation>
-  <ns1:operation name="mySQLwritingQuery" qname="ns4:mySQLwritingQuery" returnQName="ns4:mySQLwritingQueryReturn" returnType="xsd:int" soapAction="" xmlns:ns4="http://DAO" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns4:req" type="xsd:string"/>
+  <ns1:operation name="getAdresse" qname="ns5:getAdresse" returnQName="ns5:getAdresseReturn" returnType="ns6:AdresseBean" soapAction="" xmlns:ns5="http://DAO" xmlns:ns6="http://beans">
+   <ns1:parameter qname="ns5:idAdresse" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="getAnnoncesWithId" qname="ns5:getAnnoncesWithId" returnQName="ns5:getAnnoncesWithIdReturn" returnType="ns6:AnnonceBean" soapAction="" xmlns:ns5="http://DAO" xmlns:ns6="http://beans">
-   <ns1:parameter qname="ns5:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getAnnonces" qname="ns7:getAnnonces" returnQName="ns7:getAnnoncesReturn" returnType="ns8:AnnonceBean" soapAction="" xmlns:ns7="http://DAO" xmlns:ns8="http://beans"/>
+  <ns1:operation name="deleteAnnonce" qname="ns9:deleteAnnonce" soapAction="" xmlns:ns9="http://DAO">
+   <ns1:parameter qname="ns9:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="getCategories" qname="ns7:getCategories" returnQName="ns7:getCategoriesReturn" returnType="ns8:CategorieBean" soapAction="" xmlns:ns7="http://DAO" xmlns:ns8="http://beans"/>
-  <ns1:operation name="addAnnonce" qname="ns9:addAnnonce" soapAction="" xmlns:ns9="http://DAO">
-   <ns1:parameter qname="ns9:a" type="ns10:AnnonceBean" xmlns:ns10="http://beans"/>
-   <ns1:parameter qname="ns9:b" type="ns11:CategorieBean" xmlns:ns11="http://beans"/>
+  <ns1:operation name="addAnnonce" qname="ns10:addAnnonce" soapAction="" xmlns:ns10="http://DAO">
+   <ns1:parameter qname="ns10:a" type="ns11:AnnonceBean" xmlns:ns11="http://beans"/>
+   <ns1:parameter qname="ns10:b" type="ns12:CategorieBean" xmlns:ns12="http://beans"/>
   </ns1:operation>
-  <ns1:operation name="deleteAnnonce" qname="ns12:deleteAnnonce" soapAction="" xmlns:ns12="http://DAO">
-   <ns1:parameter qname="ns12:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="deleteCategorie" qname="ns13:deleteCategorie" soapAction="" xmlns:ns13="http://DAO">
+   <ns1:parameter qname="ns13:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="getAnnonces" qname="ns13:getAnnonces" returnQName="ns13:getAnnoncesReturn" returnType="ns14:AnnonceBean" soapAction="" xmlns:ns13="http://DAO" xmlns:ns14="http://beans"/>
-  <ns1:operation name="addAdresse" qname="ns15:addAdresse" soapAction="" xmlns:ns15="http://DAO">
-   <ns1:parameter qname="ns15:b" type="ns16:AdresseBean" xmlns:ns16="http://beans"/>
+  <ns1:operation name="addCategorie" qname="ns14:addCategorie" soapAction="" xmlns:ns14="http://DAO">
+   <ns1:parameter qname="ns14:nom" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="getAdresse" qname="ns17:getAdresse" returnQName="ns17:getAdresseReturn" returnType="ns18:AdresseBean" soapAction="" xmlns:ns17="http://DAO" xmlns:ns18="http://beans">
-   <ns1:parameter qname="ns17:idAdresse" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="getAnnoncesWithId" qname="ns15:getAnnoncesWithId" returnQName="ns15:getAnnoncesWithIdReturn" returnType="ns16:AnnonceBean" soapAction="" xmlns:ns15="http://DAO" xmlns:ns16="http://beans">
+   <ns1:parameter qname="ns15:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="deleteCategorie" qname="ns19:deleteCategorie" soapAction="" xmlns:ns19="http://DAO">
+  <ns1:operation name="updateAnnonceName" qname="ns17:updateAnnonceName" soapAction="" xmlns:ns17="http://DAO">
+   <ns1:parameter qname="ns17:annonce" type="ns18:AnnonceBean" xmlns:ns18="http://beans"/>
+  </ns1:operation>
+  <ns1:operation name="getAnnoncesWithIdCateg" qname="ns19:getAnnoncesWithIdCateg" returnQName="ns19:getAnnoncesWithIdCategReturn" returnType="ns20:AnnonceBean" soapAction="" xmlns:ns19="http://DAO" xmlns:ns20="http://beans">
    <ns1:parameter qname="ns19:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:operation name="addCategorie" qname="ns20:addCategorie" soapAction="" xmlns:ns20="http://DAO">
-   <ns1:parameter qname="ns20:nom" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-  </ns1:operation>
-  <ns1:operation name="getAnnoncesWithIdCateg" qname="ns21:getAnnoncesWithIdCateg" returnQName="ns21:getAnnoncesWithIdCategReturn" returnType="ns22:AnnonceBean" soapAction="" xmlns:ns21="http://DAO" xmlns:ns22="http://beans">
+  <ns1:operation name="updateCategorieName" qname="ns21:updateCategorieName" soapAction="" xmlns:ns21="http://DAO">
    <ns1:parameter qname="ns21:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter qname="ns21:newName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
-  <ns1:parameter name="allowedMethods" value="getAnnoncesWithId getAnnoncesWithIdCateg updateAnnonceName deleteAnnonce addCategorie mySQLwritingQuery addAnnonce getCategories deleteCategorie getAnnonces addAdresse updateCategorieName getAdresse"/>
+  <ns1:parameter name="allowedMethods" value="addAnnonce getAnnoncesWithId getAnnoncesWithIdCateg getCategories updateAnnonceName deleteAnnonce deleteCategorie getAnnonces addAdresse addCategorie updateCategorieName getAdresse"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
   <ns1:parameter name="wsdlPortType" value="Annuaire"/>
   <ns1:parameter name="className" value="DAO.Annuaire"/>
@@ -68,10 +65,10 @@
   <ns1:parameter name="schemaQualified" value="http://DAO,http://beans"/>
   <ns1:parameter name="wsdlTargetNamespace" value="http://DAO"/>
   <ns1:parameter name="wsdlServiceElement" value="AnnuaireService"/>
-  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns23:AnnonceBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.AnnonceBean" xmlns:ns23="http://beans"/>
-  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns24:CategorieBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.CategorieBean" xmlns:ns24="http://beans"/>
-  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns25:AdresseBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.AdresseBean" xmlns:ns25="http://beans"/>
-  <ns1:arrayMapping innerType="ns27:AnnonceBean" languageSpecificType="java:beans.AnnonceBean[]" qname="ns26:ArrayOf_tns1_AnnonceBean" xmlns:ns26="http://DAO" xmlns:ns27="http://beans"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns22:AnnonceBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.AnnonceBean" xmlns:ns22="http://beans"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns23:CategorieBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.CategorieBean" xmlns:ns23="http://beans"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns24:AdresseBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:beans.AdresseBean" xmlns:ns24="http://beans"/>
+  <ns1:arrayMapping innerType="ns26:AnnonceBean" languageSpecificType="java:beans.AnnonceBean[]" qname="ns25:ArrayOf_tns1_AnnonceBean" xmlns:ns25="http://DAO" xmlns:ns26="http://beans"/>
  </ns1:service>
  <ns1:service name="AdminService" provider="java:MSG">
   <ns1:parameter name="allowedMethods" value="AdminService"/>
