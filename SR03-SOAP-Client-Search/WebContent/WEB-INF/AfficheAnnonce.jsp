@@ -5,14 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Gestion des annonces</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-
-		<p> Gestion des annonces :</p>
-	   
-		<table>
+	<form method = "POST" > 
+	      	  <label for="filter"> Filtre : </label>
+			  <input type="text" name="filter" value=""/>
+							<input value="Chercher" type="submit"/>
+	    </form>
+	<table>
 			<tr>
 				<th> Nom </th>
 				<th> Annonceur </th>
@@ -20,7 +21,6 @@
 				<th> Adresse </th>
 				<th> Créateur </th>
 				<th> Détails </th>
-				<th> Action </th>
 			</tr>
 			<c:forEach var="annonce"  items="${requestScope['annonceList']}" >
 				<tr>
@@ -36,14 +36,8 @@
 			          <td>
 			          	${annonce.details }
 			          </td>
-			          <td> 
-			          	<form  method="POST"><input type="hidden" name="id" value="${annonce.id}"/><input value="Supprimer" type="submit"/></form>
-			          </td>
 			    </tr>
 			</c:forEach>
 		</table>
-		<!-- Création d'un nouveau questionnaire -->
-		<a href="<c:url value="/createAnnonce"/>" > Nouvelle annonce </a>
-		<a href="<c:url value="/Home" />">Accueil</a><br/>
 </body>
 </html>
