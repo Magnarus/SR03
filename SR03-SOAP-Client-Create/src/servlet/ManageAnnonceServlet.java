@@ -16,23 +16,36 @@ import beans.AnnonceBean;
 
 @WebServlet("/manageAnnonces")
 public class ManageAnnonceServlet extends HttpServlet {
-	private static final String QUEST_MANAGE = "/manageAnnonces.jsp";
+	// Nom de la page qu'elle référence
+	private static final String ANNONCE_MANAGE = "/manageAnnonces.jsp";
 
-	private List<AnnonceBean> annonceList;
+	// Liste qui contient les annonces au premier appel de la page
+	private ArrayList<AnnonceBean> annonceList;
 	private AnnuaireProxy proxy = new AnnuaireProxy();
 	
+	/**
+	 * Fonction appelée au chargement de la page, récupère les données et les transmet à la JSP
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		annonceList = new ArrayList<AnnonceBean>();
-		annonceList =  (List<AnnonceBean>) Arrays.asList(proxy.getAnnonces());
+		annonceList = new ArrayList<AnnonceBean>(Arrays.asList(proxy.getAnnonces())); // Récupération des informations
+		// Ajout des attributs à l'objet request et redirection
 		req.setAttribute("annonceList", annonceList);
-		System.out.println("Called with " + annonceList.size());
-		this.getServletContext().getRequestDispatcher(QUEST_MANAGE).forward(req, resp);
+		this.getServletContext().getRequestDispatcher(ANNONCE_MANAGE).forward(req, resp);
 	}
-	
+	/**
+	 * Fonction appelée à la validation du formulaire, suppression de l'entrée dans la liste des annonces
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
-		proxy.deleteAnnonce(id);		
+		//System.out.println("Delete called");
+		proxy.deleteAnnonce(id);
+		
+		for(AnnonceBean b : annonceList) {
+			if(b.getId() == id) annonceList.remove(b);
+		}
+		req.setAttribute("annonceList", annonceList);
+		this.getServletContext().getRequestDispatcher(ANNONCE_MANAGE).forward(req, resp);
 	}
 }

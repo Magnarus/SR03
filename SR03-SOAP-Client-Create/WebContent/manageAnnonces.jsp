@@ -37,7 +37,7 @@
 			          	${annonce.details }
 			          </td>
 			          <td> 
-			          	<form  method="POST"><input type="hidden" name="id" value="${annonce.id}"/><input value="Supprimer" type="submit"/></form>
+			          	<form action="manageAnnonces" method="post"><input type="hidden" name="id" value="${annonce.id}"/><input value="Supprimer" type="submit"/></form>
 			          </td>
 			    </tr>
 			</c:forEach>

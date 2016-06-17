@@ -79,7 +79,7 @@ public class Annuaire {
 		return adresse;
 	}
 	public static void deleteAnnonce(int id) {
-		mySQLwritingQuery("DELETE FROM annonce Where Id = " + id + ";" );
+		mySQLwritingQuery("DELETE FROM annonce Where id = " + id + ";" );
 	}
 	
 	public static void addAnnonce(AnnonceBean a, CategorieBean b) {
