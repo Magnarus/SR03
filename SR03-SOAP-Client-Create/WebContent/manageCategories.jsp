@@ -19,17 +19,17 @@
 			</tr>
 			<c:forEach var="categ"  items="${requestScope['categorieList']}" >
 				<tr>
-			          <td><a href="<c:url value="detailAnnonce?id=${categ.id}"/>" >${categ.id } </a></td>
 			          <td>
 			          	${categ.nom}
 			          <td> 
-			          	<form action="manageCategories" method="post"><input type="hidden" name="id" value="${categ.id}"/><input value="Supprimer" type="submit"/></form>
+			          	<form action="manageCategories" method="post">
+			          		<input type="hidden" name="id" value="${categ.id}"/>
+			          		<input value="Supprimer" type="submit"/></form>
 			          </td>
 			    </tr>
 			</c:forEach>
 		</table>
 		<!-- Création d'un nouveau questionnaire -->
-		<a href="<c:url value="/createAnnonce"/>" > Nouvelle annonce </a>
-		<a href="<c:url value="/Home" />">Accueil</a><br/>
+		<a href="<c:url value="/createCategorie"/>" > Nouvelle catégorie </a>
 </body>
 </html>

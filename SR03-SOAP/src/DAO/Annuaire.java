@@ -309,29 +309,24 @@ public class Annuaire {
 	}
 	
 	public static void addCategorie(String nom) {
-		String addAnswer = "INSERT INTO categorie(nom) VALUES(\"" + nom + "\")";
-		Connection conn = null;
-		Statement preparedStatement = null;
-		ResultSet result = null;
-		int key = 0;
+		java.sql.Connection Conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection( "jdbc:mysql://tuxa.sme.utc:3306/sr03p028", "root", "root" );
-			preparedStatement = conn.createStatement();
-			preparedStatement.executeUpdate(addAnswer, Statement.RETURN_GENERATED_KEYS);
-			result = preparedStatement.getGeneratedKeys();
-			if(result.next() && result != null){
-				    key = result.getInt(1);
-				}
-		} 
-		catch (Exception e ) {
-		    /* Traiter les erreurs éventuelles ici. */
-		} 
-		finally {
+			String url = "jdbc:mysql://tuxa.sme.utc:3306/sr03p028";
+			String login = "sr03p028";
+			String passwd = "CSgwRyU5";
+            Conn = DriverManager.getConnection(url, login, passwd);
+            java.sql.Statement Stmt = Conn.createStatement();
+            String query = "INSERT INTO categorie (nom) VALUES('"+nom+"')";
+            Stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				conn.close();
+				Conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
