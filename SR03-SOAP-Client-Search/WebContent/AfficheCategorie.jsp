@@ -10,11 +10,11 @@
 <body>
 	<table>
 			<tr>
-				<th> Nom </th>
+				<th>Nom</th>
 			</tr>
 			<c:forEach var="categorie"  items="${requestScope['categorieList']}" >
 				<tr>
-			          <td><a href="<c:url value="AfficheAnnonce.jsp?categ=${categorie.id}" />">${categorie.nom}</a></td>
+			          <td><a href="<c:url value="afficheAnnonce?categ=${categorie.id}" />">${categorie.nom}</a></td>
 			    </tr>
 			</c:forEach>
 		</table>

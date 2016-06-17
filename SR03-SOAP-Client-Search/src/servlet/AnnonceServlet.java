@@ -40,7 +40,4 @@ public class AnnonceServlet extends HttpServlet {
 		req.setAttribute("categorieList", categories);
 		this.getServletContext().getRequestDispatcher("/AfficheAnnonce.jsp").forward( req, resp );
 	}
-	
-	
-
 }
